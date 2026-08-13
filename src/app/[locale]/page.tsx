@@ -6,6 +6,9 @@ import { ValueProposition } from '@/components/sections/ValueProposition';
 import { ProjectsPreview } from '@/components/sections/ProjectsPreview';
 import { MethodologySection } from '@/components/sections/MethodologySection';
 import { SectorsSection } from '@/components/sections/SectorsSection';
+import { RegionalReachPreview } from '@/components/sections/RegionalReachPreview';
+import { TalentPreview } from '@/components/sections/TalentPreview';
+import { CareersPreview } from '@/components/sections/CareersPreview';
 import { CTAFinal } from '@/components/sections/CTAFinal';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -21,6 +24,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <ProjectsPreview locale={locale} />
       <MethodologySection locale={locale} />
       <SectorsSection locale={locale} />
+      <RegionalReachPreview locale={locale} />
+      <TalentPreview locale={locale} />
+      <CareersPreview locale={locale} />
       <CTAFinal locale={locale} />
     </div>
   );

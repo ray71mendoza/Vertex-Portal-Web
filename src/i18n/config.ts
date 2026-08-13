@@ -13,9 +13,17 @@ export const pathnames = {
     es: '/nosotros',
     en: '/about',
   },
+  '/quienes-somos': {
+    es: '/quienes-somos',
+    en: '/about-us',
+  },
   '/servicios': {
     es: '/servicios',
     en: '/services',
+  },
+  '/nuestra-oferta': {
+    es: '/nuestra-oferta',
+    en: '/our-services',
   },
   '/proyectos': {
     es: '/proyectos',
@@ -28,6 +36,14 @@ export const pathnames = {
   '/contacto': {
     es: '/contacto',
     en: '/contact',
+  },
+  '/trabaja-con-nosotros': {
+    es: '/trabaja-con-nosotros',
+    en: '/careers',
+  },
+  '/empleos': {
+    es: '/empleos',
+    en: '/jobs',
   },
   '/privacidad': {
     es: '/privacidad',

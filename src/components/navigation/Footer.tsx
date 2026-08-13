@@ -15,17 +15,22 @@ export function Footer({ locale }: FooterProps) {
   const prefix = `/${locale}`;
 
   const companyLinks = [
-    { href: `${prefix}/${locale === 'es' ? 'nosotros' : 'about'}`, label: t('nav.about') },
+    { href: `${prefix}/${locale === 'es' ? 'quienes-somos' : 'about-us'}`, label: t('nav.whoWeAre') },
+    { href: `${prefix}/${locale === 'es' ? 'nuestra-oferta' : 'our-services'}`, label: t('nav.ourOffer') },
     { href: `${prefix}/${locale === 'es' ? 'proyectos' : 'projects'}`, label: t('nav.projects') },
-    { href: `${prefix}/${locale === 'es' ? 'equipo' : 'team'}`, label: t('nav.team') },
     { href: `${prefix}/${locale === 'es' ? 'contacto' : 'contact'}`, label: t('nav.contact') },
+  ];
+
+  const careerLinks = [
+    { href: `${prefix}/${locale === 'es' ? 'trabaja-con-nosotros' : 'careers'}`, label: t('nav.careers') },
+    { href: `${prefix}/${locale === 'es' ? 'empleos' : 'jobs'}`, label: t('nav.jobs') },
   ];
 
   return (
     <footer className="vx-bg-dark" role="contentinfo">
       <div className="vx-container">
         {/* Main Footer */}
-        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Column 1: Brand */}
           <div className="lg:col-span-1">
             <Link href={prefix} aria-label="Vertex - Home">
@@ -48,11 +53,11 @@ export function Footer({ locale }: FooterProps) {
               {t('footer.services')}
             </h3>
             <ul className="space-y-2.5">
-              {services.map((service) => (
+              {services.slice(0, 5).map((service) => (
                 <li key={service.id}>
                   <Link
                     href={`${prefix}/${locale === 'es' ? 'servicios' : 'services'}/${service.slug[locale]}`}
-                    className="text-sm text-vertex-facetIce/70 hover:text-vertex-prismBlue transition-colors"
+                    className="text-xs text-vertex-facetIce/70 hover:text-vertex-prismBlue transition-colors"
                   >
                     {tServices(`${service.id}.title`)}
                   </Link>
@@ -71,7 +76,7 @@ export function Footer({ locale }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-vertex-facetIce/70 hover:text-vertex-prismBlue transition-colors"
+                    className="text-xs text-vertex-facetIce/70 hover:text-vertex-prismBlue transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -80,7 +85,26 @@ export function Footer({ locale }: FooterProps) {
             </ul>
           </div>
 
-          {/* Column 4: Contact */}
+          {/* Column 4: Careers */}
+          <div>
+            <h3 className="text-sm font-semibold text-vertex-polarWhite uppercase tracking-wider mb-4">
+              {t('footer.careers')}
+            </h3>
+            <ul className="space-y-2.5">
+              {careerLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-xs text-vertex-facetIce/70 hover:text-vertex-prismBlue transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 5: Contact */}
           <div>
             <h3 className="text-sm font-semibold text-vertex-polarWhite uppercase tracking-wider mb-4">
               {t('footer.contactInfo')}
@@ -89,44 +113,20 @@ export function Footer({ locale }: FooterProps) {
               <li>
                 <a
                   href="mailto:gerenciavertexsas@gmail.com"
-                  className="flex items-center gap-2 text-sm text-vertex-facetIce/70 hover:text-vertex-prismBlue transition-colors"
+                  className="flex items-center gap-2 text-xs text-vertex-facetIce/70 hover:text-vertex-prismBlue transition-colors"
                 >
-                  <Mail className="w-4 h-4 flex-shrink-0" />
+                  <Mail className="w-3.5 h-3.5 flex-shrink-0" />
                   gerenciavertexsas@gmail.com
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-sm text-vertex-facetIce/70">
-                <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
+              <li className="flex items-start gap-2 text-xs text-vertex-facetIce/70">
+                <MapPin className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
                 <div>
                   <p>{t('footer.bogota')}</p>
                   <p>{t('footer.cartagena')}</p>
                 </div>
               </li>
             </ul>
-
-            {/* Language Switcher in Footer */}
-            <div className="mt-6 flex gap-2">
-              <Link
-                href={`/es${typeof window !== 'undefined' ? window.location.pathname.replace(/^\/(es|en)/, '') : ''}`}
-                className={`text-xs font-semibold px-3 py-1.5 rounded transition-colors ${
-                  locale === 'es'
-                    ? 'bg-vertex-prismBlue/20 text-vertex-prismBlue'
-                    : 'text-vertex-facetIce/60 hover:text-vertex-prismBlue'
-                }`}
-              >
-                ES
-              </Link>
-              <Link
-                href={`/en${typeof window !== 'undefined' ? window.location.pathname.replace(/^\/(es|en)/, '') : ''}`}
-                className={`text-xs font-semibold px-3 py-1.5 rounded transition-colors ${
-                  locale === 'en'
-                    ? 'bg-vertex-prismBlue/20 text-vertex-prismBlue'
-                    : 'text-vertex-facetIce/60 hover:text-vertex-prismBlue'
-                }`}
-              >
-                EN
-              </Link>
-            </div>
           </div>
         </div>
 

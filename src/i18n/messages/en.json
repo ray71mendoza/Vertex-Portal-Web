@@ -3,9 +3,25 @@
     "nav": {
       "home": "Home",
       "about": "About",
+      "whoWeAre": "Who We Are",
+      "aboutVertex": "About Vertex",
+      "whyVertex": "Why Vertex",
+      "ourReach": "Our Reach",
+      "locations": "Locations",
+      "ourTalent": "Our Talent",
+      "teamMembers": "Team Members",
       "services": "Services",
+      "ourOffer": "Our Offer",
+      "specializations": "Specializations",
+      "methodology": "Methodology",
       "projects": "Projects",
       "team": "Team",
+      "careers": "Careers",
+      "jobs": "Jobs",
+      "searchJobs": "Search Jobs",
+      "areasOfInterest": "Areas of Interest",
+      "workEnvironment": "Work Environment",
+      "recruitmentProcess": "Recruitment Process",
       "contact": "Contact",
       "letsTalk": "Let's Talk",
       "privacy": "Privacy",
@@ -23,12 +39,23 @@
       "meetTeam": "Meet the full team",
       "sendMessage": "Send message",
       "sending": "Sending...",
-      "writeUs": "You can also write to us directly at"
+      "writeUs": "You can also write to us directly at",
+      "viewOpportunities": "View open positions",
+      "howWeWork": "Learn how we work",
+      "viewOpportunity": "View opportunity",
+      "applyNow": "Apply now",
+      "shareJob": "Share position",
+      "clearFilters": "Clear filters",
+      "exploreOffer": "Explore our capabilities",
+      "exploreCareers": "Explore opportunities",
+      "knowVertex": "Discover Vertex",
+      "talkToTeam": "Talk to the team"
     },
     "footer": {
       "description": "We integrate strategy, technology, artificial intelligence, design and communication to transform organizations.",
       "services": "Services",
       "company": "Company",
+      "careers": "Talent",
       "contactInfo": "Contact",
       "rights": "All rights reserved.",
       "bogota": "Bogotá, Colombia",
@@ -385,6 +412,204 @@
     "description": "The page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to home"
   },
+  "whoWeAre": {
+    "hero": {
+      "title": "Technology, talent and vision to transform organizations",
+      "subtitle": "At Vertex we combine knowledge, innovation and specialized talent to accompany the evolution of organizations across Latin America."
+    },
+    "about": {
+      "eyebrow": "About Vertex",
+      "title": "We drive organizational transformation",
+      "p1": "Vertex is a company specialized in innovation, digital transformation and comprehensive technology solutions. We work with public and private organizations looking to evolve their processes, connect with their audiences and generate sustainable value.",
+      "p2": "We integrate strategy, technology, artificial intelligence, design and communication in a multidisciplinary work model that allows us to address complex challenges with concrete solutions.",
+      "p3": "Our approach goes beyond developing digital products. We design comprehensive solutions that combine strategic vision, technical capability and effective communication."
+    },
+    "whyVertex": {
+      "eyebrow": "Why Vertex",
+      "title": "Reasons to work with us"
+    },
+    "reach": {
+      "eyebrow": "Regional reach",
+      "title": "A regional vision, solutions tailored to each market",
+      "description": "We work with organizations across different Latin American countries, understanding their contexts, challenges and opportunities. Our regional reach allows us to combine a broad vision with solutions tailored to each market's needs.",
+      "contactTeam": "Contact the team"
+    },
+    "locations": {
+      "eyebrow": "Locations",
+      "title": "Where we are",
+      "schedule": "Schedule",
+      "viewMap": "View on Google Maps",
+      "demoNotice": "Demo address"
+    },
+    "talent": {
+      "eyebrow": "Our talent",
+      "title": "People are our strength",
+      "description": "At Vertex we believe technology only transforms when driven by committed, creative people willing to learn. Our team combines diverse expertise, cross-disciplinary collaboration and a culture of respect and idea exchange.",
+      "values": {
+        "diversity": "Diverse expertise",
+        "collaboration": "Cross-disciplinary collaboration",
+        "learning": "Continuous learning",
+        "innovation": "Purpose-driven innovation",
+        "growth": "Professional development",
+        "results": "Results-driven"
+      }
+    },
+    "team": {
+      "eyebrow": "Team members",
+      "title": "Meet our team",
+      "filterAll": "All",
+      "viewLinkedIn": "View LinkedIn profile"
+    }
+  },
+  "ourOffer": {
+    "hero": {
+      "title": "Solutions that generate value for your organization",
+      "subtitle": "We combine strategy, technology, design and communication to help organizations transform and grow."
+    },
+    "services": {
+      "eyebrow": "Services & capabilities",
+      "title": "What we do"
+    },
+    "specializations": {
+      "eyebrow": "Specializations",
+      "title": "Domains we work in"
+    },
+    "methodology": {
+      "eyebrow": "Work methodology",
+      "title": "How we accompany our clients",
+      "disclaimer": "Stages may vary depending on the project's characteristics.",
+      "steps": {
+        "understand": { "title": "Understanding the challenge", "description": "We analyze the context, needs and objectives of the organization to clearly understand the challenge." },
+        "diagnose": { "title": "Diagnosis & objectives", "description": "We define the scope, priorities and expected results based on an informed diagnosis." },
+        "design": { "title": "Solution design", "description": "We create the strategic, technical and visual architecture of the solution, aligned with project objectives." },
+        "implement": { "title": "Implementation & support", "description": "We develop, integrate and deploy the solution with continuous monitoring and transparent communication." },
+        "measure": { "title": "Measurement & evolution", "description": "We evaluate impact, identify improvement opportunities and support the solution's evolution." }
+      }
+    },
+    "cta": {
+      "title": "Let's talk about your organization's next challenge",
+      "subtitle": "Tell us what your organization needs and let's design the solution together."
+    }
+  },
+  "careers": {
+    "hero": {
+      "title": "Build the future with Vertex",
+      "subtitle": "We're looking for curious, committed people ready to transform ideas into solutions that generate value for organizations across Latin America."
+    },
+    "whyWork": {
+      "eyebrow": "Why work at Vertex",
+      "title": "A professional experience with purpose"
+    },
+    "environment": {
+      "eyebrow": "Work environment",
+      "title": "What it's like to work at Vertex",
+      "description": "At Vertex we value collaboration, open communication and respect for everyone's ideas. We believe in responsible autonomy and building teams that support each other."
+    },
+    "areas": {
+      "eyebrow": "Areas of interest",
+      "title": "Explore the areas where you can grow",
+      "vacancies": "openings",
+      "viewJobs": "View jobs"
+    },
+    "recruitment": {
+      "eyebrow": "Recruitment process",
+      "title": "How does the process work?",
+      "disclaimer": "Stages may vary depending on the role and project needs."
+    },
+    "talentPool": {
+      "title": "Can't find a position for you?",
+      "description": "Leave us your information and we'll contact you when a compatible opportunity arises.",
+      "notice": "This form will be available soon. In the meantime, you can send your resume to our contact email."
+    }
+  },
+  "jobs": {
+    "hero": {
+      "title": "Opportunities at Vertex",
+      "subtitle": "Find the position that best fits your profile and experience."
+    },
+    "search": {
+      "placeholder": "Search by position, area or keyword...",
+      "area": "Area",
+      "country": "Country",
+      "modality": "Modality",
+      "contractType": "Contract type",
+      "allAreas": "All areas",
+      "allCountries": "All countries",
+      "allModalities": "All modalities",
+      "allContracts": "All types",
+      "results": "results",
+      "result": "result",
+      "noResults": "No opportunities found with these filters",
+      "noResultsDescription": "Try adjusting the filters or perform a new search.",
+      "demo": "Demo"
+    },
+    "detail": {
+      "location": "Location",
+      "modality": "Modality",
+      "area": "Area",
+      "contract": "Contract",
+      "published": "Published",
+      "description": "Role description",
+      "responsibilities": "Responsibilities",
+      "requirements": "Requirements",
+      "niceToHave": "Nice to have",
+      "team": "About the team",
+      "apply": "Apply for this position",
+      "share": "Share position",
+      "closed": "This position is no longer available",
+      "closedDescription": "The opportunity you're looking for has been closed. We invite you to explore other available positions.",
+      "backToJobs": "View all opportunities",
+      "privacyNotice": "By submitting your application, you authorize Vertex to process your personal data in accordance with our privacy policy."
+    },
+    "application": {
+      "title": "Application form",
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone number",
+      "country": "Country",
+      "city": "City",
+      "linkedin": "LinkedIn profile",
+      "portfolio": "Portfolio (optional)",
+      "resume": "Resume",
+      "resumeHelp": "PDF or Word, max 5MB",
+      "message": "Additional message (optional)",
+      "privacy": "I authorize Vertex to process my personal data in accordance with the",
+      "privacyLink": "privacy policy",
+      "submit": "Submit application",
+      "submitting": "Submitting...",
+      "success": "Application submitted!",
+      "successDescription": "We've received your information. The talent team will review your profile and contact you if you advance in the process.",
+      "error": "Could not submit your application",
+      "errorDescription": "Please try again. If the problem persists, send your resume to our contact email.",
+      "integrationNotice": "Note: This form is in the configuration stage. Your information will not be sent until the integration is active.",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email",
+        "phoneRequired": "Phone number is required",
+        "countryRequired": "Country is required",
+        "cityRequired": "City is required",
+        "privacyRequired": "You must authorize data processing"
+      }
+    }
+  },
+  "homeNew": {
+    "reach": {
+      "eyebrow": "Regional reach",
+      "title": "We work across Latin America",
+      "description": "We accompany organizations across different countries with solutions tailored to each context."
+    },
+    "talent": {
+      "eyebrow": "Our talent",
+      "title": "A multidisciplinary team",
+      "description": "Professionals combining technology, design, communication and strategy to solve complex challenges."
+    },
+    "careers": {
+      "eyebrow": "Opportunities",
+      "title": "Build your career at Vertex",
+      "description": "We're looking for people committed to innovation and transformation."
+    }
+  },
   "seo": {
     "home": {
       "title": "Vertex — Strategic technology to transform ideas into results",
@@ -393,6 +618,22 @@
     "about": {
       "title": "About — Vertex",
       "description": "Discover Vertex: a company specialized in innovation, digital transformation and technology solutions for public and private organizations."
+    },
+    "whoWeAre": {
+      "title": "Who We Are — Vertex",
+      "description": "Meet Vertex: technology, talent and vision to transform organizations across Latin America. Discover our team, reach and capabilities."
+    },
+    "ourOffer": {
+      "title": "Our Offer — Vertex",
+      "description": "Comprehensive solutions in digital innovation, software development, strategic design, marketing, audiovisual production and consulting for organizations."
+    },
+    "careers": {
+      "title": "Careers — Vertex",
+      "description": "Discover professional growth opportunities at Vertex. We're looking for people committed to innovation and transformation."
+    },
+    "jobs": {
+      "title": "Jobs — Vertex",
+      "description": "Explore available job opportunities at Vertex. Find positions in technology, design, consulting, marketing and more."
     },
     "services": {
       "title": "Services — Vertex",

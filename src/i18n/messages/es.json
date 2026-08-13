@@ -3,9 +3,25 @@
     "nav": {
       "home": "Inicio",
       "about": "Nosotros",
+      "whoWeAre": "Quiénes somos",
+      "aboutVertex": "Sobre Vertex",
+      "whyVertex": "Por qué Vertex",
+      "ourReach": "Nuestro alcance",
+      "locations": "Ubicaciones",
+      "ourTalent": "Nuestro talento",
+      "teamMembers": "Equipo de trabajo",
       "services": "Servicios",
+      "ourOffer": "Nuestra oferta",
+      "specializations": "Áreas de especialización",
+      "methodology": "Metodología",
       "projects": "Proyectos",
       "team": "Equipo",
+      "careers": "Trabaja con nosotros",
+      "jobs": "Empleos",
+      "searchJobs": "Buscar empleo",
+      "areasOfInterest": "Áreas de interés",
+      "workEnvironment": "Ambiente de trabajo",
+      "recruitmentProcess": "Proceso de reclutamiento",
       "contact": "Contacto",
       "letsTalk": "Hablemos",
       "privacy": "Privacidad",
@@ -23,12 +39,23 @@
       "meetTeam": "Conoce al equipo completo",
       "sendMessage": "Enviar mensaje",
       "sending": "Enviando...",
-      "writeUs": "También puedes escribirnos directamente a"
+      "writeUs": "También puedes escribirnos directamente a",
+      "viewOpportunities": "Ver oportunidades disponibles",
+      "howWeWork": "Conocer cómo trabajamos",
+      "viewOpportunity": "Ver oportunidad",
+      "applyNow": "Postularme",
+      "shareJob": "Compartir vacante",
+      "clearFilters": "Limpiar filtros",
+      "exploreOffer": "Conoce nuestras capacidades",
+      "exploreCareers": "Explora oportunidades",
+      "knowVertex": "Conoce Vertex",
+      "talkToTeam": "Habla con el equipo"
     },
     "footer": {
       "description": "Integramos estrategia, tecnología, inteligencia artificial, diseño y comunicación para transformar organizaciones.",
       "services": "Servicios",
       "company": "Compañía",
+      "careers": "Talento",
       "contactInfo": "Contacto",
       "rights": "Todos los derechos reservados.",
       "bogota": "Bogotá, Colombia",
@@ -385,6 +412,204 @@
     "description": "La página que buscas no existe o ha sido movida.",
     "backHome": "Volver al inicio"
   },
+  "whoWeAre": {
+    "hero": {
+      "title": "Tecnología, talento y visión para transformar organizaciones",
+      "subtitle": "En Vertex combinamos conocimiento, innovación y talento especializado para acompañar la evolución de organizaciones en Latinoamérica."
+    },
+    "about": {
+      "eyebrow": "Sobre Vertex",
+      "title": "Impulsamos la transformación de organizaciones",
+      "p1": "Vertex es una compañía especializada en innovación, transformación digital y soluciones tecnológicas integrales. Trabajamos con organizaciones públicas y privadas que buscan evolucionar sus procesos, conectar con sus audiencias y generar valor sostenible.",
+      "p2": "Integramos estrategia, tecnología, inteligencia artificial, diseño y comunicación en un modelo de trabajo multidisciplinario que permite abordar desafíos complejos con soluciones concretas.",
+      "p3": "Nuestra propuesta no consiste solamente en desarrollar productos digitales. Diseñamos soluciones integrales que combinan visión estratégica, capacidad técnica y comunicación efectiva."
+    },
+    "whyVertex": {
+      "eyebrow": "Por qué Vertex",
+      "title": "Razones para trabajar con nosotros"
+    },
+    "reach": {
+      "eyebrow": "Alcance regional",
+      "title": "Una visión regional, soluciones adaptadas a cada mercado",
+      "description": "Trabajamos con organizaciones de diferentes países de Latinoamérica, comprendiendo sus contextos, desafíos y oportunidades. Nuestro alcance regional nos permite combinar una visión amplia con soluciones adaptadas a las necesidades de cada mercado.",
+      "contactTeam": "Contactar al equipo"
+    },
+    "locations": {
+      "eyebrow": "Ubicaciones",
+      "title": "Dónde estamos",
+      "schedule": "Horario",
+      "viewMap": "Ver en Google Maps",
+      "demoNotice": "Dirección de demostración"
+    },
+    "talent": {
+      "eyebrow": "Nuestro talento",
+      "title": "Las personas son nuestra fortaleza",
+      "description": "En Vertex creemos que la tecnología solo transforma cuando está impulsada por personas comprometidas, creativas y dispuestas a aprender. Nuestro equipo combina diversidad de conocimientos, colaboración entre disciplinas y una cultura de respeto e intercambio de ideas.",
+      "values": {
+        "diversity": "Diversidad de conocimientos",
+        "collaboration": "Colaboración entre disciplinas",
+        "learning": "Aprendizaje continuo",
+        "innovation": "Innovación con propósito",
+        "growth": "Desarrollo profesional",
+        "results": "Orientación a resultados"
+      }
+    },
+    "team": {
+      "eyebrow": "Equipo de trabajo",
+      "title": "Conoce a nuestro equipo",
+      "filterAll": "Todos",
+      "viewLinkedIn": "Ver perfil en LinkedIn"
+    }
+  },
+  "ourOffer": {
+    "hero": {
+      "title": "Soluciones que generan valor para tu organización",
+      "subtitle": "Combinamos estrategia, tecnología, diseño y comunicación para ayudar a las organizaciones a transformarse y crecer."
+    },
+    "services": {
+      "eyebrow": "Servicios y capacidades",
+      "title": "Lo que hacemos"
+    },
+    "specializations": {
+      "eyebrow": "Áreas de especialización",
+      "title": "Dominios en los que trabajamos"
+    },
+    "methodology": {
+      "eyebrow": "Metodología de trabajo",
+      "title": "Cómo acompañamos a nuestros clientes",
+      "disclaimer": "Las etapas pueden variar según las características de cada proyecto.",
+      "steps": {
+        "understand": { "title": "Comprensión del reto", "description": "Analizamos el contexto, las necesidades y los objetivos de la organización para entender con claridad el desafío." },
+        "diagnose": { "title": "Diagnóstico y objetivos", "description": "Definimos el alcance, las prioridades y los resultados esperados a partir de un diagnóstico informado." },
+        "design": { "title": "Diseño de la solución", "description": "Creamos la arquitectura estratégica, técnica y visual de la solución, alineada con los objetivos del proyecto." },
+        "implement": { "title": "Implementación y acompañamiento", "description": "Desarrollamos, integramos y ponemos en marcha la solución con seguimiento continuo y comunicación transparente." },
+        "measure": { "title": "Medición y evolución", "description": "Evaluamos el impacto, identificamos oportunidades de mejora y acompañamos la evolución de la solución." }
+      }
+    },
+    "cta": {
+      "title": "Conversemos sobre el próximo reto de tu organización",
+      "subtitle": "Cuéntanos qué necesita tu organización y diseñemos juntos la solución."
+    }
+  },
+  "careers": {
+    "hero": {
+      "title": "Construye el futuro con Vertex",
+      "subtitle": "Buscamos personas curiosas, comprometidas y dispuestas a transformar ideas en soluciones que generen valor para organizaciones de toda Latinoamérica."
+    },
+    "whyWork": {
+      "eyebrow": "Por qué trabajar en Vertex",
+      "title": "Una experiencia profesional con propósito"
+    },
+    "environment": {
+      "eyebrow": "Ambiente de trabajo",
+      "title": "Cómo es trabajar en Vertex",
+      "description": "En Vertex valoramos la colaboración, la comunicación abierta y el respeto por las ideas de cada persona. Creemos en la autonomía responsable y en la construcción de equipos que se apoyan mutuamente."
+    },
+    "areas": {
+      "eyebrow": "Áreas de interés",
+      "title": "Explora las áreas en las que puedes crecer",
+      "vacancies": "vacantes",
+      "viewJobs": "Ver empleos"
+    },
+    "recruitment": {
+      "eyebrow": "Proceso de reclutamiento",
+      "title": "¿Cómo es el proceso?",
+      "disclaimer": "Las etapas pueden variar dependiendo del cargo y las necesidades del proyecto."
+    },
+    "talentPool": {
+      "title": "¿No encuentras una vacante para ti?",
+      "description": "Déjanos tu información y te contactaremos cuando surja una oportunidad compatible con tu perfil.",
+      "notice": "Este formulario estará disponible próximamente. Mientras tanto, puedes enviarnos tu hoja de vida a nuestro correo de contacto."
+    }
+  },
+  "jobs": {
+    "hero": {
+      "title": "Oportunidades en Vertex",
+      "subtitle": "Encuentra la posición que mejor se adapte a tu perfil y experiencia."
+    },
+    "search": {
+      "placeholder": "Buscar por cargo, área o palabra clave...",
+      "area": "Área",
+      "country": "País",
+      "modality": "Modalidad",
+      "contractType": "Tipo de contratación",
+      "allAreas": "Todas las áreas",
+      "allCountries": "Todos los países",
+      "allModalities": "Todas las modalidades",
+      "allContracts": "Todos los tipos",
+      "results": "resultados",
+      "result": "resultado",
+      "noResults": "No encontramos oportunidades con estos filtros",
+      "noResultsDescription": "Intenta ajustar los filtros o realiza una nueva búsqueda.",
+      "demo": "Demo"
+    },
+    "detail": {
+      "location": "Ubicación",
+      "modality": "Modalidad",
+      "area": "Área",
+      "contract": "Contratación",
+      "published": "Publicado",
+      "description": "Descripción del rol",
+      "responsibilities": "Responsabilidades",
+      "requirements": "Requisitos",
+      "niceToHave": "Habilidades valoradas",
+      "team": "Sobre el equipo",
+      "apply": "Postularme a esta vacante",
+      "share": "Compartir vacante",
+      "closed": "Esta vacante ya no está disponible",
+      "closedDescription": "La oportunidad que buscas ha sido cerrada. Te invitamos a explorar otras posiciones disponibles.",
+      "backToJobs": "Ver todas las oportunidades",
+      "privacyNotice": "Al enviar tu postulación, autorizas a Vertex a tratar tus datos personales conforme a nuestra política de privacidad."
+    },
+    "application": {
+      "title": "Formulario de postulación",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Número de contacto",
+      "country": "País",
+      "city": "Ciudad",
+      "linkedin": "Perfil de LinkedIn",
+      "portfolio": "Portafolio (opcional)",
+      "resume": "Hoja de vida",
+      "resumeHelp": "PDF o Word, máximo 5MB",
+      "message": "Mensaje adicional (opcional)",
+      "privacy": "Autorizo a Vertex para el tratamiento de mis datos personales conforme a la",
+      "privacyLink": "política de privacidad",
+      "submit": "Enviar postulación",
+      "submitting": "Enviando...",
+      "success": "¡Postulación registrada!",
+      "successDescription": "Hemos recibido tu información. El equipo de talento revisará tu perfil y te contactará si avanzas en el proceso.",
+      "error": "No pudimos registrar tu postulación",
+      "errorDescription": "Por favor intenta de nuevo. Si el problema persiste, envíanos tu hoja de vida a nuestro correo de contacto.",
+      "integrationNotice": "Nota: Este formulario se encuentra en etapa de configuración. Tu información no será enviada hasta que la integración esté activa.",
+      "validation": {
+        "nameRequired": "El nombre es obligatorio",
+        "emailRequired": "El correo es obligatorio",
+        "emailInvalid": "Ingresa un correo válido",
+        "phoneRequired": "El número de contacto es obligatorio",
+        "countryRequired": "El país es obligatorio",
+        "cityRequired": "La ciudad es obligatoria",
+        "privacyRequired": "Debes autorizar el tratamiento de datos"
+      }
+    }
+  },
+  "homeNew": {
+    "reach": {
+      "eyebrow": "Alcance regional",
+      "title": "Trabajamos en Latinoamérica",
+      "description": "Acompañamos organizaciones de diferentes países con soluciones adaptadas a cada contexto."
+    },
+    "talent": {
+      "eyebrow": "Nuestro talento",
+      "title": "Un equipo multidisciplinario",
+      "description": "Profesionales que combinan tecnología, diseño, comunicación y estrategia para resolver desafíos complejos."
+    },
+    "careers": {
+      "eyebrow": "Oportunidades",
+      "title": "Construye tu carrera en Vertex",
+      "description": "Buscamos personas comprometidas con la innovación y la transformación."
+    }
+  },
   "seo": {
     "home": {
       "title": "Vertex — Tecnología estratégica para transformar ideas en resultados",
@@ -393,6 +618,22 @@
     "about": {
       "title": "Nosotros — Vertex",
       "description": "Conoce a Vertex: una compañía especializada en innovación, transformación digital y soluciones tecnológicas para organizaciones públicas y privadas."
+    },
+    "whoWeAre": {
+      "title": "Quiénes somos — Vertex",
+      "description": "Conoce a Vertex: tecnología, talento y visión para transformar organizaciones en Latinoamérica. Descubre nuestro equipo, alcance y capacidades."
+    },
+    "ourOffer": {
+      "title": "Nuestra oferta — Vertex",
+      "description": "Soluciones integrales en innovación digital, desarrollo de software, diseño estratégico, marketing, producción audiovisual y consultoría para organizaciones."
+    },
+    "careers": {
+      "title": "Trabaja con nosotros — Vertex",
+      "description": "Descubre las oportunidades de crecimiento profesional en Vertex. Buscamos personas comprometidas con la innovación y la transformación."
+    },
+    "jobs": {
+      "title": "Empleos — Vertex",
+      "description": "Explora las oportunidades laborales disponibles en Vertex. Encuentra posiciones en tecnología, diseño, consultoría, marketing y más."
     },
     "services": {
       "title": "Servicios — Vertex",
