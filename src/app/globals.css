@@ -1,0 +1,479 @@
+@import "tailwindcss";
+
+/* ============================================
+   VERTEX DESIGN SYSTEM — Corporate Website (2026 Master Renewal)
+   ============================================ */
+
+@theme {
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Core Palette */
+  --color-vertex-ink: #03252D;
+  --color-vertex-apexTeal: #0B4551;
+  --color-vertex-prismBlue: #72C6E8;
+  --color-vertex-quartzGrey: #D4D3D1;
+  --color-vertex-polarWhite: #FEFEFE;
+
+  /* Facet Scale */
+  --color-vertex-facetDeep: #20414B;
+  --color-vertex-facetTeal: #2D636E;
+  --color-vertex-facetMedium: #367480;
+  --color-vertex-facetBlue: #5896A6;
+  --color-vertex-facetLight: #68A9BB;
+  --color-vertex-facetIce: #B6D1D8;
+
+  /* Dark Theme Surfaces */
+  --color-vertex-darkBg: #071A1F;
+  --color-vertex-darkSurface: #0D272C;
+  --color-vertex-darkElevated: #123B45;
+  --color-vertex-darkHover: #174A55;
+
+  /* Light Theme Surfaces */
+  --color-vertex-lightBg: #F7FAFB;
+  --color-vertex-lightSurface: #FEFEFE;
+  --color-vertex-lightSubtle: #EDF4F5;
+  --color-vertex-lightQuartz: #E7ECEC;
+}
+
+:root {
+  /* Semantic tokens */
+  --vx-bg: #F7FAFB;
+  --vx-surface: #FEFEFE;
+  --vx-surface-subtle: #EDF4F5;
+  --vx-text: #03252D;
+  --vx-text-secondary: #2D636E;
+  --vx-text-muted: #5896A6;
+  --vx-accent: #0B4551;
+  --vx-accent-light: #72C6E8;
+  --vx-border: rgba(3, 37, 45, 0.12);
+  --vx-border-subtle: rgba(3, 37, 45, 0.06);
+
+  /* Shadows - Minimal, elegant elevation */
+  --vx-shadow-sm: 0 2px 4px rgba(3, 37, 45, 0.04);
+  --vx-shadow-md: 0 6px 20px rgba(3, 37, 45, 0.06);
+  --vx-shadow-lg: 0 16px 36px rgba(3, 37, 45, 0.08);
+
+  /* Transitions */
+  --vx-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --vx-duration: 0.3s;
+  --vx-duration-fast: 0.15s;
+
+  /* Layout Containers */
+  --vx-container: 1280px;
+  --vx-header-height: 80px;
+
+  /* Radii */
+  --vx-radius-sm: 8px;
+  --vx-radius-md: 12px;
+  --vx-radius-lg: 20px;
+  --vx-radius-xl: 28px;
+}
+
+/* ============================================
+   BASE RESETS & WCAG ACCESSIBILITY
+   ============================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--vx-text);
+  background-color: var(--vx-bg);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   EXACT TYPOGRAPHY SCALE (Master Prompt Specification)
+   ============================================ */
+
+/* Home Hero H1 */
+.vx-h1-home {
+  font-size: clamp(3rem, 6vw, 5.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+/* Internal Page H1 */
+.vx-h1-internal {
+  font-size: clamp(2.75rem, 5vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+/* Section H2 */
+h2, .vx-h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--vx-text);
+}
+
+/* Subsection H3 */
+h3, .vx-h3 {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--vx-text);
+}
+
+/* Card / Highlight Text */
+.vx-highlight-text {
+  font-size: clamp(1.125rem, 1.5vw, 1.35rem);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Paragraphs & Body Copy */
+p, .vx-body {
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.65;
+  color: var(--vx-text-secondary);
+  max-width: 75ch;
+}
+
+.vx-body-sm {
+  font-size: 0.9375rem; /* 15px */
+  line-height: 1.6;
+}
+
+.vx-caption {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5;
+}
+
+/* ============================================
+   SPACING SYSTEM (Master Prompt Specification)
+   ============================================ */
+
+/* Section Vertical Padding */
+.vx-section {
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+
+@media (min-width: 768px) {
+  .vx-section {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .vx-section {
+    padding-top: 144px;
+    padding-bottom: 144px;
+  }
+}
+
+/* Spacing Tokens */
+.vx-gap-eyebrow-heading { margin-bottom: 14px; }
+.vx-gap-heading-subheading { margin-top: 24px; }
+.vx-gap-section-content { margin-bottom: 56px; }
+
+@media (min-width: 768px) {
+  .vx-gap-section-content { margin-bottom: 72px; }
+}
+
+/* ============================================
+   CONTAINERS & LAYOUT
+   ============================================ */
+.vx-container {
+  width: 100%;
+  max-width: var(--vx-container);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+@media (min-width: 768px) {
+  .vx-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .vx-container {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+/* ============================================
+   BUTTON SYSTEM (Height: 48-52px)
+   ============================================ */
+.vx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  height: 50px;
+  padding: 0 28px;
+  border: 2px solid transparent;
+  border-radius: var(--vx-radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--vx-duration-fast) var(--vx-ease);
+  white-space: nowrap;
+}
+
+.vx-btn:active {
+  transform: scale(0.98);
+}
+
+.vx-btn-primary {
+  background-color: var(--color-vertex-apexTeal, #0B4551);
+  color: var(--color-vertex-polarWhite, #FEFEFE);
+  border-color: var(--color-vertex-apexTeal, #0B4551);
+}
+
+.vx-btn-primary:hover {
+  background-color: var(--color-vertex-facetDeep, #20414B);
+  border-color: var(--color-vertex-facetDeep, #20414B);
+  box-shadow: 0 4px 16px rgba(11, 69, 81, 0.25);
+}
+
+.vx-btn-secondary {
+  background-color: transparent;
+  color: var(--color-vertex-apexTeal, #0B4551);
+  border-color: var(--color-vertex-apexTeal, #0B4551);
+}
+
+.vx-btn-secondary:hover {
+  background-color: var(--color-vertex-apexTeal, #0B4551);
+  color: var(--color-vertex-polarWhite, #FEFEFE);
+}
+
+.vx-btn-light {
+  background-color: var(--color-vertex-polarWhite, #FEFEFE);
+  color: var(--color-vertex-apexTeal, #0B4551);
+  border-color: var(--color-vertex-polarWhite, #FEFEFE);
+}
+
+.vx-btn-light:hover {
+  background-color: var(--color-vertex-prismBlue, #72C6E8);
+  border-color: var(--color-vertex-prismBlue, #72C6E8);
+  color: var(--color-vertex-ink, #03252D);
+}
+
+.vx-btn-ghost {
+  background-color: rgba(254, 254, 254, 0.08);
+  color: var(--color-vertex-polarWhite, #FEFEFE);
+  border-color: rgba(254, 254, 254, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.vx-btn-ghost:hover {
+  background-color: rgba(254, 254, 254, 0.18);
+  border-color: rgba(254, 254, 254, 0.5);
+}
+
+/* ============================================
+   SECTION SURFACES & BACKGROUND ALTERNATION
+   ============================================ */
+.vx-bg-dark {
+  background-color: var(--color-vertex-darkBg, #071A1F);
+  color: var(--color-vertex-polarWhite, #FEFEFE);
+}
+
+.vx-bg-dark h1, .vx-bg-dark h2, .vx-bg-dark h3, .vx-bg-dark h4 {
+  color: var(--color-vertex-polarWhite, #FEFEFE);
+}
+
+.vx-bg-dark p {
+  color: var(--color-vertex-facetIce, #B6D1D8);
+}
+
+.vx-bg-teal {
+  background-color: var(--color-vertex-apexTeal, #0B4551);
+  color: var(--color-vertex-polarWhite, #FEFEFE);
+}
+
+.vx-bg-teal h1, .vx-bg-teal h2, .vx-bg-teal h3, .vx-bg-teal h4 {
+  color: var(--color-vertex-polarWhite, #FEFEFE);
+}
+
+.vx-bg-teal p {
+  color: var(--color-vertex-facetIce, #B6D1D8);
+}
+
+.vx-bg-subtle {
+  background-color: var(--color-vertex-lightSubtle, #EDF4F5);
+}
+
+.vx-bg-quartz {
+  background-color: #EBF1F3;
+}
+
+/* ============================================
+   CARD STYLES (Restrained bento, minimal shadows)
+   ============================================ */
+.vx-card {
+  background: var(--vx-surface);
+  border: 1px solid rgba(3, 37, 45, 0.08);
+  border-radius: var(--vx-radius-lg);
+  padding: 32px;
+  transition: all var(--vx-duration) var(--vx-ease);
+}
+
+.vx-card:hover {
+  border-color: rgba(114, 198, 232, 0.45);
+  box-shadow: var(--vx-shadow-md);
+  transform: translateY(-2px);
+}
+
+.vx-card-dark {
+  background: var(--color-vertex-darkSurface, #0D272C);
+  border: 1px solid rgba(182, 209, 216, 0.12);
+}
+
+.vx-card-dark:hover {
+  border-color: rgba(114, 198, 232, 0.35);
+  background: var(--color-vertex-darkElevated, #123B45);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   FORM FIELDS (Height 48-52px, 20-24px gap)
+   ============================================ */
+.vx-form-group {
+  margin-bottom: 24px;
+}
+
+.vx-input,
+.vx-textarea,
+.vx-select {
+  width: 100%;
+  height: 50px;
+  padding: 0 18px;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  color: var(--vx-text);
+  background: var(--vx-surface);
+  border: 1.5px solid var(--vx-border);
+  border-radius: var(--vx-radius-sm);
+  transition: border-color var(--vx-duration-fast) var(--vx-ease),
+              box-shadow var(--vx-duration-fast) var(--vx-ease);
+}
+
+.vx-input:focus,
+.vx-textarea:focus,
+.vx-select:focus {
+  outline: none;
+  border-color: var(--color-vertex-apexTeal, #0B4551);
+  box-shadow: 0 0 0 3px rgba(11, 69, 81, 0.14);
+}
+
+.vx-textarea {
+  height: 140px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  resize: vertical;
+}
+
+.vx-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--vx-text);
+  margin-bottom: 8px;
+}
+
+.vx-error {
+  font-size: 0.8125rem;
+  color: #dc2626;
+  margin-top: 6px;
+}
+
+/* ============================================
+   ICON CONTAINER (Consistent containers & optical alignment)
+   ============================================ */
+.vx-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--vx-radius-md);
+  background: rgba(11, 69, 81, 0.08);
+  color: var(--color-vertex-apexTeal, #0B4551);
+  flex-shrink: 0;
+  margin-bottom: 20px;
+}
+
+.vx-bg-dark .vx-icon-wrap,
+.vx-bg-teal .vx-icon-wrap,
+.vx-card-dark .vx-icon-wrap {
+  background: rgba(114, 198, 232, 0.15);
+  color: var(--color-vertex-prismBlue, #72C6E8);
+}
+
+/* ============================================
+   ACCESSIBILITY & FOCUS
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--vx-accent-light);
+  outline-offset: 3px;
+}
+
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--vx-accent);
+  color: var(--vx-surface);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--vx-radius-sm);
+  text-decoration: none;
+  transition: top var(--vx-duration-fast) var(--vx-ease);
+}
+
+.skip-to-content:focus {
+  top: 16px;
+}
+
+/* ============================================
+   SELECTION
+   ============================================ */
+::selection {
+  background: rgba(114, 198, 232, 0.3);
+  color: var(--vx-text);
+}

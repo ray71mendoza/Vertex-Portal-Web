@@ -1,0 +1,414 @@
+{
+  "common": {
+    "nav": {
+      "home": "Inicio",
+      "about": "Nosotros",
+      "services": "Servicios",
+      "projects": "Proyectos",
+      "team": "Equipo",
+      "contact": "Contacto",
+      "letsTalk": "Hablemos",
+      "privacy": "Privacidad",
+      "terms": "Términos"
+    },
+    "cta": {
+      "learnMore": "Conocer más",
+      "contactUs": "Contáctanos",
+      "viewAll": "Ver todos",
+      "viewProject": "Ver proyecto",
+      "viewService": "Ver servicio",
+      "letsTalk": "Hablemos de tu proyecto",
+      "discoverSolutions": "Conoce nuestras soluciones",
+      "ourHistory": "Conoce nuestra historia",
+      "meetTeam": "Conoce al equipo completo",
+      "sendMessage": "Enviar mensaje",
+      "sending": "Enviando...",
+      "writeUs": "También puedes escribirnos directamente a"
+    },
+    "footer": {
+      "description": "Integramos estrategia, tecnología, inteligencia artificial, diseño y comunicación para transformar organizaciones.",
+      "services": "Servicios",
+      "company": "Compañía",
+      "contactInfo": "Contacto",
+      "rights": "Todos los derechos reservados.",
+      "bogota": "Bogotá, Colombia",
+      "cartagena": "Cartagena, Colombia"
+    },
+    "breadcrumb": {
+      "home": "Inicio"
+    },
+    "states": {
+      "active": "En ejecución",
+      "completed": "Completado",
+      "paused": "Pausado"
+    },
+    "sectors": {
+      "public": "Sector público",
+      "private": "Sector privado",
+      "infrastructure": "Infraestructura",
+      "territorial": "Territorial"
+    },
+    "skipToContent": "Ir al contenido principal",
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "noResults": "No se encontraron resultados",
+    "backToHome": "Volver al inicio"
+  },
+  "home": {
+    "hero": {
+      "tag": "Innovación · Tecnología · Estrategia",
+      "title": "Tecnología estratégica para transformar ideas en resultados",
+      "subtitle": "Integramos estrategia, inteligencia artificial, software, diseño y comunicación para convertir los desafíos de tu organización en soluciones innovadoras y sostenibles."
+    },
+    "about": {
+      "title": "Transformamos organizaciones a través de la tecnología",
+      "description": "No se trata solo de implementar herramientas digitales. Se trata de convertir la tecnología en un activo estratégico que impulse el crecimiento, optimice procesos y genere valor sostenible para tu organización.",
+      "description2": "En Vertex integramos consultoría estratégica, desarrollo de software, inteligencia artificial, diseño y comunicación para ofrecer soluciones integrales que transforman la forma en que las organizaciones operan y compiten."
+    },
+    "capabilities": {
+      "title": "Nuestras capacidades",
+      "subtitle": "Soluciones integrales que abarcan cada dimensión de la transformación organizacional."
+    },
+    "value": {
+      "title": "Nuestra propuesta de valor",
+      "statement": "La tecnología transforma cuando se integra con visión estratégica, procesos eficientes y comunicación efectiva.",
+      "items": {
+        "strategy": {
+          "title": "Integración de estrategia y tecnología",
+          "description": "Cada solución parte de un análisis estratégico profundo, asegurando que la tecnología responda a objetivos reales de negocio."
+        },
+        "custom": {
+          "title": "Soluciones personalizadas",
+          "description": "Diseñamos e implementamos soluciones a la medida de cada organización, sin enfoques genéricos."
+        },
+        "multidisciplinary": {
+          "title": "Visión multidisciplinaria",
+          "description": "Equipos que integran estrategia, tecnología, diseño, comunicación y gestión de proyectos."
+        },
+        "results": {
+          "title": "Orientación a resultados",
+          "description": "Cada proyecto se mide por su impacto real en la organización, no solo por su ejecución técnica."
+        },
+        "scalability": {
+          "title": "Escalabilidad",
+          "description": "Soluciones diseñadas para crecer con la organización y adaptarse a nuevos desafíos."
+        },
+        "sustainability": {
+          "title": "Sostenibilidad",
+          "description": "Proyectos con visión de largo plazo que generan valor sostenible y transferencia de conocimiento."
+        },
+        "experience": {
+          "title": "Experiencia público-privada",
+          "description": "Capacidad probada para operar tanto en el sector público como en el privado con los más altos estándares."
+        }
+      }
+    },
+    "projects": {
+      "title": "Proyectos que generan impacto",
+      "subtitle": "Soluciones reales para organizaciones que buscan transformarse.",
+      "viewAll": "Ver todos los proyectos",
+      "empty": "Próximamente compartiremos proyectos destacados."
+    },
+    "methodology": {
+      "title": "Cómo trabajamos",
+      "subtitle": "Un enfoque estructurado y adaptable para cada desafío.",
+      "steps": {
+        "understand": {
+          "title": "Comprender",
+          "description": "Análisis del contexto, necesidades y objetivos de la organización."
+        },
+        "design": {
+          "title": "Diseñar",
+          "description": "Estrategia, arquitectura y planificación de la solución."
+        },
+        "implement": {
+          "title": "Implementar",
+          "description": "Desarrollo, integración y puesta en marcha."
+        },
+        "evolve": {
+          "title": "Evolucionar",
+          "description": "Medición, optimización y crecimiento continuo."
+        }
+      }
+    },
+    "sectors": {
+      "title": "Sectores que transformamos",
+      "subtitle": "Experiencia en contextos diversos con necesidades complejas.",
+      "items": {
+        "private": {
+          "title": "Empresas privadas",
+          "description": "Transformación digital, automatización y crecimiento estratégico."
+        },
+        "public": {
+          "title": "Instituciones públicas",
+          "description": "Modernización, apropiación tecnológica y gobierno digital."
+        },
+        "infrastructure": {
+          "title": "Proyectos de infraestructura",
+          "description": "Comunicación estratégica y gestión de grandes proyectos."
+        },
+        "territorial": {
+          "title": "Iniciativas territoriales",
+          "description": "Desarrollo territorial con enfoque en tecnología e innovación."
+        },
+        "modernization": {
+          "title": "Organizaciones en modernización",
+          "description": "Acompañamiento integral para la transformación organizacional."
+        }
+      }
+    },
+    "ctaFinal": {
+      "title": "¿Listo para transformar tu organización?",
+      "subtitle": "Cuéntanos tu proyecto y diseñemos juntos la solución."
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Nosotros",
+      "subtitle": "Innovación, estrategia y tecnología al servicio de la transformación."
+    },
+    "intro": {
+      "title": "Quiénes somos",
+      "description": "Vertex es una compañía especializada en innovación, transformación digital y soluciones tecnológicas para organizaciones públicas y privadas. Integramos estrategia, tecnología, inteligencia artificial, software, diseño y comunicación para convertir desafíos organizacionales en soluciones innovadoras, funcionales, escalables y sostenibles.",
+      "description2": "Nuestra propuesta no consiste solamente en desarrollar productos digitales. Diseñamos soluciones integrales que combinan visión estratégica, capacidad técnica y comunicación efectiva para acelerar el crecimiento de las organizaciones, optimizar sus procesos y generar valor sostenible."
+    },
+    "mission": {
+      "title": "Misión",
+      "text": "Impulsar la transformación de organizaciones públicas y privadas mediante la integración de estrategia, tecnología, inteligencia artificial, diseño y comunicación, desarrollando soluciones innovadoras que generan valor sostenible, optimizan procesos y aceleran el crecimiento."
+    },
+    "vision": {
+      "title": "Visión 2035",
+      "text": "Ser el aliado estratégico de referencia en Latinoamérica para la transformación digital e innovación organizacional, reconocidos por nuestra capacidad de integrar tecnología, estrategia, diseño y comunicación en soluciones que generan impacto medible y sostenible."
+    },
+    "principles": {
+      "title": "Principios de trabajo",
+      "items": {
+        "innovation": {
+          "title": "Innovación constante",
+          "description": "Exploramos nuevas tecnologías y metodologías para ofrecer siempre las mejores soluciones."
+        },
+        "excellence": {
+          "title": "Excelencia técnica",
+          "description": "Cada proyecto refleja los más altos estándares de calidad en diseño, desarrollo e implementación."
+        },
+        "commitment": {
+          "title": "Compromiso con el resultado",
+          "description": "Trabajamos orientados al impacto real de cada solución en la organización del cliente."
+        },
+        "collaboration": {
+          "title": "Colaboración multidisciplinaria",
+          "description": "Equipos que integran diversas disciplinas para abordar problemas complejos con visión integral."
+        },
+        "transparency": {
+          "title": "Transparencia",
+          "description": "Comunicación clara y honesta en cada etapa del proyecto."
+        },
+        "sustainability": {
+          "title": "Sostenibilidad",
+          "description": "Soluciones pensadas para perdurar, crecer y generar transferencia de conocimiento."
+        }
+      }
+    },
+    "whyVertex": {
+      "title": "¿Por qué Vertex?",
+      "items": [
+        "Integración real de estrategia, tecnología, diseño y comunicación",
+        "Capacidad para operar en sector público y privado",
+        "Equipo multidisciplinario con experiencia en proyectos de gran escala",
+        "Soluciones personalizadas, no enfoques genéricos",
+        "Visión de largo plazo y sostenibilidad",
+        "Ecosistema de productos propios que validan nuestra capacidad técnica"
+      ]
+    },
+    "presence": {
+      "title": "Presencia",
+      "bogota": "Bogotá",
+      "cartagena": "Cartagena",
+      "country": "Colombia"
+    },
+    "teamPreview": {
+      "title": "Nuestro equipo",
+      "description": "Profesionales multidisciplinarios comprometidos con la excelencia y la innovación."
+    }
+  },
+  "services": {
+    "hero": {
+      "title": "Servicios",
+      "subtitle": "Soluciones integrales que combinan estrategia, tecnología, diseño y comunicación para transformar organizaciones."
+    },
+    "cta": {
+      "notSure": "¿No estás seguro de qué necesitas?",
+      "helpYou": "Contáctanos y te ayudamos a identificar la mejor solución para tu organización."
+    },
+    "detail": {
+      "problems": "Problemas que resuelve",
+      "capabilities": "Capacidades",
+      "benefits": "Beneficios",
+      "process": "Proceso de trabajo",
+      "forWhom": "¿Para quién?",
+      "relatedProjects": "Proyectos relacionados",
+      "needThis": "¿Necesitas este servicio?",
+      "talkAbout": "Hablemos sobre cómo podemos ayudarte."
+    },
+    "items": {
+      "innovation-digital-transformation": {
+        "title": "Innovación y Transformación Digital",
+        "tagline": "Acelera la evolución digital de tu organización con estrategia e inteligencia artificial.",
+        "description": "Ayudamos a las organizaciones a reimaginar sus procesos, modelos de negocio y experiencias mediante la adopción estratégica de tecnologías digitales, inteligencia artificial y automatización.",
+        "shortDescription": "Consultoría en transformación digital, IA y automatización de procesos."
+      },
+      "software-development": {
+        "title": "Desarrollo de Software",
+        "tagline": "Soluciones de software robustas, escalables y hechas a la medida de tu operación.",
+        "description": "Diseñamos y desarrollamos software empresarial, aplicaciones web y móviles, plataformas cloud y soluciones de integración que se adaptan a las necesidades específicas de cada organización.",
+        "shortDescription": "Software a la medida, aplicaciones web y móviles, plataformas empresariales."
+      },
+      "strategic-design-branding": {
+        "title": "Diseño Estratégico y Branding",
+        "tagline": "Construimos marcas que comunican, conectan y generan confianza.",
+        "description": "Desarrollamos identidades de marca, sistemas de diseño, experiencias de usuario y materiales corporativos que posicionan a las organizaciones y fortalecen su presencia en cada punto de contacto.",
+        "shortDescription": "Identidad corporativa, diseño UX/UI, material publicitario y editorial."
+      },
+      "digital-marketing-communications": {
+        "title": "Marketing y Comunicación Digital",
+        "tagline": "Estrategias de comunicación que amplifican el alcance y el impacto de tu marca.",
+        "description": "Diseñamos e implementamos estrategias de comunicación digital, gestión de redes sociales, marketing de contenidos y posicionamiento que conectan a las organizaciones con sus audiencias.",
+        "shortDescription": "Estrategias digitales, redes sociales, contenidos y posicionamiento."
+      },
+      "audiovisual-production": {
+        "title": "Producción Audiovisual",
+        "tagline": "Contenido visual que cuenta historias y genera impacto.",
+        "description": "Producimos videos corporativos, piezas publicitarias, animaciones, fotografía profesional y contenido audiovisual que comunica con calidad, claridad y propósito.",
+        "shortDescription": "Videos corporativos, animación, fotografía y posproducción."
+      },
+      "public-sector-large-projects": {
+        "title": "Sector Público y Grandes Proyectos",
+        "tagline": "Soluciones tecnológicas y de comunicación para el desarrollo público y territorial.",
+        "description": "Acompañamos a entidades públicas y proyectos de gran escala en la implementación de plataformas, estrategias de comunicación, apropiación tecnológica y programas de innovación.",
+        "shortDescription": "Plataformas públicas, apropiación tecnológica y comunicación estratégica."
+      },
+      "trade-show-experiences": {
+        "title": "Stands y Experiencias Feriales",
+        "tagline": "Diseñamos y producimos espacios que representan tu marca en eventos.",
+        "description": "Conceptualizamos, diseñamos y producimos stands y experiencias feriales completas, desde el diseño 3D y la planificación logística hasta el montaje, coordinación y acompañamiento integral.",
+        "shortDescription": "Diseño, producción y coordinación integral de stands para ferias."
+      }
+    }
+  },
+  "projects": {
+    "hero": {
+      "title": "Proyectos",
+      "subtitle": "Soluciones reales que transforman organizaciones."
+    },
+    "filters": {
+      "all": "Todos",
+      "byService": "Por servicio",
+      "bySector": "Por sector",
+      "byStatus": "Por estado"
+    },
+    "empty": {
+      "title": "Próximamente",
+      "description": "Estamos preparando información sobre nuestros proyectos destacados."
+    },
+    "detail": {
+      "overview": "Descripción general",
+      "challenge": "El reto",
+      "solution": "La solución",
+      "services": "Servicios involucrados",
+      "scope": "Alcance",
+      "process": "Proceso",
+      "results": "Resultados",
+      "related": "Proyectos relacionados",
+      "similarProject": "¿Tienes un proyecto similar?"
+    }
+  },
+  "team": {
+    "hero": {
+      "title": "Equipo",
+      "subtitle": "Profesionales multidisciplinarios comprometidos con la innovación y la excelencia."
+    },
+    "expertise": "Áreas de experiencia",
+    "empty": {
+      "title": "Próximamente",
+      "description": "Estamos preparando los perfiles de nuestro equipo."
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Contacto",
+      "subtitle": "Cuéntanos sobre tu proyecto y diseñemos juntos la solución."
+    },
+    "form": {
+      "name": "Nombre completo",
+      "namePlaceholder": "Tu nombre",
+      "organization": "Organización",
+      "organizationPlaceholder": "Nombre de tu organización",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@correo.com",
+      "phone": "Teléfono (opcional)",
+      "phonePlaceholder": "+57 300 000 0000",
+      "service": "Servicio de interés",
+      "servicePlaceholder": "Selecciona un servicio",
+      "serviceOther": "Otro",
+      "message": "Mensaje",
+      "messagePlaceholder": "Cuéntanos sobre tu proyecto o necesidad...",
+      "preferredLanguage": "Idioma preferido de comunicación",
+      "privacy": "He leído y acepto la",
+      "privacyLink": "política de privacidad",
+      "submit": "Enviar mensaje",
+      "submitting": "Enviando..."
+    },
+    "validation": {
+      "nameRequired": "El nombre es obligatorio",
+      "emailRequired": "El correo es obligatorio",
+      "emailInvalid": "Ingresa un correo válido",
+      "messageRequired": "El mensaje es obligatorio",
+      "messageMin": "El mensaje debe tener al menos 10 caracteres",
+      "privacyRequired": "Debes aceptar la política de privacidad"
+    },
+    "success": {
+      "title": "¡Mensaje enviado!",
+      "description": "Hemos recibido tu mensaje. Te contactaremos pronto."
+    },
+    "error": {
+      "title": "Error al enviar",
+      "description": "No pudimos enviar tu mensaje. Por favor intenta de nuevo o escríbenos directamente."
+    },
+    "info": {
+      "title": "Información de contacto",
+      "email": "Correo electrónico",
+      "offices": "Oficinas"
+    }
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe o ha sido movida.",
+    "backHome": "Volver al inicio"
+  },
+  "seo": {
+    "home": {
+      "title": "Vertex — Tecnología estratégica para transformar ideas en resultados",
+      "description": "Innovación, transformación digital, desarrollo de software, diseño estratégico y comunicación. Soluciones tecnológicas integrales para organizaciones públicas y privadas."
+    },
+    "about": {
+      "title": "Nosotros — Vertex",
+      "description": "Conoce a Vertex: una compañía especializada en innovación, transformación digital y soluciones tecnológicas para organizaciones públicas y privadas."
+    },
+    "services": {
+      "title": "Servicios — Vertex",
+      "description": "Descubre nuestras soluciones en innovación digital, desarrollo de software, diseño estratégico, marketing, producción audiovisual y más."
+    },
+    "projects": {
+      "title": "Proyectos — Vertex",
+      "description": "Proyectos reales que transforman organizaciones mediante la integración de estrategia, tecnología y comunicación."
+    },
+    "team": {
+      "title": "Equipo — Vertex",
+      "description": "Conoce al equipo multidisciplinario de Vertex: profesionales en tecnología, diseño, estrategia y comunicación."
+    },
+    "contact": {
+      "title": "Contacto — Vertex",
+      "description": "Hablemos de tu proyecto. Contáctanos para diseñar juntos la solución tecnológica que tu organización necesita."
+    }
+  }
+}
