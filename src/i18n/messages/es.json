@@ -90,7 +90,7 @@
     "about": {
       "title": "Transformamos organizaciones a través de la tecnología",
       "description": "No se trata solo de implementar herramientas digitales. Se trata de convertir la tecnología en un activo estratégico que impulse el crecimiento, optimice procesos y genere valor sostenible para tu organización.",
-      "description2": "En Vertex integramos consultoría estratégica, desarrollo de software, inteligencia artificial, diseño y comunicación para ofrecer soluciones integrales que transforman la forma en que las organizaciones operan y compiten."
+      "description2": "Integramos consultoría, software, inteligencia artificial, diseño y comunicación en soluciones que mejoran cómo las organizaciones operan y compiten."
     },
     "capabilities": {
       "title": "Nuestras capacidades",
@@ -383,7 +383,9 @@
       "privacy": "He leído y acepto la",
       "privacyLink": "política de privacidad",
       "submit": "Enviar mensaje",
-      "submitting": "Enviando..."
+      "submitting": "Preparando correo...",
+      "integrationNotice": "Este formulario prepara un correo con tu información. El envío final se realiza desde tu cliente de correo.",
+      "sendAnother": "Preparar otro mensaje"
     },
     "validation": {
       "nameRequired": "El nombre es obligatorio",
@@ -395,7 +397,7 @@
     },
     "success": {
       "title": "¡Mensaje enviado!",
-      "description": "Hemos recibido tu mensaje. Te contactaremos pronto."
+      "description": "Tu cliente de correo se abrió con el mensaje preparado."
     },
     "error": {
       "title": "Error al enviar",
@@ -577,8 +579,8 @@
       "privacyLink": "política de privacidad",
       "submit": "Enviar postulación",
       "submitting": "Enviando...",
-      "success": "¡Postulación registrada!",
-      "successDescription": "Hemos recibido tu información. El equipo de talento revisará tu perfil y te contactará si avanzas en el proceso.",
+      "success": "Correo de postulación preparado",
+      "successDescription": "Tu cliente de correo se abrió con la información de la postulación.",
       "error": "No pudimos registrar tu postulación",
       "errorDescription": "Por favor intenta de nuevo. Si el problema persiste, envíanos tu hoja de vida a nuestro correo de contacto.",
       "integrationNotice": "Nota: Este formulario se encuentra en etapa de configuración. Tu información no será enviada hasta que la integración esté activa.",
@@ -596,8 +598,8 @@
   "homeNew": {
     "reach": {
       "eyebrow": "Alcance regional",
-      "title": "Trabajamos en Latinoamérica",
-      "description": "Acompañamos organizaciones de diferentes países con soluciones adaptadas a cada contexto."
+      "title": "Cobertura en toda Colombia y Latinoamérica",
+      "description": "Acompañamos organizaciones en todo el territorio colombiano y en Latinoamérica con soluciones adaptadas a cada contexto."
     },
     "talent": {
       "eyebrow": "Nuestro talento",

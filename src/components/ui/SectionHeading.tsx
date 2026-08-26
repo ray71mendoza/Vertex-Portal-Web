@@ -32,9 +32,9 @@ export function SectionHeading({
       >
         {/* Eyebrow Label */}
         {eyebrow && (
-          <div className="inline-flex items-center gap-2 vx-gap-eyebrow-heading">
+          <div className="section-eyebrow-wrap inline-flex items-center gap-2 vx-gap-eyebrow-heading">
             <span
-              className={`text-xs font-bold uppercase tracking-widest px-3.5 py-1 rounded-full ${
+              className={`section-eyebrow text-xs font-bold uppercase tracking-widest px-3.5 py-1 rounded-full ${
                 isDark
                   ? 'bg-white/10 text-vertex-prismBlue border border-white/15'
                   : 'bg-vertex-apexTeal/10 text-vertex-apexTeal'
@@ -47,7 +47,7 @@ export function SectionHeading({
 
         {/* Heading H2 */}
         <h2
-          className={`vx-h2 ${
+          className={`section-title vx-h2 ${
             isDark ? 'text-white' : 'text-vertex-ink'
           } leading-tight`}
         >
@@ -57,7 +57,7 @@ export function SectionHeading({
         {/* Subheading / Subtitle */}
         {subtitle && (
           <p
-            className={`vx-gap-heading-subheading text-lg md:text-xl font-medium leading-relaxed ${
+            className={`section-subtitle vx-gap-heading-subheading text-lg md:text-xl font-medium leading-relaxed ${
               isCenter ? 'mx-auto' : ''
             } max-w-2xl ${
               isDark ? 'text-vertex-facetIce/90' : 'text-vertex-facetTeal'

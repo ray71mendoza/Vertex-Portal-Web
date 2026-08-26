@@ -1,17 +1,45 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ChevronDown, Lightbulb, Code2, Palette, Megaphone, Video, Building2, LayoutGrid, Users, MapPin, Briefcase, Award } from 'lucide-react';
+import {
+  Award,
+  ArrowUpRight,
+  Briefcase,
+  Building2,
+  ChevronDown,
+  Code2,
+  LayoutGrid,
+  Lightbulb,
+  MapPin,
+  Megaphone,
+  Menu,
+  Palette,
+  Search,
+  Users,
+  Video,
+  X,
+} from 'lucide-react';
 import type { Locale } from '@/i18n/config';
+import { hrefFor } from '@/i18n/config';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { services } from '@/content/services';
+import styles from './Header.module.css';
 
-const iconMap: Record<string, React.ElementType> = {
-  Lightbulb, Code2, Palette, Megaphone, Video, Building2, LayoutGrid,
+const serviceIconMap: Record<string, React.ElementType> = {
+  Lightbulb,
+  Code2,
+  Palette,
+  Megaphone,
+  Video,
+  Building2,
+  LayoutGrid,
 };
+
+type MenuKey = 'about' | 'offer' | 'careers';
 
 interface HeaderProps {
   locale: Locale;
@@ -20,303 +48,261 @@ interface HeaderProps {
 export function Header({ locale }: HeaderProps) {
   const t = useTranslations('common.nav');
   const tServices = useTranslations('services.items');
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [activeMenu, setActiveMenu] = useState<MenuKey | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const loc = locale;
+
+  const aboutItems = useMemo(
+    () => [
+      { href: hrefFor(loc, 'whoWeAre', '#sobre-vertex'), label: t('aboutVertex'), description: loc === 'es' ? 'Nuestra visión y forma de transformar' : 'Our vision and approach to transformation', icon: Award },
+      { href: hrefFor(loc, 'whoWeAre', '#por-que-vertex'), label: t('whyVertex'), description: loc === 'es' ? 'Lo que diferencia nuestro trabajo' : 'What makes our work different', icon: Lightbulb },
+      { href: hrefFor(loc, 'whoWeAre', '#nuestro-talento'), label: t('ourTalent'), description: loc === 'es' ? 'Personas, cultura y capacidades' : 'People, culture and capabilities', icon: Users },
+      { href: hrefFor(loc, 'whoWeAre', '#alcance-regional'), label: t('ourReach'), description: loc === 'es' ? 'Cobertura en Colombia y Latinoamérica' : 'Coverage across Colombia and Latin America', icon: MapPin },
+      { href: hrefFor(loc, 'whoWeAre', '#ubicaciones'), label: t('locations'), description: loc === 'es' ? 'Conoce nuestros puntos de presencia' : 'Explore our points of presence', icon: Building2 },
+    ],
+    [loc, t]
+  );
+
+  const careerItems = useMemo(
+    () => [
+      { href: hrefFor(loc, 'jobs'), label: t('searchJobs'), description: loc === 'es' ? 'Vacantes disponibles en Vertex' : 'Open roles at Vertex', icon: Search },
+      { href: hrefFor(loc, 'careers', '#ambiente-trabajo'), label: t('workEnvironment'), description: loc === 'es' ? 'Así vivimos nuestra cultura' : 'How we experience our culture', icon: Users },
+      { href: hrefFor(loc, 'careers', '#proceso-reclutamiento'), label: t('recruitmentProcess'), description: loc === 'es' ? 'Conoce cada etapa del proceso' : 'Learn about every stage', icon: Briefcase },
+    ],
+    [loc, t]
+  );
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 15);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 12);
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleMouseEnter = (menuKey: string) => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setActiveMenu(menuKey);
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setActiveMenu(null);
+        setIsMobileOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileOpen]);
+
+  const isActive = (href: string) => {
+    const cleanHref = href.split('#')[0];
+    return pathname === cleanHref || (cleanHref !== `/${locale}` && pathname.startsWith(cleanHref));
   };
 
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setActiveMenu(null);
-    }, 200);
+  const openMenu = (menu: MenuKey) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setActiveMenu(menu);
   };
 
-  const prefix = `/${locale}`;
-  const loc = locale as 'es' | 'en';
+  const scheduleClose = () => {
+    closeTimer.current = setTimeout(() => setActiveMenu(null), 160);
+  };
 
-  const quienesSomosSubitems = [
-    { href: `${prefix}/${loc === 'es' ? 'quienes-somos' : 'about-us'}#sobre-vertex`, label: t('aboutVertex') },
-    { href: `${prefix}/${loc === 'es' ? 'quienes-somos' : 'about-us'}#por-que-vertex`, label: t('whyVertex') },
-    { href: `${prefix}/${loc === 'es' ? 'quienes-somos' : 'about-us'}#alcance-regional`, label: t('ourReach') },
-    { href: `${prefix}/${loc === 'es' ? 'quienes-somos' : 'about-us'}#ubicaciones`, label: t('locations') },
-    { href: `${prefix}/${loc === 'es' ? 'quienes-somos' : 'about-us'}#nuestro-talento`, label: t('ourTalent') },
-    { href: `${prefix}/${loc === 'es' ? 'quienes-somos' : 'about-us'}#equipo`, label: t('teamMembers') },
-  ];
-
-  const nuestraOfertaSubitems = [
-    { href: `${prefix}/${loc === 'es' ? 'nuestra-oferta' : 'our-services'}`, label: t('ourOffer') },
-    { href: `${prefix}/${loc === 'es' ? 'servicios' : 'services'}`, label: t('services') },
-    { href: `${prefix}/${loc === 'es' ? 'proyectos' : 'projects'}`, label: t('projects') },
-  ];
-
-  const trabajaSubitems = [
-    { href: `${prefix}/${loc === 'es' ? 'trabaja-con-nosotros' : 'careers'}`, label: t('careers') },
-    { href: `${prefix}/${loc === 'es' ? 'empleos' : 'jobs'}`, label: t('jobs') },
-  ];
+  const navTone = isScrolled || isMobileOpen ? 'light' : 'dark';
+  const linkClass = (href: string) =>
+    `site-nav-link relative flex min-h-11 items-center rounded-xl text-[0.82rem] font-semibold transition-colors xl:text-[0.88rem] ${
+      navTone === 'light'
+        ? 'text-vertex-ink hover:bg-vertex-lightSubtle hover:text-vertex-apexTeal'
+        : 'text-white/90 hover:bg-white/10 hover:text-white'
+    } ${isActive(href) ? (navTone === 'light' ? 'bg-vertex-lightSubtle text-vertex-apexTeal' : 'bg-white/12 text-white') : ''}`;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-sm'
-          : 'bg-vertex-darkBg/60 backdrop-blur-sm border-b border-white/10'
+      data-scrolled={isScrolled || isMobileOpen}
+      className={`site-header fixed left-0 right-0 top-0 z-50 h-[var(--vx-header-height)] transition-all duration-300 ${
+        isScrolled || isMobileOpen
+          ? 'border-b border-vertex-ink/10 bg-white/95 shadow-sm backdrop-blur-xl'
+          : 'border-b border-white/10 bg-vertex-darkBg/55 backdrop-blur-md'
       }`}
-      style={{ height: 'var(--vx-header-height)' }}
     >
-      <div className="vx-container h-full flex items-center justify-between">
-        {/* Logo */}
-        <Link href={prefix} className="relative z-10 flex-shrink-0" aria-label="Vertex - Home">
+      <div className="vx-container flex h-full items-center justify-between gap-5">
+        <Link
+          href={hrefFor(locale, 'home')}
+          className="relative z-50 flex shrink-0 rounded-md"
+          aria-label={locale === 'es' ? 'Vertex, inicio' : 'Vertex, home'}
+        >
           <Image
             src="/images/vertex-logo.png"
-            alt="Vertex Logo"
-            width={140}
-            height={42}
+            alt="Vertex"
+            width={146}
+            height={44}
             priority
-            className={`h-[34px] w-auto transition-all ${isScrolled ? '' : 'brightness-0 invert'}`}
+            className={`h-[34px] w-auto transition ${navTone === 'dark' ? 'brightness-0 invert' : ''}`}
           />
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1.5" aria-label="Main navigation">
-          {/* Inicio */}
+        <nav
+          className="site-main-nav hidden items-center xl:flex"
+          aria-label={locale === 'es' ? 'Navegación principal' : 'Primary navigation'}
+        >
           <Link
-            href={prefix}
-            className={`px-3 py-2 text-[0.9375rem] font-medium rounded-lg transition-all duration-200 ${
-              isScrolled
-                ? 'text-vertex-ink hover:text-vertex-apexTeal hover:bg-vertex-lightSubtle'
-                : 'text-white/90 hover:text-white hover:bg-white/10'
-            }`}
+            href={hrefFor(locale, 'home')}
+            className={linkClass(hrefFor(locale, 'home'))}
+            aria-current={isActive(hrefFor(locale, 'home')) ? 'page' : undefined}
           >
             {t('home')}
           </Link>
 
-          {/* Quiénes somos dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMouseEnter('quienes')}
-            onMouseLeave={handleMouseLeave}
+          <DesktopMenu
+            id="about"
+            label={t('whoWeAre')}
+            href={hrefFor(locale, 'whoWeAre')}
+            isOpen={activeMenu === 'about'}
+            isActive={isActive(hrefFor(locale, 'whoWeAre'))}
+            className={linkClass(hrefFor(locale, 'whoWeAre'))}
+            description={loc === 'es' ? 'Conoce nuestra visión, alcance regional y el talento que impulsa cada solución.' : 'Discover our vision, regional reach and the talent behind every solution.'}
+            viewLabel={loc === 'es' ? 'Ver Quiénes somos' : 'View About us'}
+            onOpen={() => openMenu('about')}
+            onClose={scheduleClose}
+            onNavigate={() => setActiveMenu(null)}
           >
-            <Link
-              href={`${prefix}/${loc === 'es' ? 'quienes-somos' : 'about-us'}`}
-              className={`flex items-center gap-1 px-3 py-2 text-[0.9375rem] font-medium rounded-lg transition-all duration-200 ${
-                isScrolled
-                  ? 'text-vertex-ink hover:text-vertex-apexTeal hover:bg-vertex-lightSubtle'
-                  : 'text-white/90 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              {t('whoWeAre')}
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMenu === 'quienes' ? 'rotate-180' : ''}`} />
-            </Link>
-            {activeMenu === 'quienes' && (
-              <div className="absolute top-full left-0 pt-2 w-56">
-                <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-2 space-y-1">
-                  {quienesSomosSubitems.map((sub) => (
-                    <Link
-                      key={sub.href}
-                      href={sub.href}
-                      className="block px-3 py-2 text-xs font-semibold text-vertex-ink hover:text-vertex-apexTeal hover:bg-vertex-lightSubtle rounded-lg transition-colors"
-                    >
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+            <div className={`${styles.menuGrid} ${styles.menuGridSingle}`}>
+              {aboutItems.map((item) => (
+                <MegaMenuItem key={item.href} {...item} onClick={() => setActiveMenu(null)} />
+              ))}
+            </div>
+          </DesktopMenu>
 
-          {/* Nuestra Oferta dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMouseEnter('oferta')}
-            onMouseLeave={handleMouseLeave}
+          <DesktopMenu
+            id="offer"
+            label={t('ourOffer')}
+            href={hrefFor(locale, 'ourOffer')}
+            isOpen={activeMenu === 'offer'}
+            isActive={isActive(hrefFor(locale, 'ourOffer'))}
+            className={linkClass(hrefFor(locale, 'ourOffer'))}
+            description={loc === 'es' ? 'Capacidades especializadas que conectan estrategia, tecnología, diseño y comunicación.' : 'Specialized capabilities connecting strategy, technology, design and communication.'}
+            viewLabel={loc === 'es' ? 'Explorar toda la oferta' : 'Explore the full offer'}
+            onOpen={() => openMenu('offer')}
+            onClose={scheduleClose}
+            onNavigate={() => setActiveMenu(null)}
           >
-            <Link
-              href={`${prefix}/${loc === 'es' ? 'nuestra-oferta' : 'our-services'}`}
-              className={`flex items-center gap-1 px-3 py-2 text-[0.9375rem] font-medium rounded-lg transition-all duration-200 ${
-                isScrolled
-                  ? 'text-vertex-ink hover:text-vertex-apexTeal hover:bg-vertex-lightSubtle'
-                  : 'text-white/90 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              {t('ourOffer')}
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMenu === 'oferta' ? 'rotate-180' : ''}`} />
-            </Link>
-            {activeMenu === 'oferta' && (
-              <div
-                className="absolute top-full left-1/2 -translate-x-1/2 pt-2"
-                style={{ width: '560px' }}
-              >
-                <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-4 grid grid-cols-2 gap-2">
-                  {services.map((service) => {
-                    const IconComp = iconMap[service.icon] || Lightbulb;
-                    return (
-                      <Link
-                        key={service.id}
-                        href={`${prefix}/${loc === 'es' ? 'servicios' : 'services'}/${service.slug[loc]}`}
-                        className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-vertex-lightSubtle transition-all group"
-                      >
-                        <div className="vx-icon-wrap !w-8 !h-8 !mb-0 group-hover:bg-vertex-apexTeal group-hover:text-white transition-colors">
-                          <IconComp className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <span className="text-xs font-bold text-vertex-ink group-hover:text-vertex-apexTeal transition-colors block">
-                            {tServices(`${service.id}.title`)}
-                          </span>
-                        </div>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-          </div>
+            <div className={`${styles.menuGrid} ${styles.menuGridOffer}`}>
+              <MegaMenuItem href={hrefFor(locale, 'ourOffer')} label={t('ourOffer')} description={loc === 'es' ? 'Panorama completo de soluciones y capacidades' : 'A complete overview of solutions and capabilities'} icon={LayoutGrid} onClick={() => setActiveMenu(null)} />
+              {services.map((service) => {
+                const Icon = serviceIconMap[service.icon] || Lightbulb;
+                return (
+                  <MegaMenuItem
+                    key={service.id}
+                    href={hrefFor(locale, 'services', `/${service.slug[locale]}`)}
+                    label={tServices(`${service.id}.title`)}
+                    description={service.capabilities[loc][0]}
+                    icon={Icon}
+                    onClick={() => setActiveMenu(null)}
+                  />
+                );
+              })}
+            </div>
+          </DesktopMenu>
 
-          {/* Trabaja con nosotros dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMouseEnter('trabaja')}
-            onMouseLeave={handleMouseLeave}
+          <DesktopMenu
+            id="careers"
+            label={t('careers')}
+            href={hrefFor(locale, 'careers')}
+            isOpen={activeMenu === 'careers'}
+            isActive={isActive(hrefFor(locale, 'careers'))}
+            className={linkClass(hrefFor(locale, 'careers'))}
+            description={loc === 'es' ? 'Oportunidades para crecer, colaborar y construir soluciones con propósito.' : 'Opportunities to grow, collaborate and build purposeful solutions.'}
+            viewLabel={loc === 'es' ? 'Conocer la experiencia Vertex' : 'Discover the Vertex experience'}
+            onOpen={() => openMenu('careers')}
+            onClose={scheduleClose}
+            onNavigate={() => setActiveMenu(null)}
           >
-            <Link
-              href={`${prefix}/${loc === 'es' ? 'trabaja-con-nosotros' : 'careers'}`}
-              className={`flex items-center gap-1 px-3 py-2 text-[0.9375rem] font-medium rounded-lg transition-all duration-200 ${
-                isScrolled
-                  ? 'text-vertex-ink hover:text-vertex-apexTeal hover:bg-vertex-lightSubtle'
-                  : 'text-white/90 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              {t('careers')}
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${activeMenu === 'trabaja' ? 'rotate-180' : ''}`} />
-            </Link>
-            {activeMenu === 'trabaja' && (
-              <div className="absolute top-full left-0 pt-2 w-52">
-                <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-2 space-y-1">
-                  {trabajaSubitems.map((sub) => (
-                    <Link
-                      key={sub.href}
-                      href={sub.href}
-                      className="block px-3 py-2 text-xs font-semibold text-vertex-ink hover:text-vertex-apexTeal hover:bg-vertex-lightSubtle rounded-lg transition-colors"
-                    >
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+            <div className={`${styles.menuGrid} ${styles.menuGridSingle}`}>
+              {careerItems.map((item) => (
+                <MegaMenuItem key={item.href} {...item} onClick={() => setActiveMenu(null)} />
+              ))}
+            </div>
+          </DesktopMenu>
 
-          {/* Contacto */}
           <Link
-            href={`${prefix}/${loc === 'es' ? 'contacto' : 'contact'}`}
-            className={`px-3 py-2 text-[0.9375rem] font-medium rounded-lg transition-all duration-200 ${
-              isScrolled
-                ? 'text-vertex-ink hover:text-vertex-apexTeal hover:bg-vertex-lightSubtle'
-                : 'text-white/90 hover:text-white hover:bg-white/10'
-            }`}
+            href={hrefFor(locale, 'contact')}
+            className={linkClass(hrefFor(locale, 'contact'))}
+            aria-current={isActive(hrefFor(locale, 'contact')) ? 'page' : undefined}
           >
             {t('contact')}
           </Link>
         </nav>
 
-        {/* Right Actions */}
-        <div className="hidden lg:flex items-center gap-4">
-          <LanguageSwitcher locale={locale} isScrolled={isScrolled} />
-          <Link
-            href={`${prefix}/${loc === 'es' ? 'contacto' : 'contact'}`}
-            className="vx-btn vx-btn-primary !h-11 !px-6 !text-sm"
-          >
+        <div className="hidden items-center gap-3.5 xl:flex">
+          <LanguageSwitcher locale={locale} isScrolled={navTone === 'light'} />
+          <Link href={hrefFor(locale, 'contact')} className="vx-btn vx-btn-primary !h-11 !min-h-11 !px-5 !text-sm">
             {t('letsTalk')}
           </Link>
         </div>
 
-        {/* Mobile Toggle */}
         <button
-          className="lg:hidden relative z-10 min-w-[44px] min-h-[44px] flex items-center justify-center -mr-2 rounded-lg"
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
-          aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
+          type="button"
+          className={`relative z-50 flex min-h-11 min-w-11 items-center justify-center rounded-lg ${
+            navTone === 'light' ? 'text-vertex-ink hover:bg-vertex-lightSubtle' : 'text-white hover:bg-white/10'
+          } xl:hidden`}
+          onClick={() => setIsMobileOpen((value) => !value)}
+          aria-label={
+            isMobileOpen
+              ? locale === 'es' ? 'Cerrar menú' : 'Close menu'
+              : locale === 'es' ? 'Abrir menú' : 'Open menu'
+          }
           aria-expanded={isMobileOpen}
+          aria-controls="mobile-navigation"
         >
-          {isMobileOpen ? (
-            <X className={`w-6 h-6 ${isScrolled ? 'text-vertex-ink' : 'text-white'}`} />
-          ) : (
-            <Menu className={`w-6 h-6 ${isScrolled ? 'text-vertex-ink' : 'text-white'}`} />
-          )}
+          {isMobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
-      {/* Mobile Drawer Navigation */}
       {isMobileOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true">
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setIsMobileOpen(false)} />
-          <nav className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-white shadow-2xl flex flex-col">
-            <div className="flex items-center justify-between p-5 border-b border-gray-100">
-              <Image src="/images/vertex-logo.png" alt="Vertex" width={120} height={36} className="h-[30px] w-auto" />
-              <button onClick={() => setIsMobileOpen(false)} className="min-w-[44px] min-h-[44px] flex items-center justify-center text-vertex-ink">
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto py-4 px-5 space-y-4 text-sm">
-              <Link href={prefix} onClick={() => setIsMobileOpen(false)} className="block font-bold text-vertex-ink py-2">
-                {t('home')}
-              </Link>
-              <div>
-                <Link href={`${prefix}/${loc === 'es' ? 'quienes-somos' : 'about-us'}`} onClick={() => setIsMobileOpen(false)} className="block font-bold text-vertex-apexTeal py-1">
-                  {t('whoWeAre')}
-                </Link>
-                <div className="pl-3 space-y-1 mt-1 border-l-2 border-vertex-apexTeal/20">
-                  {quienesSomosSubitems.map((sub) => (
-                    <Link key={sub.href} href={sub.href} onClick={() => setIsMobileOpen(false)} className="block text-xs text-vertex-facetTeal py-1">
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <Link href={`${prefix}/${loc === 'es' ? 'nuestra-oferta' : 'our-services'}`} onClick={() => setIsMobileOpen(false)} className="block font-bold text-vertex-apexTeal py-1">
-                  {t('ourOffer')}
-                </Link>
-                <div className="pl-3 space-y-1 mt-1 border-l-2 border-vertex-apexTeal/20">
-                  {nuestraOfertaSubitems.map((sub) => (
-                    <Link key={sub.href} href={sub.href} onClick={() => setIsMobileOpen(false)} className="block text-xs text-vertex-facetTeal py-1">
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <Link href={`${prefix}/${loc === 'es' ? 'trabaja-con-nosotros' : 'careers'}`} onClick={() => setIsMobileOpen(false)} className="block font-bold text-vertex-apexTeal py-1">
-                  {t('careers')}
-                </Link>
-                <div className="pl-3 space-y-1 mt-1 border-l-2 border-vertex-apexTeal/20">
-                  {trabajaSubitems.map((sub) => (
-                    <Link key={sub.href} href={sub.href} onClick={() => setIsMobileOpen(false)} className="block text-xs text-vertex-facetTeal py-1">
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-              <Link href={`${prefix}/${loc === 'es' ? 'contacto' : 'contact'}`} onClick={() => setIsMobileOpen(false)} className="block font-bold text-vertex-ink py-2">
-                {t('contact')}
-              </Link>
-            </div>
-
-            <div className="p-5 border-t border-gray-100 space-y-3">
-              <LanguageSwitcher locale={locale} isScrolled={true} isMobile />
-              <Link href={`${prefix}/${loc === 'es' ? 'contacto' : 'contact'}`} onClick={() => setIsMobileOpen(false)} className="vx-btn vx-btn-primary w-full">
+        <div className="fixed inset-0 top-[var(--vx-header-height)] z-40 xl:hidden" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            className="absolute inset-0 h-full w-full bg-vertex-ink/45 backdrop-blur-sm"
+            aria-label={locale === 'es' ? 'Cerrar menú' : 'Close menu'}
+            onClick={() => setIsMobileOpen(false)}
+          />
+          <nav
+            id="mobile-navigation"
+            className="absolute right-0 top-0 flex h-[calc(100dvh-var(--vx-header-height))] w-full max-w-md flex-col overflow-y-auto bg-white px-5 py-5 shadow-2xl"
+            aria-label={locale === 'es' ? 'Navegación móvil' : 'Mobile navigation'}
+          >
+            <Link href={hrefFor(locale, 'home')} onClick={() => setIsMobileOpen(false)} className="mobile-nav-link">
+              {t('home')}
+            </Link>
+            <MobileGroup locale={locale} title={t('whoWeAre')} href={hrefFor(locale, 'whoWeAre')} items={aboutItems} onNavigate={() => setIsMobileOpen(false)} />
+            <MobileGroup
+              locale={locale}
+              title={t('ourOffer')}
+              href={hrefFor(locale, 'ourOffer')}
+              items={[
+                { href: hrefFor(locale, 'ourOffer'), label: t('ourOffer'), icon: LayoutGrid },
+                ...services.map((service) => ({
+                  href: hrefFor(locale, 'services', `/${service.slug[locale]}`),
+                  label: tServices(`${service.id}.title`),
+                  description: service.capabilities[loc][0],
+                  icon: serviceIconMap[service.icon] || Lightbulb,
+                })),
+              ]}
+              onNavigate={() => setIsMobileOpen(false)}
+            />
+            <MobileGroup locale={locale} title={t('careers')} href={hrefFor(locale, 'careers')} items={careerItems} onNavigate={() => setIsMobileOpen(false)} />
+            <Link href={hrefFor(locale, 'contact')} onClick={() => setIsMobileOpen(false)} className="mobile-nav-link">
+              {t('contact')}
+            </Link>
+            <div className="mt-auto border-t border-vertex-ink/10 pt-5">
+              <LanguageSwitcher locale={locale} isScrolled isMobile />
+              <Link href={hrefFor(locale, 'contact')} onClick={() => setIsMobileOpen(false)} className="vx-btn vx-btn-primary mt-4 w-full">
                 {t('letsTalk')}
               </Link>
             </div>
@@ -324,5 +310,146 @@ export function Header({ locale }: HeaderProps) {
         </div>
       )}
     </header>
+  );
+}
+
+function DesktopMenu({
+  id,
+  label,
+  href,
+  isOpen,
+  isActive,
+  className,
+  description,
+  viewLabel,
+  onOpen,
+  onClose,
+  onNavigate,
+  children,
+}: {
+  id: string;
+  label: string;
+  href: string;
+  isOpen: boolean;
+  isActive: boolean;
+  className: string;
+  description: string;
+  viewLabel: string;
+  onOpen: () => void;
+  onClose: () => void;
+  onNavigate: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={styles.menuRoot} onMouseEnter={onOpen} onMouseLeave={onClose}>
+      <Link
+        href={href}
+        className={className}
+        aria-haspopup="true"
+        aria-expanded={isOpen}
+        aria-controls={`${id}-menu`}
+        aria-current={isActive ? 'page' : undefined}
+        onFocus={onOpen}
+      >
+        {label}
+        <ChevronDown
+          className={`ml-1.5 h-3.5 w-3.5 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          aria-hidden="true"
+        />
+      </Link>
+      {isOpen && (
+        <div id={`${id}-menu`} className={styles.menuPopover} onFocus={onOpen}>
+          <div className={`${styles.menuPanel} ${id === 'offer' ? styles.menuPanelWide : styles.menuPanelStandard}`}>
+            <Link href={href} onClick={onNavigate} className={styles.menuHeader}>
+              <div>
+                <span className={styles.menuEyebrow}>{label}</span>
+                <p className={styles.menuDescription}>{description}</p>
+              </div>
+              <span className={styles.menuHeaderIcon} aria-hidden="true">
+                <ArrowUpRight />
+              </span>
+            </Link>
+            {children}
+            <Link href={href} onClick={onNavigate} className={styles.menuFooter}>
+              <span>{viewLabel}</span>
+              <ArrowUpRight aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MegaMenuItem({
+  href,
+  label,
+  description,
+  icon: Icon,
+  onClick,
+}: {
+  href: string;
+  label: string;
+  description?: string;
+  icon: React.ElementType;
+  onClick: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className={styles.menuItem}
+    >
+      <span className={styles.menuItemIcon}>
+        <Icon />
+      </span>
+      <span className={styles.menuItemCopy}>
+        <strong>{label}</strong>
+        {description && <small>{description}</small>}
+      </span>
+      <ArrowUpRight className={styles.menuItemArrow} aria-hidden="true" />
+    </Link>
+  );
+}
+
+function MobileGroup({
+  locale,
+  title,
+  href,
+  items,
+  onNavigate,
+}: {
+  locale: Locale;
+  title: string;
+  href: string;
+  items: Array<{ href: string; label: string; description?: string; icon: React.ElementType }>;
+  onNavigate: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b border-vertex-ink/8 py-2">
+      <div className="flex items-center gap-2">
+        <Link href={href} onClick={onNavigate} className="mobile-nav-link flex-1 !border-0 !py-3">
+          {title}
+        </Link>
+        <button
+          type="button"
+          className="flex h-10 w-10 items-center justify-center rounded-lg text-vertex-apexTeal hover:bg-vertex-lightSubtle"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-label={`${open ? (locale === 'es' ? 'Cerrar' : 'Close') : (locale === 'es' ? 'Abrir' : 'Open')} ${title}`}
+        >
+          <ChevronDown className={`h-5 w-5 transition-transform ${open ? 'rotate-180' : ''}`} />
+        </button>
+      </div>
+      {open && (
+        <div className="grid gap-1 pb-3 pl-2">
+          {items.map((item) => (
+            <MegaMenuItem key={item.href} {...item} onClick={onNavigate} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

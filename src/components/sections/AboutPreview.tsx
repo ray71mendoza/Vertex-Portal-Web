@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
+import { hrefFor, type Locale } from '@/i18n/config';
 
 interface AboutPreviewProps {
   locale: string;
@@ -13,7 +14,10 @@ interface AboutPreviewProps {
 export function AboutPreview({ locale }: AboutPreviewProps) {
   const t = useTranslations('home.about');
   const tCta = useTranslations('common.cta');
-  const prefix = `/${locale}`;
+  const loc = locale as Locale;
+  const secondaryDescription = locale === 'es'
+    ? 'Conectamos consultoría, software e inteligencia artificial para mejorar la operación y acelerar decisiones.'
+    : 'We connect consulting, software, and artificial intelligence to improve operations and accelerate decisions.';
 
   const keyPoints = locale === 'es' ? [
     'Integración real de estrategia, software e IA.',
@@ -26,47 +30,50 @@ export function AboutPreview({ locale }: AboutPreviewProps) {
   ];
 
   return (
-    <section className="vx-section bg-white" aria-label="About Preview">
+    <section className="home-about vx-section relative overflow-hidden bg-white" aria-label="About Preview">
+      <div className="absolute left-0 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-vertex-prismBlue/8 blur-3xl" aria-hidden="true" />
       <div className="vx-container">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="relative grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-20">
           {/* Content Column (First on Mobile) */}
           <div className="lg:col-span-7">
             <AnimatedReveal>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-vertex-apexTeal/10 text-vertex-apexTeal text-xs font-bold uppercase tracking-wider mb-4">
+              <div className="home-eyebrow home-about-eyebrow inline-flex items-center gap-2 rounded-full bg-vertex-apexTeal/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-vertex-apexTeal">
+                <span className="font-mono text-[0.68rem] text-vertex-facetBlue">01</span>
+                <span className="h-3 w-px bg-vertex-apexTeal/25" aria-hidden="true" />
                 {locale === 'es' ? 'Transformación Estratégica' : 'Strategic Transformation'}
               </div>
 
-              <h2 className="text-vertex-ink mb-6">
+              <h2 className="home-section-title home-about-title max-w-[18ch] text-vertex-ink">
                 {t('title')}
               </h2>
 
-              <p className="text-vertex-facetTeal text-lg font-medium leading-relaxed mb-4">
+              <p className="home-about-lead max-w-[62ch]">
                 {t('description')}
               </p>
 
-              <p className="text-vertex-facetBlue text-base leading-relaxed mb-8">
-                {t('description2')}
+              <p className="home-about-support max-w-[60ch]">
+                {secondaryDescription}
               </p>
 
               {/* Key points checklist */}
-              <div className="space-y-3 mb-10">
+              <div className="home-about-checklist grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                 {keyPoints.map((point, idx) => (
-                  <div key={idx} className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-vertex-apexTeal flex-shrink-0" />
-                    <span className="text-vertex-ink font-semibold text-sm md:text-base">
+                  <div key={idx} className="home-check-card flex rounded-2xl border border-vertex-ink/8 bg-vertex-lightBg">
+                    <CheckCircle2 className="home-check-icon flex-shrink-0 text-vertex-apexTeal" />
+                    <span className="home-check-text text-vertex-ink">
                       {point}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-2">
+              <div className="home-about-cta">
                 <Link
-                  href={`${prefix}/${locale === 'es' ? 'nosotros' : 'about'}`}
-                  className="vx-btn vx-btn-secondary"
+                  href={hrefFor(loc, 'whoWeAre')}
+                  className="vx-btn vx-btn-secondary group"
                 >
                   {tCta('ourHistory')}
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             </AnimatedReveal>
@@ -75,24 +82,33 @@ export function AboutPreview({ locale }: AboutPreviewProps) {
           {/* Visual Column (Second on Mobile) */}
           <div className="lg:col-span-5">
             <AnimatedReveal delay={2}>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-gray-100 bg-vertex-darkBg shadow-xl flex items-center justify-center p-8">
+              <div className="home-about-visual relative aspect-[5/4] overflow-hidden rounded-[30px] border border-vertex-ink/8 bg-vertex-darkBg p-8 shadow-2xl shadow-vertex-ink/15">
                 <div
-                  className="absolute inset-0 opacity-20 bg-cover bg-center"
+                  className="absolute inset-0 bg-cover bg-center opacity-35"
                   style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
                   aria-hidden="true"
                 />
-                <div className="relative z-10 text-center">
+                <div className="absolute inset-5 rounded-[22px] border border-white/10" aria-hidden="true" />
+                <span className="absolute left-8 top-8 z-10 text-xs font-bold uppercase tracking-[0.16em] text-vertex-prismBlue">
+                  {locale === 'es' ? 'Visión integral' : 'Integrated vision'}
+                </span>
+                <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
                   <Image
                     src="/images/vertex-symbol.png"
                     alt="Vertex Symbol"
                     width={180}
                     height={180}
-                    className="w-32 h-auto mx-auto mb-4 drop-shadow-lg"
+                    className="mx-auto mb-5 h-auto w-28 drop-shadow-[0_14px_28px_rgba(0,0,0,0.35)] sm:w-32"
                   />
-                  <span className="text-white font-bold text-xl tracking-tight block">VERTEX</span>
-                  <span className="text-vertex-prismBlue text-xs uppercase tracking-widest block mt-1">
+                  <span className="block text-2xl font-bold tracking-[-0.02em] text-white">VERTEX</span>
+                  <span className="mt-2 block text-xs font-semibold uppercase tracking-[0.16em] text-vertex-prismBlue">
                     {locale === 'es' ? 'Consultoría e Innovación' : 'Innovation & Consulting'}
                   </span>
+                </div>
+                <div className="absolute inset-x-8 bottom-8 z-10 flex items-center justify-between border-t border-white/10 pt-4 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-white/60">
+                  <span>{locale === 'es' ? 'Estrategia' : 'Strategy'}</span>
+                  <span className="text-vertex-prismBlue">×</span>
+                  <span>{locale === 'es' ? 'Tecnología' : 'Technology'}</span>
                 </div>
               </div>
             </AnimatedReveal>

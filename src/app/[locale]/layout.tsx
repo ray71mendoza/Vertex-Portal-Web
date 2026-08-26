@@ -1,4 +1,3 @@
-import { Montserrat } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -7,13 +6,6 @@ import { Header } from '@/components/navigation/Header';
 import { Footer } from '@/components/navigation/Footer';
 import '../globals.css';
 
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-  variable: '--font-montserrat',
-});
-
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
@@ -21,14 +13,17 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const isEs = locale === 'es';
+  const title = isEs
+    ? 'Vertex - Tecnología estratégica para transformar ideas en resultados'
+    : 'Vertex - Strategic technology to transform ideas into results';
+  const description = isEs
+    ? 'Innovación, transformación digital, desarrollo de software, diseño estratégico y comunicación. Soluciones tecnológicas integrales para organizaciones públicas y privadas.'
+    : 'Innovation, digital transformation, software development, strategic design and communication. Comprehensive technology solutions for public and private organizations.';
 
   return {
-    title: isEs
-      ? 'Vertex — Tecnología estratégica para transformar ideas en resultados'
-      : 'Vertex — Strategic technology to transform ideas into results',
-    description: isEs
-      ? 'Innovación, transformación digital, desarrollo de software, diseño estratégico y comunicación. Soluciones tecnológicas integrales para organizaciones públicas y privadas.'
-      : 'Innovation, digital transformation, software development, strategic design and communication. Comprehensive technology solutions for public and private organizations.',
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vertex.com.co'),
+    title,
+    description,
     alternates: {
       canonical: `/${locale}`,
       languages: {
@@ -37,14 +32,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       },
     },
     openGraph: {
-      title: isEs
-        ? 'Vertex — Tecnología estratégica para transformar ideas en resultados'
-        : 'Vertex — Strategic technology to transform ideas into results',
-      description: isEs
-        ? 'Soluciones tecnológicas integrales para organizaciones públicas y privadas.'
-        : 'Comprehensive technology solutions for public and private organizations.',
-      locale: locale,
+      title,
+      description,
+      locale,
       type: 'website',
+      images: ['/images/vertex-wallpaper-dark.png'],
     },
   };
 }
@@ -66,22 +58,20 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={montserrat.variable}>
+    <html lang={locale}>
       <head>
         <link rel="icon" href="/images/vertex-symbol.png" type="image/png" />
         <link rel="alternate" hrefLang="es" href="/es" />
         <link rel="alternate" hrefLang="en" href="/en" />
         <link rel="alternate" hrefLang="x-default" href="/es" />
       </head>
-      <body className={montserrat.className}>
+      <body>
         <NextIntlClientProvider messages={messages}>
           <a href="#main-content" className="skip-to-content">
             {locale === 'es' ? 'Ir al contenido principal' : 'Skip to main content'}
           </a>
           <Header locale={locale as Locale} />
-          <main id="main-content">
-            {children}
-          </main>
+          <main id="main-content">{children}</main>
           <Footer locale={locale as Locale} />
         </NextIntlClientProvider>
       </body>

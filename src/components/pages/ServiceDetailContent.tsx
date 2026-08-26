@@ -3,124 +3,126 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, CheckCircle2, ShieldAlert, Sparkles, Building2, Lightbulb, Code2, Palette, Megaphone, Video, LayoutGrid } from 'lucide-react';
+import {
+  ArrowRight,
+  Building2,
+  CheckCircle2,
+  ChevronRight,
+  Code2,
+  LayoutGrid,
+  Lightbulb,
+  Megaphone,
+  Palette,
+  ShieldAlert,
+  Sparkles,
+  Video,
+} from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
-import { SectionHeading } from '@/components/ui/SectionHeading';
-import { getServiceBySlug, ServiceData } from '@/content/services';
+import { getServiceBySlug, type ServiceData } from '@/content/services';
+import { hrefFor, type Locale } from '@/i18n/config';
+import styles from './ServiceDetailContent.module.css';
 
 const iconMap: Record<string, React.ElementType> = {
-  Lightbulb, Code2, Palette, Megaphone, Video, Building2, LayoutGrid,
+  Lightbulb,
+  Code2,
+  Palette,
+  Megaphone,
+  Video,
+  Building2,
+  LayoutGrid,
 };
 
 export function ServiceDetailContent({ slug, locale }: { slug: string; locale: string }) {
-  const service: ServiceData | undefined = getServiceBySlug(slug, locale as 'es' | 'en');
+  const loc = locale as Locale;
+  const service: ServiceData | undefined = getServiceBySlug(slug, loc);
 
-  if (!service) {
-    notFound();
-  }
+  if (!service) notFound();
 
   const t = useTranslations('services');
   const tServices = useTranslations('services.items');
   const tCommon = useTranslations('common');
-  const prefix = `/${locale}`;
-
   const IconComp = iconMap[service.icon] || Lightbulb;
-  const capabilities = service.capabilities[locale as 'es' | 'en'] || [];
-  const problems = service.problems[locale as 'es' | 'en'] || [];
-  const benefits = service.benefits[locale as 'es' | 'en'] || [];
-  const targetAudience = service.targetAudience[locale as 'es' | 'en'] || [];
+  const capabilities = service.capabilities[loc] || [];
+  const problems = service.problems[loc] || [];
+  const benefits = service.benefits[loc] || [];
+  const targetAudience = service.targetAudience[loc] || [];
+  const contactHref = `${hrefFor(loc, 'contact')}?service=${service.id}`;
 
   return (
-    <div className="pt-24 pb-16">
-      {/* Breadcrumb & Service Hero */}
-      <section className="vx-section vx-bg-subtle relative overflow-hidden">
-        <div className="vx-container">
+    <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
+      <section className={styles.hero} aria-labelledby="service-title">
+        <div className={`${styles.heroContainer} vx-container`}>
           <AnimatedReveal>
-            <div className="flex items-center gap-2 text-sm font-medium text-vertex-facetBlue mb-8">
-              <Link href={prefix} className="hover:text-vertex-apexTeal">{tCommon('breadcrumb.home')}</Link>
-              <span>/</span>
-              <Link href={`${prefix}/${locale === 'es' ? 'servicios' : 'services'}`} className="hover:text-vertex-apexTeal">
-                {tCommon('nav.services')}
-              </Link>
-              <span>/</span>
-              <span className="text-vertex-ink font-semibold">{tServices(`${service.id}.title`)}</span>
-            </div>
+            <nav className={styles.breadcrumb} aria-label={loc === 'es' ? 'Miga de pan' : 'Breadcrumb'}>
+              <Link href={hrefFor(loc, 'home')}>{tCommon('breadcrumb.home')}</Link>
+              <ChevronRight aria-hidden="true" />
+              <Link href={hrefFor(loc, 'services')}>{tCommon('nav.services')}</Link>
+              <ChevronRight aria-hidden="true" />
+              <span aria-current="page">{tServices(`${service.id}.title`)}</span>
+            </nav>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-8">
-                <div className="vx-icon-wrap w-16 h-16 !mb-6 bg-vertex-apexTeal text-white shadow-md">
-                  <IconComp className="w-8 h-8" />
+            <div className={styles.heroGrid}>
+              <div className={styles.heroContent}>
+                <div className={styles.serviceLead}>
+                  <div className={styles.serviceIcon}>
+                    <IconComp aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h1 id="service-title">{tServices(`${service.id}.title`)}</h1>
+                    <p className={styles.tagline}>{tServices(`${service.id}.tagline`)}</p>
+                    <p className={styles.description}>{tServices(`${service.id}.description`)}</p>
+                  </div>
                 </div>
-                <h1 className="vx-h1-internal text-vertex-ink mb-4 font-bold">
-                  {tServices(`${service.id}.title`)}
-                </h1>
-                <p className="text-vertex-apexTeal text-xl md:text-2xl font-semibold mb-6">
-                  {tServices(`${service.id}.tagline`)}
-                </p>
-                <p className="text-vertex-facetTeal text-lg leading-relaxed max-w-3xl">
-                  {tServices(`${service.id}.description`)}
-                </p>
               </div>
 
-              <div className="lg:col-span-4 flex justify-start lg:justify-end">
-                <Link
-                  href={`${prefix}/${locale === 'es' ? 'contacto' : 'contact'}?service=${service.id}`}
-                  className="vx-btn vx-btn-primary !px-8 !py-4"
-                >
+              <aside className={styles.heroCta}>
+                <span>{loc === 'es' ? 'Soluciones a la medida' : 'Tailored solutions'}</span>
+                <h2>{loc === 'es' ? 'Convirtamos tu reto en una solución concreta.' : 'Let’s turn your challenge into a concrete solution.'}</h2>
+                <Link href={contactHref} className="vx-btn vx-btn-primary">
                   {tCommon('cta.contactUs')}
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight aria-hidden="true" />
                 </Link>
-              </div>
+              </aside>
             </div>
           </AnimatedReveal>
         </div>
       </section>
 
-      {/* Capabilities Section */}
-      <section className="vx-section bg-white">
+      <section className={`${styles.section} ${styles.capabilitiesSection}`} aria-labelledby="capabilities-title">
         <div className="vx-container">
-          <SectionHeading
-            eyebrow={locale === 'es' ? 'Alcance Técnico' : 'Technical Scope'}
+          <SectionIntro
+            eyebrow={loc === 'es' ? 'Alcance técnico' : 'Technical scope'}
             title={t('detail.capabilities')}
-            align="left"
+            id="capabilities-title"
           />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {capabilities.map((cap, idx) => (
-              <AnimatedReveal key={idx} delay={Math.min(idx + 1, 4)}>
-                <div className="vx-card p-6 flex items-start gap-4 h-full border border-gray-200/80 bg-vertex-lightBg">
-                  <div className="vx-icon-wrap !w-10 !h-10 !mb-0 bg-vertex-apexTeal/10 text-vertex-apexTeal flex-shrink-0 mt-0.5">
-                    <CheckCircle2 className="w-5 h-5" />
-                  </div>
-                  <span className="text-vertex-ink font-semibold text-base leading-relaxed">
-                    {cap}
-                  </span>
-                </div>
+          <div className={styles.capabilitiesGrid}>
+            {capabilities.map((capability, index) => (
+              <AnimatedReveal key={capability} delay={Math.min(index + 1, 4)} className={styles.revealCard}>
+                <article className={styles.capabilityCard}>
+                  <CheckCircle2 aria-hidden="true" />
+                  <span>{capability}</span>
+                </article>
               </AnimatedReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Challenges We Address (Formerly "Problems it solves") */}
       {problems.length > 0 && (
-        <section className="vx-section vx-bg-subtle">
+        <section className={`${styles.section} ${styles.challengesSection}`} aria-labelledby="challenges-title">
           <div className="vx-container">
-            <SectionHeading
-              eyebrow={locale === 'es' ? 'Desafíos Clave' : 'Key Challenges'}
-              title={locale === 'es' ? 'Desafíos que abordamos' : 'Challenges we address'}
-              align="left"
+            <SectionIntro
+              eyebrow={loc === 'es' ? 'Desafíos clave' : 'Key challenges'}
+              title={loc === 'es' ? 'Desafíos que abordamos' : 'Challenges we address'}
+              id="challenges-title"
             />
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {problems.map((prob, idx) => (
-                <AnimatedReveal key={idx} delay={Math.min(idx + 1, 4)}>
-                  <div className="p-6 rounded-2xl bg-white border border-gray-200/80 shadow-sm flex items-start gap-4">
-                    <ShieldAlert className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
-                    <span className="text-vertex-facetTeal text-base font-medium leading-relaxed">
-                      {prob}
-                    </span>
-                  </div>
+            <div className={styles.challengesGrid}>
+              {problems.map((problem, index) => (
+                <AnimatedReveal key={problem} delay={Math.min(index + 1, 4)} className={styles.revealCard}>
+                  <article className={styles.challengeCard}>
+                    <ShieldAlert aria-hidden="true" />
+                    <span>{problem}</span>
+                  </article>
                 </AnimatedReveal>
               ))}
             </div>
@@ -128,72 +130,89 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
         </section>
       )}
 
-      {/* Benefits & Organizations We Help */}
-      <section className="vx-section bg-white">
+      <section className={`${styles.section} ${styles.outcomesSection}`} aria-label={loc === 'es' ? 'Resultados y público objetivo' : 'Outcomes and target audience'}>
         <div className="vx-container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Benefits */}
-            <AnimatedReveal>
-              <div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-vertex-apexTeal/10 text-vertex-apexTeal text-xs font-bold uppercase tracking-wider mb-4">
-                  {locale === 'es' ? 'Resultados Esperados' : 'Expected Outcomes'}
-                </div>
-                <h2 className="text-vertex-ink mb-8">{t('detail.benefits')}</h2>
-                <div className="space-y-4">
-                  {benefits.map((ben, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5 p-5 rounded-2xl bg-vertex-lightSubtle border border-gray-100">
-                      <Sparkles className="w-5 h-5 text-vertex-apexTeal flex-shrink-0 mt-0.5" />
-                      <span className="text-vertex-ink font-semibold text-base">{ben}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+          <div className={styles.outcomesGrid}>
+            <AnimatedReveal className={styles.revealCard}>
+              <OutcomePanel
+                eyebrow={loc === 'es' ? 'Resultados esperados' : 'Expected outcomes'}
+                title={t('detail.benefits')}
+                items={benefits}
+                icon={Sparkles}
+              />
             </AnimatedReveal>
-
-            {/* Organizations We Help */}
-            <AnimatedReveal delay={2}>
-              <div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-vertex-apexTeal/10 text-vertex-apexTeal text-xs font-bold uppercase tracking-wider mb-4">
-                  {locale === 'es' ? 'Público Objetivo' : 'Target Audience'}
-                </div>
-                <h2 className="text-vertex-ink mb-8">
-                  {locale === 'es' ? 'Organizaciones a las que acompañamos' : 'Organizations we help'}
-                </h2>
-                <div className="space-y-4">
-                  {targetAudience.map((target, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5 p-5 rounded-2xl bg-white border border-gray-200/80 shadow-sm">
-                      <Building2 className="w-5 h-5 text-vertex-apexTeal flex-shrink-0 mt-0.5" />
-                      <span className="text-vertex-ink font-semibold text-base">{target}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <AnimatedReveal delay={2} className={styles.revealCard}>
+              <OutcomePanel
+                eyebrow={loc === 'es' ? 'Público objetivo' : 'Target audience'}
+                title={loc === 'es' ? 'Organizaciones a las que acompañamos' : 'Organizations we help'}
+                items={targetAudience}
+                icon={Building2}
+              />
             </AnimatedReveal>
           </div>
         </div>
       </section>
 
-      {/* Service Specific Closing CTA */}
-      <section className="vx-section vx-bg-teal text-white text-center relative overflow-hidden">
+      <section className={styles.closingCta} aria-labelledby="service-cta-title">
         <div
-          className="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none"
+          className={styles.closingWallpaper}
           style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
           aria-hidden="true"
         />
-        <div className="relative z-10 vx-container max-w-3xl">
+        <div className="vx-container relative z-10">
           <AnimatedReveal>
-            <h2 className="text-white text-3xl md:text-4xl font-bold mb-4">{t('detail.needThis')}</h2>
-            <p className="text-vertex-facetIce text-lg mb-8">{t('detail.talkAbout')}</p>
-            <Link
-              href={`${prefix}/${locale === 'es' ? 'contacto' : 'contact'}?service=${service.id}`}
-              className="vx-btn vx-btn-light !px-8 !py-4"
-            >
-              {tCommon('cta.contactUs')}
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+            <div className={styles.closingContent}>
+              <span>{loc === 'es' ? 'Hablemos de tu reto' : 'Let’s discuss your challenge'}</span>
+              <h2 id="service-cta-title">{t('detail.needThis')}</h2>
+              <p>{t('detail.talkAbout')}</p>
+              <Link href={contactHref} className="vx-btn vx-btn-light">
+                {tCommon('cta.contactUs')}
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </div>
           </AnimatedReveal>
         </div>
       </section>
     </div>
+  );
+}
+
+function SectionIntro({ eyebrow, title, id }: { eyebrow: string; title: string; id: string }) {
+  return (
+    <AnimatedReveal>
+      <header className={styles.sectionIntro}>
+        <span>{eyebrow}</span>
+        <h2 id={id}>{title}</h2>
+      </header>
+    </AnimatedReveal>
+  );
+}
+
+function OutcomePanel({
+  eyebrow,
+  title,
+  items,
+  icon: Icon,
+}: {
+  eyebrow: string;
+  title: string;
+  items: string[];
+  icon: React.ElementType;
+}) {
+  return (
+    <article className={styles.outcomePanel}>
+      <header className={styles.outcomeHeader}>
+        <span>{eyebrow}</span>
+        <h2>{title}</h2>
+      </header>
+      <div className={styles.outcomeList}>
+        {items.map((item) => (
+          <div key={item} className={styles.outcomeItem}>
+            <Icon aria-hidden="true" />
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+    </article>
   );
 }

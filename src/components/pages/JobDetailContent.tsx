@@ -7,8 +7,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
-  MapPin, Briefcase, Clock, Calendar, CheckCircle2, AlertCircle, Loader2, Send,
-  Share2, ArrowLeft, Info, FileText
+  MapPin, Briefcase, Clock, Calendar, CheckCircle2, Loader2, Send,
+  Share2, ArrowLeft, Info
 } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import {
@@ -33,7 +33,6 @@ type ApplicationFormData = z.infer<ReturnType<typeof createApplicationSchema>>;
 
 export function JobDetailContent({ job, locale }: { job: JobOpening; locale: string }) {
   const t = useTranslations('jobs');
-  const tCommon = useTranslations('common');
   const prefix = `/${locale}`;
   const loc = locale as 'es' | 'en';
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
@@ -56,11 +55,25 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
 
   const onSubmit = async (data: ApplicationFormData) => {
     setStatus('submitting');
-    // Simulated submission as detailed in the implementation plan
-    setTimeout(() => {
-      setStatus('success');
-      reset();
-    }, 1200);
+    const subject = encodeURIComponent(`${loc === 'es' ? 'Postulación' : 'Application'} - ${job.title[loc]}`);
+    const body = encodeURIComponent(
+      [
+        `${loc === 'es' ? 'Vacante' : 'Position'}: ${job.title[loc]}`,
+        `${loc === 'es' ? 'Nombre' : 'Name'}: ${data.name}`,
+        `${loc === 'es' ? 'Correo' : 'Email'}: ${data.email}`,
+        `${loc === 'es' ? 'Teléfono' : 'Phone'}: ${data.phone}`,
+        `${loc === 'es' ? 'País' : 'Country'}: ${data.country}`,
+        `${loc === 'es' ? 'Ciudad' : 'City'}: ${data.city}`,
+        `LinkedIn: ${data.linkedin || '-'}`,
+        `${loc === 'es' ? 'Portafolio' : 'Portfolio'}: ${data.portfolio || '-'}`,
+        '',
+        data.message || '',
+      ].join('\n')
+    );
+
+    window.open(`mailto:gerenciavertexsas@gmail.com?subject=${subject}&body=${body}`, '_self');
+    setStatus('success');
+    reset();
   };
 
   const handleShare = () => {
@@ -77,7 +90,7 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
   };
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-[var(--vx-header-height)]">
       {/* Back button & Breadcrumb */}
       <section className="py-6 border-b border-gray-100 bg-white">
         <div className="vx-container flex items-center justify-between">

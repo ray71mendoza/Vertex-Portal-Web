@@ -23,10 +23,10 @@ export function ValueProposition({ locale }: ValuePropositionProps) {
   const t = useTranslations('home.value');
 
   return (
-    <section className="vx-section vx-bg-dark relative overflow-hidden" aria-label="Value Proposition">
+    <section className="home-value vx-section vx-bg-dark relative overflow-hidden" aria-label="Value Proposition">
       {/* Background Wallpaper */}
       <div
-        className="absolute inset-0 opacity-15 bg-cover bg-center pointer-events-none"
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-20"
         style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
         aria-hidden="true"
       />
@@ -37,25 +37,30 @@ export function ValueProposition({ locale }: ValuePropositionProps) {
           eyebrow={locale === 'es' ? 'Diferenciadores' : 'Differentiators'}
           title={t('title')}
           subtitle={`"${t('statement')}"`}
-          align="center"
+          align="left"
           theme="dark"
+          className="home-value-heading max-w-4xl"
         />
 
         {/* Value Proposition Minimal Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
           {valueItems.map((item, index) => {
             const IconComponent = item.icon;
+            const spanClass = index === 0 ? 'lg:col-span-6' : 'lg:col-span-3';
             return (
-              <AnimatedReveal key={item.key} delay={Math.min(index + 1, 5)}>
-                <div className="vx-card vx-card-dark h-full flex flex-col justify-between !p-7 border border-white/10 hover:border-vertex-prismBlue/40 transition-all duration-300">
+              <AnimatedReveal key={item.key} delay={Math.min(index + 1, 5)} className={`${spanClass} h-full`}>
+                <div className={`home-value-card vx-card vx-card-dark relative flex h-full min-h-[200px] flex-col justify-between overflow-hidden !p-5 transition-all duration-300 border border-white/10 hover:border-vertex-prismBlue/40 sm:!p-7 ${index === 0 ? 'home-value-card-featured' : ''}`}>
+                  <span className="absolute right-5 top-4 font-mono text-xs font-bold tracking-[0.15em] text-white/25">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
                   <div>
-                    <div className="vx-icon-wrap !w-11 !h-11 !mb-5 bg-vertex-prismBlue/15 text-vertex-prismBlue">
+                    <div className="vx-icon-wrap !mb-4 !h-11 !w-11 bg-vertex-prismBlue/15 text-vertex-prismBlue sm:!mb-5">
                       <IconComponent className="w-5 h-5" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-3 leading-snug">
+                    <h3 className="mb-3 text-base font-semibold leading-snug text-white">
                       {t(`items.${item.key}.title`)}
                     </h3>
-                    <p className="text-sm text-vertex-facetIce/80 leading-relaxed">
+                    <p className="max-w-[46ch] text-[0.8125rem] leading-relaxed text-vertex-facetIce/80 sm:text-sm">
                       {t(`items.${item.key}.description`)}
                     </p>
                   </div>

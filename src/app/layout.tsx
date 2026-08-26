@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Vertex",
-  description: "Tecnología estratégica para transformar ideas en resultados.",
+  title: 'Vertex',
+  description: 'Tecnología estratégica para transformar ideas en resultados.',
 };
 
 export default function RootLayout({

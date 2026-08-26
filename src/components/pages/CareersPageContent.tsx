@@ -3,18 +3,16 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import {
-  ArrowRight, Code2, BarChart3, Lightbulb, Palette, FolderKanban,
-  TrendingUp, Megaphone, Heart, Send, FileSearch, MessageCircle,
-  ClipboardCheck, CheckCircle2, Rocket, Zap, BookOpen, Users, Globe, Clock, GraduationCap
+  ArrowRight, Lightbulb, TrendingUp, Send, FileSearch, MessageCircle,
+  ClipboardCheck, CheckCircle2, Rocket, Zap, BookOpen, Users, Globe
 } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { talentAreas, recruitmentSteps, workAttributes, workEnvironmentValues, employeeBenefits } from '@/content/careers';
-import { jobOpenings, getJobCountByArea } from '@/content/jobs';
-
-const areaIconMap: Record<string, React.ElementType> = {
-  Code2, BarChart3, Lightbulb, Palette, FolderKanban, TrendingUp, Megaphone, Heart
-};
+import { ShowcaseCarousel } from '@/components/ui/ShowcaseCarousel';
+import { recruitmentSteps, workAttributes, workEnvironmentValues } from '@/content/careers';
+import { showcaseItems } from '@/content/showcase';
+import { hrefFor, type Locale } from '@/i18n/config';
+import styles from './CareersPageContent.module.css';
 
 const stepIconMap: Record<string, React.ElementType> = {
   Send, FileSearch, MessageCircle, ClipboardCheck, CheckCircle2, Rocket
@@ -24,18 +22,13 @@ const attrIconMap: Record<string, React.ElementType> = {
   Zap, BookOpen, Users, TrendingUp, Lightbulb, Globe
 };
 
-const benefitIconMap: Record<string, React.ElementType> = {
-  Clock, GraduationCap, Rocket, Heart
-};
-
 export function CareersPageContent({ locale }: { locale: string }) {
   const t = useTranslations('careers');
   const tCommon = useTranslations('common');
-  const prefix = `/${locale}`;
-  const loc = locale as 'es' | 'en';
+  const loc = locale as Locale;
 
   return (
-    <div className="pt-24 pb-16">
+    <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
       {/* ═════ HERO ═════ */}
       <section className="vx-section vx-bg-dark text-white relative overflow-hidden" aria-label="Hero">
         <div
@@ -44,8 +37,8 @@ export function CareersPageContent({ locale }: { locale: string }) {
           aria-hidden="true"
         />
         <div className="relative z-10 vx-container">
-          <AnimatedReveal>
-            <div className="max-w-3xl">
+          <div className="grid items-center gap-10 lg:grid-cols-12">
+            <AnimatedReveal className="lg:col-span-5">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 mb-8 backdrop-blur-md">
                 <span className="text-vertex-prismBlue text-xs font-bold uppercase tracking-wider">
                   {tCommon('nav.careers')}
@@ -58,36 +51,43 @@ export function CareersPageContent({ locale }: { locale: string }) {
                 {t('hero.subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <Link href={`${prefix}/${loc === 'es' ? 'empleos' : 'jobs'}`} className="vx-btn vx-btn-light">
+                <Link href={hrefFor(loc, 'jobs')} className="vx-btn vx-btn-light">
                   {tCommon('cta.viewOpportunities')}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
-            </div>
-          </AnimatedReveal>
+            </AnimatedReveal>
+            <AnimatedReveal delay={2} className="lg:col-span-7">
+              <ShowcaseCarousel items={showcaseItems.slice().reverse()} locale={loc} compact />
+            </AnimatedReveal>
+          </div>
         </div>
       </section>
 
       {/* ═════ POR QUÉ TRABAJAR EN VERTEX ═════ */}
-      <section className="vx-section" aria-label="Why work at Vertex">
+      <section className={styles.whySection} aria-label="Why work at Vertex">
         <div className="vx-container">
           <SectionHeading
             eyebrow={t('whyWork.eyebrow')}
             title={t('whyWork.title')}
-            align="center"
+            align="left"
+            className={styles.whyHeading}
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className={styles.featureGrid}>
             {workAttributes.map((attr, idx) => {
               const IconComp = attrIconMap[attr.icon] || Lightbulb;
               return (
-                <AnimatedReveal key={attr.id} delay={Math.min(idx + 1, 3)}>
-                  <div className="vx-card h-full">
-                    <div className="vx-icon-wrap mb-4">
-                      <IconComp className="w-5 h-5 text-vertex-apexTeal" />
+                <AnimatedReveal key={attr.id} delay={Math.min(idx + 1, 3)} className={styles.cardReveal}>
+                  <article className={styles.featureCard}>
+                    <div className={styles.featureTopline}>
+                      <div className={styles.featureIcon}>
+                        <IconComp aria-hidden="true" />
+                      </div>
+                      <span className={styles.featureNumber}>{String(idx + 1).padStart(2, '0')}</span>
                     </div>
-                    <h3 className="text-lg font-bold text-vertex-ink mb-2">{attr.title[loc]}</h3>
-                    <p className="text-sm text-vertex-facetBlue leading-relaxed">{attr.description[loc]}</p>
-                  </div>
+                    <h3 className={styles.featureTitle}>{attr.title[loc]}</h3>
+                    <p className={styles.featureDescription}>{attr.description[loc]}</p>
+                  </article>
                 </AnimatedReveal>
               );
             })}
@@ -96,112 +96,82 @@ export function CareersPageContent({ locale }: { locale: string }) {
       </section>
 
       {/* ═════ AMBIENTE DE TRABAJO ═════ */}
-      <section className="vx-section vx-bg-subtle" aria-label="Work Environment">
+      <section id="ambiente-trabajo" className={styles.environmentSection} aria-label="Work Environment">
         <div className="vx-container">
           <SectionHeading
             eyebrow={t('environment.eyebrow')}
             title={t('environment.title')}
             subtitle={t('environment.description')}
-            align="center"
+            align="left"
+            className={styles.environmentHeading}
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className={styles.featureGrid}>
             {workEnvironmentValues.map((val, idx) => (
-              <AnimatedReveal key={val.id} delay={Math.min(idx + 1, 3)}>
-                <div className="vx-card bg-white h-full p-6">
-                  <h3 className="text-base font-bold text-vertex-ink mb-2">{val.title[loc]}</h3>
-                  <p className="text-sm text-vertex-facetBlue leading-relaxed">{val.description[loc]}</p>
-                </div>
+              <AnimatedReveal key={val.id} delay={Math.min(idx + 1, 3)} className={styles.cardReveal}>
+                <article className={`${styles.featureCard} ${styles.environmentCard}`}>
+                  <div className={styles.featureTopline}>
+                    <div className={`${styles.featureIcon} ${styles.environmentIcon}`}>
+                      <CheckCircle2 aria-hidden="true" />
+                    </div>
+                    <span className={styles.featureNumber}>{String(idx + 1).padStart(2, '0')}</span>
+                  </div>
+                  <h3 className={styles.featureTitle}>{val.title[loc]}</h3>
+                  <p className={styles.featureDescription}>{val.description[loc]}</p>
+                </article>
               </AnimatedReveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═════ ÁREAS DE INTERÉS ═════ */}
-      <section className="vx-section" aria-label="Talent Areas">
-        <div className="vx-container">
-          <SectionHeading
-            eyebrow={t('areas.eyebrow')}
-            title={t('areas.title')}
-            align="center"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {talentAreas.map((area, idx) => {
-              const IconComp = areaIconMap[area.icon] || Lightbulb;
-              const count = getJobCountByArea(area.id);
-              return (
-                <AnimatedReveal key={area.id} delay={Math.min(idx + 1, 4)}>
-                  <div className="vx-card h-full flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <div className="vx-icon-wrap !mb-0">
-                          <IconComp className="w-5 h-5 text-vertex-apexTeal" />
-                        </div>
-                        {count > 0 && (
-                          <span className="text-xs px-2.5 py-1 bg-vertex-apexTeal/10 text-vertex-apexTeal rounded-full font-semibold">
-                            {count} {t('areas.vacancies')}
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-base font-bold text-vertex-ink mb-2">{area.title[loc]}</h3>
-                      <p className="text-xs text-vertex-facetBlue leading-relaxed mb-4">{area.description[loc]}</p>
-                    </div>
-                    <Link
-                      href={`${prefix}/${loc === 'es' ? 'empleos' : 'jobs'}?area=${area.id}`}
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-vertex-apexTeal hover:text-vertex-ink transition-colors mt-auto pt-2"
-                    >
-                      {t('areas.viewJobs')}
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </AnimatedReveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* ═════ PROCESO DE RECLUTAMIENTO ═════ */}
-      <section className="vx-section vx-bg-subtle" aria-label="Recruitment Process">
+      <section id="proceso-reclutamiento" className={styles.recruitmentSection} aria-label="Recruitment Process">
         <div className="vx-container">
           <SectionHeading
             eyebrow={t('recruitment.eyebrow')}
             title={t('recruitment.title')}
-            align="center"
+            align="left"
+            className={styles.recruitmentHeading}
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className={styles.recruitmentGrid}>
             {recruitmentSteps.map((step, idx) => {
               const IconComp = stepIconMap[step.icon] || CheckCircle2;
               return (
-                <AnimatedReveal key={step.id} delay={Math.min(idx + 1, 3)}>
-                  <div className="vx-card bg-white h-full p-6 relative">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="vx-icon-wrap !mb-0 bg-vertex-apexTeal text-white">
-                        <IconComp className="w-4 h-4" />
+                <AnimatedReveal key={step.id} delay={Math.min(idx + 1, 3)} className={styles.cardReveal}>
+                  <article className={styles.recruitmentCard}>
+                    <div className={styles.stepTopline}>
+                      <div className={styles.stepIcon}>
+                        <IconComp aria-hidden="true" />
                       </div>
-                      <span className="text-3xl font-bold text-vertex-apexTeal/20 font-mono">{step.number}</span>
+                      <span className={styles.stepNumber}>{step.number}</span>
                     </div>
-                    <h3 className="text-base font-bold text-vertex-ink mb-2">{step.title[loc]}</h3>
-                    <p className="text-xs text-vertex-facetBlue leading-relaxed">{step.description[loc]}</p>
-                  </div>
+                    <h3 className={styles.stepTitle}>{step.title[loc]}</h3>
+                    <p className={styles.stepDescription}>{step.description[loc]}</p>
+                  </article>
                 </AnimatedReveal>
               );
             })}
           </div>
-          <p className="text-center text-xs text-vertex-facetBlue mt-6 italic">{t('recruitment.disclaimer')}</p>
+          <p className={styles.recruitmentDisclaimer}>{t('recruitment.disclaimer')}</p>
         </div>
       </section>
 
       {/* ═════ BANCO DE TALENTOS / CTA ═════ */}
-      <section className="vx-section vx-bg-teal text-white text-center relative overflow-hidden" aria-label="Talent Pool">
-        <div className="relative z-10 vx-container max-w-3xl mx-auto">
+      <section className={styles.talentCta} aria-label="Talent Pool">
+        <div className={styles.talentCtaWallpaper} aria-hidden="true" />
+        <div className="relative z-10 vx-container">
           <AnimatedReveal>
-            <h2 className="text-white text-3xl font-bold mb-4">{t('talentPool.title')}</h2>
-            <p className="text-vertex-facetIce text-lg mb-8">{t('talentPool.description')}</p>
-            <Link href={`${prefix}/${loc === 'es' ? 'empleos' : 'jobs'}`} className="vx-btn vx-btn-light">
-              {tCommon('cta.viewOpportunities')}
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            <div className={styles.talentCtaContent}>
+              <div>
+                <span>{loc === 'es' ? 'Mantengamos el contacto' : 'Let’s stay connected'}</span>
+                <h2>{t('talentPool.title')}</h2>
+                <p>{t('talentPool.description')}</p>
+              </div>
+              <Link href={hrefFor(loc, 'jobs')} className="vx-btn vx-btn-light">
+                {tCommon('cta.viewOpportunities')}
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </div>
           </AnimatedReveal>
         </div>
       </section>

@@ -4,43 +4,49 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { ArrowRight, Briefcase } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { getOpenJobs } from '@/content/jobs';
+import { hrefFor, type Locale } from '@/i18n/config';
 
 export function CareersPreview({ locale }: { locale: string }) {
   const t = useTranslations('homeNew.careers');
   const tCommon = useTranslations('common');
-  const prefix = `/${locale}`;
-  const loc = locale as 'es' | 'en';
+  const loc = locale as Locale;
   const openJobsCount = getOpenJobs().length;
 
   return (
-    <section className="vx-section" aria-label="Careers Preview">
+    <section className="home-careers vx-section vx-bg-subtle" aria-label="Careers Preview">
       <div className="vx-container">
         <AnimatedReveal>
-          <div className="vx-card p-8 md:p-12 bg-gradient-to-r from-vertex-darkBg to-vertex-ink text-white border border-white/10 rounded-3xl relative overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-              <div className="lg:col-span-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-vertex-prismBlue text-xs font-semibold uppercase tracking-wider mb-4">
-                  <Briefcase className="w-3.5 h-3.5" />
+          <div className="home-careers-card relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-vertex-darkBg via-vertex-ink to-vertex-apexTeal p-7 text-white shadow-2xl shadow-vertex-ink/15 md:p-12">
+            <div className="absolute -right-16 -top-28 h-80 w-80 rounded-full border border-white/10" aria-hidden="true" />
+            <div className="absolute -right-5 -top-5 h-44 w-44 rounded-full bg-vertex-prismBlue/10 blur-2xl" aria-hidden="true" />
+            <div className="relative z-10 grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-7">
+              <div className="lg:col-span-7">
+                <div className="home-careers-eyebrow inline-flex items-center rounded-full border border-white/10 bg-white/8 text-xs font-semibold uppercase tracking-[0.12em] text-vertex-prismBlue">
+                  <Briefcase className="h-3.5 w-3.5" />
                   {t('eyebrow')}
                 </div>
-                <h2 className="text-2xl md:text-4xl font-bold mb-4">{t('title')}</h2>
-                <p className="text-vertex-facetIce text-base md:text-lg max-w-2xl leading-relaxed">
+                <h2 className="home-careers-title home-section-title max-w-[20ch] text-2xl font-bold md:text-4xl">{t('title')}</h2>
+                <p className="max-w-2xl text-base leading-relaxed text-vertex-facetIce md:text-lg">
                   {t('description')}
                 </p>
-                {openJobsCount > 0 && (
-                  <p className="text-xs text-vertex-prismBlue font-mono mt-3">
-                    {openJobsCount} {loc === 'es' ? 'posiciones abiertas actualmente' : 'positions currently open'}
-                  </p>
-                )}
               </div>
-              <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col items-start lg:items-end justify-center gap-3">
-                <Link href={`${prefix}/${loc === 'es' ? 'trabaja-con-nosotros' : 'careers'}`} className="vx-btn vx-btn-light w-full sm:w-auto">
+              {openJobsCount > 0 && (
+                <div className="lg:col-span-2">
+                  <div className="home-careers-stat inline-flex rounded-2xl border border-white/12 bg-white/[0.07]">
+                    <span className="home-careers-stat-number font-bold leading-none text-white">{openJobsCount}</span>
+                    <span className="home-careers-stat-label font-semibold uppercase text-vertex-prismBlue">
+                      {loc === 'es' ? 'posiciones abiertas' : 'open positions'}
+                    </span>
+                  </div>
+                </div>
+              )}
+              <div className={`home-careers-actions ${openJobsCount > 0 ? 'lg:col-span-3' : 'lg:col-span-5'} flex flex-col items-start justify-center sm:flex-row lg:flex-col lg:items-stretch`}>
+                <Link href={hrefFor(loc, 'careers')} className="home-careers-primary vx-btn vx-btn-light group w-full sm:w-auto lg:w-full">
                   {tCommon('cta.exploreCareers')}
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
-                <Link href={`${prefix}/${loc === 'es' ? 'empleos' : 'jobs'}`} className="vx-btn vx-btn-ghost text-white border-white/20 w-full sm:w-auto">
+                <Link href={hrefFor(loc, 'jobs')} className="home-careers-secondary vx-btn vx-btn-ghost w-full border-white/20 text-white sm:w-auto lg:w-full">
                   {tCommon('cta.viewOpportunities')}
                 </Link>
               </div>

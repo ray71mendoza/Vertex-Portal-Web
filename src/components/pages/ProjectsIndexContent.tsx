@@ -3,15 +3,17 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FolderOpen } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
-import { getVisibleProjects, Project } from '@/content/projects';
+import { getVisibleProjects } from '@/content/projects';
+import { hrefFor, type Locale } from '@/i18n/config';
 
 export function ProjectsIndexContent({ locale }: { locale: string }) {
   const t = useTranslations('projects');
   const tCommon = useTranslations('common');
   const tStates = useTranslations('common.states');
-  const prefix = `/${locale}`;
+  const loc = locale as Locale;
 
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const visibleProjects = getVisibleProjects();
@@ -25,7 +27,7 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
   });
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-[var(--vx-header-height)]">
       {/* Hero */}
       <section className="vx-section vx-bg-subtle relative overflow-hidden">
         <div className="vx-container">
@@ -100,14 +102,16 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
               {filteredProjects.map((project, index) => (
                 <AnimatedReveal key={project.id} delay={Math.min(index + 1, 3)}>
                   <Link
-                    href={`${prefix}/${locale === 'es' ? 'proyectos' : 'projects'}/${project.slug[locale as 'es' | 'en']}`}
+                    href={hrefFor(loc, 'projects', `/${project.slug[loc]}`)}
                     className="vx-card group overflow-hidden !p-0 block"
                   >
                     <div className="aspect-[16/10] bg-vertex-lightSubtle relative overflow-hidden">
                       {project.coverImage && (
-                        <img
+                        <Image
                           src={project.coverImage}
-                          alt={project.title[locale as 'es' | 'en']}
+                          alt={project.title[loc]}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       )}
@@ -117,10 +121,10 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
                     </div>
                     <div className="p-6">
                       <h3 className="text-xl font-semibold text-vertex-ink group-hover:text-vertex-apexTeal transition-colors mb-2">
-                        {project.title[locale as 'es' | 'en']}
+                        {project.title[loc]}
                       </h3>
                       <p className="text-sm text-vertex-facetBlue line-clamp-2">
-                        {project.description[locale as 'es' | 'en']}
+                        {project.description[loc]}
                       </p>
                     </div>
                   </Link>

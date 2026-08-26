@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, Lightbulb, Award, Target, Users, Shield, Leaf } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
-import { teamMembers } from '@/content/team';
 
 const principleIcons: Record<string, React.ElementType> = {
   innovation: Lightbulb,
@@ -20,10 +19,9 @@ export function AboutPageContent({ locale }: { locale: string }) {
   const t = useTranslations('about');
   const tCommon = useTranslations('common');
   const prefix = `/${locale}`;
-  const visibleTeam = teamMembers.filter((m) => m.visible);
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-[var(--vx-header-height)]">
       {/* Hero */}
       <section className="vx-section vx-bg-subtle relative overflow-hidden">
         <div className="vx-container">

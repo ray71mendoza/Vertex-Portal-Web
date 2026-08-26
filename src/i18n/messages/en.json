@@ -90,7 +90,7 @@
     "about": {
       "title": "We transform organizations through technology",
       "description": "It's not just about implementing digital tools. It's about turning technology into a strategic asset that drives growth, optimizes processes, and generates sustainable value for your organization.",
-      "description2": "At Vertex we integrate strategic consulting, software development, artificial intelligence, design and communication to deliver comprehensive solutions that transform the way organizations operate and compete."
+      "description2": "We combine consulting, software, artificial intelligence, design and communication to improve how organizations operate and compete."
     },
     "capabilities": {
       "title": "Our capabilities",
@@ -383,7 +383,9 @@
       "privacy": "I have read and accept the",
       "privacyLink": "privacy policy",
       "submit": "Send message",
-      "submitting": "Sending..."
+      "submitting": "Preparing email...",
+      "integrationNotice": "This form prepares an email with your information. Final delivery happens from your email client.",
+      "sendAnother": "Prepare another message"
     },
     "validation": {
       "nameRequired": "Name is required",
@@ -395,7 +397,7 @@
     },
     "success": {
       "title": "Message sent!",
-      "description": "We've received your message. We'll get back to you soon."
+      "description": "Your email client opened with the message prepared."
     },
     "error": {
       "title": "Error sending message",
@@ -577,8 +579,8 @@
       "privacyLink": "privacy policy",
       "submit": "Submit application",
       "submitting": "Submitting...",
-      "success": "Application submitted!",
-      "successDescription": "We've received your information. The talent team will review your profile and contact you if you advance in the process.",
+      "success": "Application email prepared",
+      "successDescription": "Your email client opened with the application information.",
       "error": "Could not submit your application",
       "errorDescription": "Please try again. If the problem persists, send your resume to our contact email.",
       "integrationNotice": "Note: This form is in the configuration stage. Your information will not be sent until the integration is active.",
@@ -596,8 +598,8 @@
   "homeNew": {
     "reach": {
       "eyebrow": "Regional reach",
-      "title": "We work across Latin America",
-      "description": "We accompany organizations across different countries with solutions tailored to each context."
+      "title": "Coverage across Colombia and Latin America",
+      "description": "We support organizations throughout Colombia and across Latin America with solutions tailored to every context."
     },
     "talent": {
       "eyebrow": "Our talent",

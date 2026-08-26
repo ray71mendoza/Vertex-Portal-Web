@@ -1,16 +1,12 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-
 export function LegalPageContent({ type, locale }: { type: 'privacy' | 'terms'; locale: string }) {
-  const tCommon = useTranslations('common');
-
   const title = type === 'privacy'
     ? (locale === 'es' ? 'Política de Privacidad' : 'Privacy Policy')
     : (locale === 'es' ? 'Términos y Condiciones' : 'Terms & Conditions');
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-[var(--vx-header-height)]">
       <section className="vx-section vx-bg-subtle relative overflow-hidden">
         <div className="vx-container">
           <div className="max-w-3xl">
