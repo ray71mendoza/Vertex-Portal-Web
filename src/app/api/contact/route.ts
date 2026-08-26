@@ -17,23 +17,12 @@ export async function POST(request: Request) {
       );
     }
 
-    // Console logging submission securely on server side
-    console.log('[Contact Form Submission Received]:', {
-      name,
-      email,
-      organization: body.organization || 'N/A',
-      phone: body.phone || 'N/A',
-      service: body.service || 'General',
-      preferredLanguage: body.preferredLanguage || 'es',
-      timestamp: new Date().toISOString(),
-    });
-
-    // In production, integrate with email provider (Resend / SendGrid / Nodemailer)
-    // using process.env.SMTP_USER, process.env.RESEND_API_KEY, etc.
-
     return NextResponse.json(
-      { success: true, message: 'Message sent successfully' },
-      { status: 200 }
+      {
+        success: false,
+        error: 'Contact delivery provider is not configured. Use mailto fallback or configure RESEND_API_KEY/SMTP.',
+      },
+      { status: 501 }
     );
   } catch (error) {
     console.error('[Contact Form API Error]:', error);

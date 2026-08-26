@@ -1,0 +1,232 @@
+.carousel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid rgba(143, 217, 238, 0.24);
+  border-radius: clamp(1.5rem, 2.4vw, 2rem);
+  background: #071a1f;
+  box-shadow: 0 28px 70px rgba(3, 37, 45, 0.24);
+}
+
+.compact {
+  min-height: clamp(32rem, 38vw, 36rem);
+}
+
+.expanded {
+  min-height: clamp(35rem, 46vw, 42rem);
+}
+
+.media,
+.scrim {
+  position: absolute;
+  inset: 0;
+}
+
+.media {
+  overflow: hidden;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.045);
+  transition: opacity 850ms ease, transform 6s ease;
+}
+
+.imageActive {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.scrim {
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(3, 19, 25, 0.08) 16%, rgba(3, 24, 31, 0.36) 48%, rgba(3, 22, 29, 0.98) 88%),
+    linear-gradient(90deg, rgba(3, 24, 31, 0.2), transparent 62%);
+}
+
+.solutionLabel {
+  position: absolute;
+  top: 1.4rem;
+  left: 1.4rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.55rem 0.85rem;
+  background: rgba(3, 26, 33, 0.68);
+  color: rgba(254, 254, 254, 0.9);
+  font-size: 0.66rem;
+  font-weight: 760;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+}
+
+.solutionLabel > span {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: #72c6e8;
+  box-shadow: 0 0 12px rgba(114, 198, 232, 0.9);
+}
+
+.content {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  padding: 2rem clamp(1.5rem, 3.4vw, 2.75rem) 4.5rem;
+  animation: content-in 520ms ease both;
+}
+
+.eyebrow {
+  display: block;
+  color: #8fd9ee;
+  font-size: 0.72rem;
+  font-weight: 760;
+  line-height: 1.35;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 18ch;
+  margin: 0.7rem 0 0;
+  color: #fefefe;
+  font-size: clamp(1.65rem, 3vw, 2.55rem);
+  font-weight: 740;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 44rem;
+  margin: 0.9rem 0 0;
+  color: #b6d1d8;
+  font-size: clamp(0.9rem, 1.3vw, 1rem);
+  font-weight: 520;
+  line-height: 1.65;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.2rem;
+}
+
+.tags span {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 0.42rem 0.72rem;
+  background: rgba(255, 255, 255, 0.09);
+  color: rgba(254, 254, 254, 0.82);
+  font-size: 0.66rem;
+  font-weight: 680;
+  line-height: 1;
+  backdrop-filter: blur(10px);
+}
+
+.pagination {
+  position: absolute;
+  right: clamp(1.5rem, 3.4vw, 2.75rem);
+  bottom: 1.5rem;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: rgba(254, 254, 254, 0.42);
+  cursor: pointer;
+  transition: width 220ms ease, background 220ms ease, transform 220ms ease;
+}
+
+.dot:hover,
+.dot:focus-visible {
+  background: #fefefe;
+  transform: scale(1.08);
+}
+
+.dot:focus-visible {
+  outline: 2px solid #72c6e8;
+  outline-offset: 4px;
+}
+
+.dotActive {
+  width: 2.4rem;
+  background: #72c6e8;
+}
+
+.srOnly {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@keyframes content-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .compact,
+  .expanded {
+    min-height: 33rem;
+  }
+
+  .solutionLabel {
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .content {
+    padding: 1.5rem 1.25rem 4.25rem;
+  }
+
+  .title {
+    font-size: clamp(1.55rem, 8vw, 2rem);
+  }
+
+  .description {
+    font-size: 0.88rem;
+  }
+
+  .pagination {
+    right: 1.25rem;
+    bottom: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  .content,
+  .dot {
+    animation: none;
+    transition: none;
+  }
+}

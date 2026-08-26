@@ -1,0 +1,182 @@
+.section {
+  background:
+    linear-gradient(90deg, rgba(237, 244, 245, 0.96), rgba(247, 251, 252, 0.9)),
+    url('/images/vertex-wallpaper-light-4k-v2.png') center / cover no-repeat;
+}
+
+.staticVisual {
+  position: relative;
+  overflow: hidden;
+  min-height: 31rem;
+  height: 100%;
+  margin: 0;
+  border: 1px solid rgba(3, 37, 45, 0.15);
+  border-radius: 1.75rem;
+  background: #071a1f;
+  box-shadow: 0 24px 55px rgba(3, 37, 45, 0.14);
+}
+
+.staticImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.staticOverlay {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 7rem 2rem 2rem;
+  background: linear-gradient(180deg, transparent, rgba(3, 26, 33, 0.98));
+}
+
+.staticOverlay span {
+  color: #8fd9ee;
+  font-size: 0.7rem;
+  font-weight: 760;
+  line-height: 1.3;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.staticOverlay p {
+  max-width: 30rem;
+  margin: 0.8rem 0 0;
+  color: #fefefe;
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  font-weight: 680;
+  line-height: 1.45;
+}
+
+.capabilitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.cardReveal {
+  height: 100%;
+}
+
+.wideCardReveal {
+  grid-column: 1 / -1;
+}
+
+.capabilityCard {
+  height: 100%;
+  min-height: 9.4rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(3, 37, 45, 0.15);
+  border-radius: 1.35rem;
+  padding: 1.35rem 1.45rem;
+  background: rgba(254, 254, 254, 0.96);
+  box-shadow: 0 12px 28px rgba(3, 37, 45, 0.075);
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.capabilityCard:hover,
+.capabilityCard:focus-visible {
+  border-color: rgba(11, 69, 81, 0.34);
+  box-shadow: 0 18px 36px rgba(3, 37, 45, 0.12);
+  transform: translateY(-3px);
+}
+
+.capabilityCard:focus-visible {
+  outline: 3px solid rgba(114, 198, 232, 0.45);
+  outline-offset: 3px;
+}
+
+.cardTopline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.capabilityIcon {
+  width: 2.65rem;
+  height: 2.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.9rem;
+  background: #0b4551;
+  color: #fefefe;
+}
+
+.capabilityIcon svg {
+  width: 1.12rem;
+  height: 1.12rem;
+}
+
+.capabilityNumber {
+  min-width: 2.8rem;
+  border: 1px solid rgba(11, 69, 81, 0.13);
+  border-radius: 999px;
+  padding: 0.43rem 0.62rem;
+  background: #e6f0f2;
+  color: #0b4551;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 760;
+  line-height: 1;
+  text-align: center;
+}
+
+.capabilityTitle {
+  margin-top: 1rem;
+  color: #03252d;
+  font-size: 1rem;
+  font-weight: 720;
+  line-height: 1.35;
+}
+
+.capabilityLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
+  color: #0b4551;
+  font-size: 0.74rem;
+  font-weight: 720;
+}
+
+.capabilityLink svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  transition: transform 180ms ease;
+}
+
+.capabilityCard:hover .capabilityLink svg {
+  transform: translateX(0.2rem);
+}
+
+@media (max-width: 1024px) {
+  .staticVisual {
+    min-height: 27rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .staticVisual {
+    min-height: 24rem;
+  }
+
+  .staticOverlay {
+    padding: 6rem 1.4rem 1.4rem;
+  }
+
+  .capabilitiesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .wideCardReveal {
+    grid-column: auto;
+  }
+
+  .capabilityCard {
+    min-height: 9rem;
+  }
+}

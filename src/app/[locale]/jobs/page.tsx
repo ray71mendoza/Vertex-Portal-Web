@@ -11,8 +11,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function JobsPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function JobsPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ area?: string }>;
+}) {
   const { locale } = await params;
+  const { area = '' } = await searchParams;
   setRequestLocale(locale);
-  return <JobsSearchContent locale={locale} />;
+  return <JobsSearchContent locale={locale} initialArea={area} />;
 }

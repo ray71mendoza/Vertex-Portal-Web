@@ -1,0 +1,246 @@
+.page {
+  background: #f5f9fa;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(6rem, 9vw, 8.5rem) 0;
+  background:
+    linear-gradient(90deg, rgba(3, 20, 27, 0.97), rgba(3, 31, 41, 0.82) 55%, rgba(4, 47, 61, 0.44)),
+    url('/images/vertex-service-hero-background-v2.png') center / cover no-repeat,
+    #071a1f;
+}
+
+.hero::after {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 78% 38%, rgba(114, 198, 232, 0.17), transparent 30%);
+  content: '';
+  pointer-events: none;
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 1;
+}
+
+.heroCopy {
+  max-width: 50rem;
+}
+
+.heroEyebrow {
+  display: inline-flex;
+  border: 1px solid rgba(143, 217, 238, 0.26);
+  border-radius: 999px;
+  padding: 0.58rem 1rem;
+  background: rgba(114, 198, 232, 0.1);
+  color: #8fd9ee;
+  font-size: 0.7rem;
+  font-weight: 760;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.heroTitle {
+  max-width: 16ch;
+  margin: 1.35rem 0 0;
+  color: #fefefe;
+  font-size: clamp(3rem, 5vw, 4.8rem);
+  font-weight: 740;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.heroSubtitle {
+  max-width: 42rem;
+  margin: 1.5rem 0 0;
+  color: #b6d1d8;
+  font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+  line-height: 1.72;
+}
+
+.listingSection {
+  padding: clamp(5.5rem, 8vw, 8rem) 0;
+  background: #f5f9fa;
+}
+
+.filterPanel {
+  margin-bottom: 2.25rem;
+  border: 1px solid rgba(3, 37, 45, 0.15);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  background: #fefefe;
+  box-shadow: 0 16px 38px rgba(3, 37, 45, 0.09);
+}
+
+.jobList {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.cardReveal {
+  height: 100%;
+}
+
+.jobCard {
+  border: 1px solid rgba(3, 37, 45, 0.14);
+  border-radius: 1.6rem;
+  padding: clamp(1.6rem, 3vw, 2.25rem);
+  background: #fefefe;
+  box-shadow: 0 12px 30px rgba(3, 37, 45, 0.065);
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.jobCard:hover {
+  border-color: rgba(11, 69, 81, 0.32);
+  box-shadow: 0 20px 42px rgba(3, 37, 45, 0.1);
+  transform: translateY(-2px);
+}
+
+.jobLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.jobContent {
+  max-width: 55rem;
+}
+
+.jobTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.areaTag,
+.demoTag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+.areaTag {
+  padding: 0.5rem 0.8rem;
+  background: #e6f0f2;
+  color: #0b4551;
+  font-size: 0.72rem;
+  font-weight: 720;
+}
+
+.demoTag {
+  border: 1px solid #f3cc86;
+  padding: 0.46rem 0.7rem;
+  background: #fff8e8;
+  color: #9b5b08;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.66rem;
+}
+
+.jobTitle {
+  margin: 1.2rem 0 0;
+  color: #03252d;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 720;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.jobTitle a {
+  transition: color 180ms ease;
+}
+
+.jobTitle a:hover,
+.jobTitle a:focus-visible {
+  color: #0b6070;
+}
+
+.jobSummary {
+  max-width: 52rem;
+  margin: 1rem 0 0;
+  color: #367480;
+  font-size: 0.96rem;
+  line-height: 1.7;
+}
+
+.jobMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(3, 37, 45, 0.09);
+  border-radius: 0.8rem;
+  padding: 0.62rem 0.75rem;
+  background: #f5f9fa;
+  color: #367480;
+  font-size: 0.76rem;
+  font-weight: 620;
+  line-height: 1.2;
+}
+
+.metaItem svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: #0b4551;
+}
+
+.jobAction {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.jobAction :global(.vx-btn) {
+  min-height: 3.25rem;
+  gap: 0.7rem;
+  padding-inline: 1.35rem;
+  font-size: 0.82rem;
+}
+
+.jobAction :global(.vx-btn) svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (max-width: 800px) {
+  .jobLayout {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .jobAction :global(.vx-btn) {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero,
+  .listingSection {
+    padding: 4.5rem 0;
+  }
+
+  .heroTitle {
+    font-size: clamp(2.6rem, 12vw, 3.5rem);
+  }
+
+  .filterPanel {
+    padding: 1.15rem;
+  }
+
+  .jobMeta {
+    display: grid;
+  }
+}

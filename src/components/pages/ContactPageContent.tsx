@@ -1,10 +1,18 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Mail, MapPin, PhoneCall } from 'lucide-react';
+import {
+  BadgeCheck,
+  Clock3,
+  Mail,
+  MapPin,
+  PhoneCall,
+  ShieldCheck,
+} from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { ContactForm } from '@/components/forms/ContactForm';
-import { SectionHeading } from '@/components/ui/SectionHeading';
+import { offices } from '@/content/locations';
+import styles from './ContactPageContent.module.css';
 
 export function ContactPageContent({
   locale,
@@ -14,103 +22,112 @@ export function ContactPageContent({
   initialService?: string;
 }) {
   const t = useTranslations('contact');
-  const tCommon = useTranslations('common');
+  const loc = locale as 'es' | 'en';
+  const primaryOffices = offices.filter((office) => office.id === 'bogota' || office.id === 'cartagena');
+
+  const assurances = [
+    {
+      icon: ShieldCheck,
+      title: loc === 'es' ? 'Confidencialidad garantizada' : 'Guaranteed confidentiality',
+      description: loc === 'es' ? 'Tratamos tu información con seguridad.' : 'We handle your information securely.',
+    },
+    {
+      icon: Clock3,
+      title: loc === 'es' ? 'Respuesta ágil' : 'Prompt response',
+      description: loc === 'es' ? 'Te contactaremos lo antes posible.' : 'We will contact you as soon as possible.',
+    },
+    {
+      icon: BadgeCheck,
+      title: loc === 'es' ? 'Expertos a tu servicio' : 'Experts at your service',
+      description: loc === 'es' ? 'Soluciones adaptadas a tu organización.' : 'Solutions adapted to your organization.',
+    },
+  ];
 
   return (
-    <div className="pt-24 pb-16">
-      {/* Hero */}
-      <section className="vx-section vx-bg-subtle relative overflow-hidden">
-        <div className="vx-container">
-          <SectionHeading
-            eyebrow={tCommon('nav.contact')}
-            title={t('hero.title')}
-            subtitle={t('hero.subtitle')}
-            align="left"
-          />
-        </div>
-      </section>
+    <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
+      <section className={styles.contactStage} aria-labelledby="contact-title">
+        <div
+          className={styles.stageWallpaper}
+          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+          aria-hidden="true"
+        />
+        <div className="vx-container relative z-10">
+          <div className={styles.contactGrid}>
+            <AnimatedReveal className={styles.contactIntroReveal}>
+              <div className={styles.contactIntro}>
+                <span className={styles.eyebrow}>{loc === 'es' ? 'Conversemos' : 'Let’s connect'}</span>
+                <h1 id="contact-title">
+                  {loc === 'es' ? 'Hablemos de tu próximo proyecto' : 'Let’s talk about your next project'}
+                </h1>
+                <p>
+                  {loc === 'es'
+                    ? 'Cuéntanos el reto de tu organización. Nuestro equipo te ayudará a convertirlo en una solución estratégica, innovadora y sostenible.'
+                    : 'Tell us about your organization’s challenge. Our team will help turn it into a strategic, innovative and sustainable solution.'}
+                </p>
 
-      {/* 2-Column Desktop Layout: Left Info, Right Form */}
-      <section className="vx-section bg-white">
-        <div className="vx-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left Column: Official Contact Info & Locations */}
-            <div className="lg:col-span-5 space-y-8">
-              <AnimatedReveal>
-                <div className="p-8 md:p-10 rounded-2xl bg-vertex-darkBg text-white relative overflow-hidden shadow-xl border border-white/10">
-                  <div
-                    className="absolute inset-0 opacity-20 bg-cover bg-center pointer-events-none"
-                    style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
-                    aria-hidden="true"
-                  />
-
-                  <div className="relative z-10 space-y-8">
-                    <div>
-                      <span className="text-xs font-bold uppercase tracking-widest text-vertex-prismBlue block mb-2">
-                        {t('info.title')}
-                      </span>
-                      <h3 className="text-2xl font-bold text-white leading-tight">
-                        {locale === 'es' ? 'Hablemos de tu próximo proyecto' : 'Let\'s talk about your next project'}
-                      </h3>
-                    </div>
-
-                    <div className="space-y-6 pt-2">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-vertex-prismBlue flex-shrink-0 border border-white/15">
-                          <Mail className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <span className="text-xs font-semibold text-vertex-facetIce/70 uppercase tracking-wider block mb-1">
-                            {t('info.email')}
-                          </span>
-                          <a
-                            href="mailto:gerenciavertexsas@gmail.com"
-                            className="text-white font-semibold text-base hover:text-vertex-prismBlue transition-colors block"
-                          >
-                            gerenciavertexsas@gmail.com
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-vertex-prismBlue flex-shrink-0 border border-white/15">
-                          <MapPin className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <span className="text-xs font-semibold text-vertex-facetIce/70 uppercase tracking-wider block mb-1">
-                            {t('info.offices')}
-                          </span>
-                          <p className="text-white font-semibold text-base">{tCommon('footer.bogota')}</p>
-                          <p className="text-white font-semibold text-base">{tCommon('footer.cartagena')}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-vertex-prismBlue flex-shrink-0 border border-white/15">
-                          <PhoneCall className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <span className="text-xs font-semibold text-vertex-facetIce/70 uppercase tracking-wider block mb-1">
-                            {locale === 'es' ? 'Atención Telefónica' : 'Phone Support'}
-                          </span>
-                          <p className="text-white font-semibold text-base">+57 (601) 000-0000</p>
-                        </div>
-                      </div>
-                    </div>
+                <div className={styles.directContact}>
+                  <span>{loc === 'es' ? 'Contacto directo' : 'Direct contact'}</span>
+                  <div className={styles.contactItems}>
+                    <ContactItem icon={Mail} label={t('info.email')}>
+                      <a href="mailto:gerenciavertexsas@gmail.com">gerenciavertexsas@gmail.com</a>
+                    </ContactItem>
+                    <ContactItem icon={PhoneCall} label={loc === 'es' ? 'Líneas de atención' : 'Phone lines'}>
+                      {primaryOffices.map((office) => (
+                        <a key={office.phone} href={`tel:${office.phone.replace(/\s/g, '')}`}>{office.phone}</a>
+                      ))}
+                    </ContactItem>
+                    <ContactItem icon={MapPin} label={t('info.offices')}>
+                      {primaryOffices.map((office) => (
+                        <span key={office.id}>{office.city}, {office.country[loc]}</span>
+                      ))}
+                    </ContactItem>
                   </div>
                 </div>
-              </AnimatedReveal>
-            </div>
+              </div>
+            </AnimatedReveal>
 
-            {/* Right Column: Form */}
-            <div className="lg:col-span-7">
-              <AnimatedReveal delay={2}>
-                <ContactForm locale={locale} initialService={initialService} />
-              </AnimatedReveal>
-            </div>
+            <AnimatedReveal delay={2} className={styles.formReveal}>
+              <ContactForm locale={locale} initialService={initialService} />
+            </AnimatedReveal>
           </div>
         </div>
       </section>
+
+      <section className={styles.assuranceStrip} aria-label={loc === 'es' ? 'Compromisos de atención' : 'Service commitments'}>
+        <div className="vx-container">
+          <div className={styles.assuranceGrid}>
+            {assurances.map((item) => {
+              const Icon = item.icon;
+              return (
+                <article key={item.title} className={styles.assuranceItem}>
+                  <div><Icon aria-hidden="true" /></div>
+                  <p><strong>{item.title}</strong><span>{item.description}</span></p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function ContactItem({
+  icon: Icon,
+  label,
+  children,
+}: {
+  icon: React.ElementType;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={styles.contactItem}>
+      <div className={styles.contactItemIcon}><Icon aria-hidden="true" /></div>
+      <div>
+        <span>{label}</span>
+        <div>{children}</div>
+      </div>
     </div>
   );
 }

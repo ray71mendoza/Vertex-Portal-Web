@@ -20,7 +20,7 @@ export function ProjectDetailContent({ slug, locale }: { slug: string; locale: s
   const prefix = `/${locale}`;
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-[var(--vx-header-height)]">
       {/* Hero */}
       <section className="vx-section vx-bg-subtle relative">
         <div className="vx-container">

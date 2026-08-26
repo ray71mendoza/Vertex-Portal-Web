@@ -3,21 +3,22 @@
 import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Search, MapPin, Briefcase, Clock, Filter, X, ArrowRight, Sparkles } from 'lucide-react';
+import { Search, MapPin, Briefcase, Clock, X, ArrowRight } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import {
   jobOpenings, jobAreaLabels, modalityLabels, contractTypeLabels,
-  getUniqueCountries, JobArea, JobModality, JobContractType
+  getUniqueCountries
 } from '@/content/jobs';
+import { hrefFor, type Locale } from '@/i18n/config';
+import styles from './JobsSearchContent.module.css';
 
-export function JobsSearchContent({ locale }: { locale: string }) {
+export function JobsSearchContent({ locale, initialArea = '' }: { locale: string; initialArea?: string }) {
   const t = useTranslations('jobs');
   const tCommon = useTranslations('common');
-  const prefix = `/${locale}`;
-  const loc = locale as 'es' | 'en';
+  const loc = locale as Locale;
 
   const [keyword, setKeyword] = useState('');
-  const [selectedArea, setSelectedArea] = useState<string>('');
+  const [selectedArea, setSelectedArea] = useState<string>(initialArea);
   const [selectedCountry, setSelectedCountry] = useState<string>('');
   const [selectedModality, setSelectedModality] = useState<string>('');
   const [selectedContract, setSelectedContract] = useState<string>('');
@@ -53,19 +54,19 @@ export function JobsSearchContent({ locale }: { locale: string }) {
   };
 
   return (
-    <div className="pt-24 pb-16">
+    <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
       {/* Hero */}
-      <section className="vx-section vx-bg-subtle relative overflow-hidden" aria-label="Jobs Hero">
-        <div className="vx-container">
+      <section className={styles.hero} aria-label="Jobs Hero">
+        <div className={`${styles.heroContainer} vx-container`}>
           <AnimatedReveal>
-            <div className="max-w-3xl">
-              <div className="text-sm font-semibold text-vertex-apexTeal uppercase tracking-wider mb-2">
+            <div className={styles.heroCopy}>
+              <div className={styles.heroEyebrow}>
                 {tCommon('nav.jobs')}
               </div>
-              <h1 className="text-vertex-ink text-4xl md:text-5xl font-bold mb-4">
+              <h1 className={styles.heroTitle}>
                 {t('hero.title')}
               </h1>
-              <p className="text-vertex-facetTeal text-lg md:text-xl leading-relaxed">
+              <p className={styles.heroSubtitle}>
                 {t('hero.subtitle')}
               </p>
             </div>
@@ -74,10 +75,10 @@ export function JobsSearchContent({ locale }: { locale: string }) {
       </section>
 
       {/* Search & Filters */}
-      <section className="vx-section">
+      <section className={styles.listingSection}>
         <div className="vx-container">
           <AnimatedReveal>
-            <div className="bg-white p-6 rounded-2xl border border-gray-200/80 shadow-md mb-8">
+            <div className={styles.filterPanel}>
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
                 {/* Keyword search input */}
                 <div className="md:col-span-4 relative">
@@ -180,54 +181,54 @@ export function JobsSearchContent({ locale }: { locale: string }) {
               </div>
             </AnimatedReveal>
           ) : (
-            <div className="space-y-4">
+            <div className={styles.jobList}>
               {filteredJobs.map((job, idx) => (
-                <AnimatedReveal key={job.id} delay={Math.min(idx + 1, 3)}>
-                  <div className="vx-card p-6 border border-gray-200/80 hover:border-vertex-apexTeal/40 transition-all duration-300">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                      <div className="space-y-2 max-w-3xl">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-xs px-2.5 py-0.5 rounded-full bg-vertex-apexTeal/10 text-vertex-apexTeal font-semibold">
+                <AnimatedReveal key={job.id} delay={Math.min(idx + 1, 3)} className={styles.cardReveal}>
+                  <article className={styles.jobCard}>
+                    <div className={styles.jobLayout}>
+                      <div className={styles.jobContent}>
+                        <div className={styles.jobTags}>
+                          <span className={styles.areaTag}>
                             {job.areaLabel[loc]}
                           </span>
                           {job.isDemo && (
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-mono">
+                            <span className={styles.demoTag}>
                               {t('search.demo')}
                             </span>
                           )}
                         </div>
-                        <h2 className="text-xl font-bold text-vertex-ink">
-                          <Link href={`${prefix}/${loc === 'es' ? 'empleos' : 'jobs'}/${job.slug}`} className="hover:text-vertex-apexTeal transition-colors">
+                        <h2 className={styles.jobTitle}>
+                          <Link href={hrefFor(loc, 'jobs', `/${job.slug}`)}>
                             {job.title[loc]}
                           </Link>
                         </h2>
-                        <p className="text-sm text-vertex-facetBlue leading-relaxed">{job.summary[loc]}</p>
-                        <div className="flex flex-wrap items-center gap-4 text-xs text-vertex-facetTeal pt-1">
-                          <span className="inline-flex items-center gap-1">
-                            <MapPin className="w-3.5 h-3.5 text-vertex-quartzGrey" />
+                        <p className={styles.jobSummary}>{job.summary[loc]}</p>
+                        <div className={styles.jobMeta}>
+                          <span className={styles.metaItem}>
+                            <MapPin aria-hidden="true" />
                             {job.city}, {job.country[loc]}
                           </span>
-                          <span className="inline-flex items-center gap-1">
-                            <Briefcase className="w-3.5 h-3.5 text-vertex-quartzGrey" />
+                          <span className={styles.metaItem}>
+                            <Briefcase aria-hidden="true" />
                             {modalityLabels[job.modality][loc]}
                           </span>
-                          <span className="inline-flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5 text-vertex-quartzGrey" />
+                          <span className={styles.metaItem}>
+                            <Clock aria-hidden="true" />
                             {contractTypeLabels[job.contractType][loc]}
                           </span>
                         </div>
                       </div>
-                      <div className="flex-shrink-0 flex items-center">
+                      <div className={styles.jobAction}>
                         <Link
-                          href={`${prefix}/${loc === 'es' ? 'empleos' : 'jobs'}/${job.slug}`}
-                          className="vx-btn vx-btn-primary w-full md:w-auto !py-2.5 !px-5 !text-sm"
+                          href={hrefFor(loc, 'jobs', `/${job.slug}`)}
+                          className="vx-btn vx-btn-primary"
                         >
                           {tCommon('cta.viewOpportunity')}
-                          <ArrowRight className="w-4 h-4" />
+                          <ArrowRight aria-hidden="true" />
                         </Link>
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </AnimatedReveal>
               ))}
             </div>

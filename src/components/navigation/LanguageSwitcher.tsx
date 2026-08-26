@@ -2,7 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { Locale } from '@/i18n/config';
+import type { Locale, RouteKey } from '@/i18n/config';
+import { hrefFor, localizedRoutes, reverseRouteLookup } from '@/i18n/config';
+import { services } from '@/content/services';
 
 interface LanguageSwitcherProps {
   locale: Locale;
@@ -10,79 +12,58 @@ interface LanguageSwitcherProps {
   isMobile?: boolean;
 }
 
+const legacyRouteAliases: Record<string, RouteKey> = {
+  '/nosotros': 'whoWeAre',
+  '/about': 'whoWeAre',
+};
+
+function translateServicePath(path: string, targetLocale: Locale) {
+  const serviceBase = Object.values(localizedRoutes.services);
+  const match = serviceBase.find((base) => path.startsWith(`/${base}/`));
+
+  if (!match) return null;
+
+  const slug = path.replace(`/${match}/`, '').split('/')[0];
+  const service = services.find((item) => item.slug.es === slug || item.slug.en === slug);
+  return service ? hrefFor(targetLocale, 'services', `/${service.slug[targetLocale]}`) : hrefFor(targetLocale, 'services');
+}
+
 export function LanguageSwitcher({ locale, isScrolled, isMobile }: LanguageSwitcherProps) {
   const pathname = usePathname();
+  const targetLocale: Locale = locale === 'es' ? 'en' : 'es';
 
   const getAlternatePath = () => {
-    const targetLocale = locale === 'es' ? 'en' : 'es';
-    // Replace the locale prefix in the current path
-    const pathWithoutLocale = pathname.replace(/^\/(es|en)/, '');
+    const pathWithoutLocale = pathname.replace(/^\/(es|en)/, '') || '/';
+    const hash = typeof window !== 'undefined' ? window.location.hash : '';
 
-    // Handle known route translations
-    const routeMap: Record<string, string> = {
-      '/nosotros': '/about',
-      '/about': '/nosotros',
-      '/servicios': '/services',
-      '/services': '/servicios',
-      '/proyectos': '/projects',
-      '/projects': '/proyectos',
-      '/equipo': '/team',
-      '/team': '/equipo',
-      '/contacto': '/contact',
-      '/contact': '/contacto',
-      '/privacidad': '/privacy',
-      '/privacy': '/privacidad',
-      '/terminos': '/terms',
-      '/terms': '/terminos',
-    };
+    if (pathWithoutLocale === '/') return hrefFor(targetLocale, 'home') + hash;
 
-    // Handle service slugs
-    const serviceSlugMap: Record<string, string> = {
-      'innovacion-transformacion-digital': 'innovation-digital-transformation',
-      'innovation-digital-transformation': 'innovacion-transformacion-digital',
-      'desarrollo-de-software': 'software-development',
-      'software-development': 'desarrollo-de-software',
-      'diseno-estrategico-branding': 'strategic-design-branding',
-      'strategic-design-branding': 'diseno-estrategico-branding',
-      'marketing-comunicacion-digital': 'digital-marketing-communications',
-      'digital-marketing-communications': 'marketing-comunicacion-digital',
-      'produccion-audiovisual': 'audiovisual-production',
-      'audiovisual-production': 'produccion-audiovisual',
-      'sector-publico-grandes-proyectos': 'public-sector-large-projects',
-      'public-sector-large-projects': 'sector-publico-grandes-proyectos',
-      'stands-experiencias-feriales': 'trade-show-experiences',
-      'trade-show-experiences': 'stands-experiencias-feriales',
-    };
+    const servicePath = translateServicePath(pathWithoutLocale, targetLocale);
+    if (servicePath) return servicePath + hash;
 
-    let translatedPath = pathWithoutLocale;
+    const routeKey = reverseRouteLookup[pathWithoutLocale] || legacyRouteAliases[pathWithoutLocale];
+    return routeKey ? hrefFor(targetLocale, routeKey) + hash : hrefFor(targetLocale, 'home');
+  };
 
-    // Check direct route mappings
-    for (const [from, to] of Object.entries(routeMap)) {
-      if (pathWithoutLocale.startsWith(from)) {
-        translatedPath = pathWithoutLocale.replace(from, to);
-        break;
-      }
-    }
-
-    // Check service slugs within the path
-    for (const [from, to] of Object.entries(serviceSlugMap)) {
-      if (translatedPath.includes(from)) {
-        translatedPath = translatedPath.replace(from, to);
-        break;
-      }
-    }
-
-    return `/${targetLocale}${translatedPath}`;
+  const handleClick = () => {
+    document.documentElement.lang = targetLocale;
+    window.localStorage.setItem('vertex-locale', targetLocale);
   };
 
   if (isMobile) {
     return (
       <Link
         href={getAlternatePath()}
-        className="flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-medium text-vertex-facetTeal border border-gray-200 rounded-lg hover:bg-vertex-lightSubtle transition-colors w-full"
+        onClick={handleClick}
+        className="grid min-h-11 grid-cols-2 overflow-hidden rounded-lg border border-vertex-ink/10 text-sm font-bold"
+        aria-label={locale === 'es' ? 'Cambiar a English' : 'Switch to Español'}
       >
-        <span className="text-base">🌐</span>
-        {locale === 'es' ? 'English' : 'Español'}
+        <span className={`flex items-center justify-center ${locale === 'es' ? 'bg-vertex-apexTeal text-white' : 'bg-white text-vertex-facetTeal'}`}>
+          ES
+        </span>
+        <span className={`flex items-center justify-center ${locale === 'en' ? 'bg-vertex-apexTeal text-white' : 'bg-white text-vertex-facetTeal'}`}>
+          EN
+        </span>
       </Link>
     );
   }
@@ -90,18 +71,18 @@ export function LanguageSwitcher({ locale, isScrolled, isMobile }: LanguageSwitc
   return (
     <Link
       href={getAlternatePath()}
-      className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
+      onClick={handleClick}
+      className={`grid h-11 min-w-[88px] grid-cols-2 overflow-hidden rounded-xl border text-sm font-bold transition-colors ${
         isScrolled
-          ? 'text-vertex-facetTeal hover:text-vertex-apexTeal hover:bg-vertex-lightSubtle'
-          : 'text-white/80 hover:text-white hover:bg-white/10'
+          ? 'border-vertex-ink/10 bg-white text-vertex-facetTeal hover:border-vertex-apexTeal/30'
+          : 'border-white/20 bg-white/8 text-white/75 hover:bg-white/12'
       }`}
-      aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+      aria-label={locale === 'es' ? 'Cambiar a English' : 'Switch to Español'}
     >
-      <span className={`font-semibold ${locale === 'es' ? (isScrolled ? 'text-vertex-ink' : 'text-white') : ''}`}>
+      <span className={`flex items-center justify-center ${locale === 'es' ? 'bg-vertex-apexTeal text-white' : ''}`}>
         ES
       </span>
-      <span className={isScrolled ? 'text-gray-300' : 'text-white/40'}>|</span>
-      <span className={`font-semibold ${locale === 'en' ? (isScrolled ? 'text-vertex-ink' : 'text-white') : ''}`}>
+      <span className={`flex items-center justify-center ${locale === 'en' ? 'bg-vertex-apexTeal text-white' : ''}`}>
         EN
       </span>
     </Link>
