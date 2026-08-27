@@ -48,26 +48,25 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    if (status === 'submitting') return;
     setStatus('submitting');
-    const subject = encodeURIComponent(
-      loc === 'es' ? `Solicitud de contacto Vertex - ${data.name}` : `Vertex contact request - ${data.name}`
-    );
-    const body = encodeURIComponent(
-      [
-        `${loc === 'es' ? 'Nombre' : 'Name'}: ${data.name}`,
-        `${loc === 'es' ? 'Organización' : 'Organization'}: ${data.organization || '-'}`,
-        `${loc === 'es' ? 'Correo' : 'Email'}: ${data.email}`,
-        `${loc === 'es' ? 'Teléfono' : 'Phone'}: ${data.phone || '-'}`,
-        `${loc === 'es' ? 'Servicio' : 'Service'}: ${data.service || '-'}`,
-        `${loc === 'es' ? 'Idioma preferido' : 'Preferred language'}: ${data.preferredLanguage.toUpperCase()}`,
-        '',
-        data.message,
-      ].join('\n')
-    );
 
-    window.open(`mailto:gerenciavertexsas@gmail.com?subject=${subject}&body=${body}`, '_self');
-    setStatus('success');
-    reset();
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Contact request failed');
+      }
+
+      setStatus('success');
+      reset();
+    } catch {
+      setStatus('error');
+    }
   };
 
   return (

@@ -372,6 +372,10 @@
     "empty": {
       "title": "Próximamente",
       "description": "Estamos preparando los perfiles de nuestro equipo."
+    },
+    "cta": {
+      "title": "¿Quieres formar parte de nuestro equipo?",
+      "subtitle": "Conoce las oportunidades disponibles en Vertex y súmate a nuestros proyectos."
     }
   },
   "contact": {
@@ -410,7 +414,7 @@
     },
     "success": {
       "title": "¡Mensaje enviado!",
-      "description": "Tu cliente de correo se abrió con el mensaje preparado."
+      "description": "Hemos recibido tu mensaje. Nuestro equipo se pondrá en contacto contigo pronto."
     },
     "error": {
       "title": "Error al enviar",

@@ -176,13 +176,15 @@
 }
 
 .challengesSection {
-  background: #edf4f5;
+  background-color: #fefefe;
+  background-image: url('/images/vertex-wallpaper-2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .outcomesSection {
-  background:
-    linear-gradient(90deg, rgba(254, 254, 254, 0.88), rgba(247, 251, 252, 0.78)),
-    url('/images/vertex-wallpaper-light-4k-v2.png') center / cover no-repeat;
+  background: #fefefe;
 }
 
 .sectionIntro {

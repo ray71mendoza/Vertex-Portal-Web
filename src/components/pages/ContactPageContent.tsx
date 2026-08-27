@@ -94,7 +94,7 @@ export function ContactPageContent({
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Visit Vertex on Instagram"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-vertex-prismBlue/30 bg-white/5 text-vertex-facetIce transition-all hover:border-vertex-prismBlue hover:bg-vertex-prismBlue/20 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-vertex-prismBlue/30 bg-white/5 text-vertex-facetIce transition-all hover:border-vertex-prismBlue hover:bg-vertex-prismBlue/20 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
                       >
                         <InstagramIcon className="h-4 w-4" />
                       </a>
@@ -103,7 +103,7 @@ export function ContactPageContent({
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Visit Vertex on LinkedIn"
-                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-vertex-prismBlue/30 bg-white/5 text-vertex-facetIce transition-all hover:border-vertex-prismBlue hover:bg-vertex-prismBlue/20 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-vertex-prismBlue/30 bg-white/5 text-vertex-facetIce transition-all hover:border-vertex-prismBlue hover:bg-vertex-prismBlue/20 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
                       >
                         <LinkedInIcon className="h-4 w-4" />
                       </a>

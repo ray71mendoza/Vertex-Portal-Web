@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FolderOpen } from 'lucide-react';
+import { ArrowRight, FolderOpen } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { getVisibleProjects } from '@/content/projects';
 import { hrefFor, type Locale } from '@/i18n/config';
@@ -29,7 +29,7 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
   return (
     <div className="pt-[var(--vx-header-height)]">
       {/* Hero */}
-      <section className="vx-section vx-bg-subtle relative overflow-hidden">
+      <section className="vx-section relative overflow-hidden">
         <div className="vx-container">
           <AnimatedReveal>
             <div className="max-w-3xl">
@@ -48,7 +48,7 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
       </section>
 
       {/* Projects Gallery */}
-      <section className="vx-section">
+      <section className="vx-section vx-bg-wallpaper-1">
         <div className="vx-container">
           {/* Filters */}
           {visibleProjects.length > 0 && (
@@ -132,6 +132,20 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <section className="vx-section vx-bg-teal text-white text-center">
+        <div className="vx-container max-w-3xl">
+          <AnimatedReveal>
+            <h2 className="text-white text-3xl font-bold mb-4">{t('detail.similarProject')}</h2>
+            <p className="text-vertex-facetIce text-lg mb-8">{t('detail.similarProjectText')}</p>
+            <Link href={hrefFor(loc, 'contact')} className="vx-btn vx-btn-light">
+              {tCommon('cta.contactUs')}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </AnimatedReveal>
         </div>
       </section>
     </div>

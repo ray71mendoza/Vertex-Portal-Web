@@ -112,7 +112,7 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
       </section>
 
       {/* Header */}
-      <section className="vx-section vx-bg-subtle relative">
+      <section className="vx-section vx-bg-wallpaper-1 relative">
         <div className="vx-container">
           <AnimatedReveal>
             <div className="max-w-4xl">

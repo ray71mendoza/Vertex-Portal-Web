@@ -1,7 +1,9 @@
 .section {
-  background:
-    linear-gradient(90deg, rgba(237, 244, 245, 0.96), rgba(247, 251, 252, 0.9)),
-    url('/images/vertex-wallpaper-light-4k-v2.png') center / cover no-repeat;
+  background-color: #fefefe;
+  background-image: url('/images/vertex-wallpaper-1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .staticVisual {

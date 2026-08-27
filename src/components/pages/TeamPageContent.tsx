@@ -2,19 +2,22 @@
 
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { Users } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, Users } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { getVisibleMembers } from '@/content/team';
+import { hrefFor, type Locale } from '@/i18n/config';
 
 export function TeamPageContent({ locale }: { locale: string }) {
   const t = useTranslations('team');
   const tCommon = useTranslations('common');
   const members = getVisibleMembers();
+  const loc = locale as Locale;
 
   return (
     <div className="pt-[var(--vx-header-height)]">
       {/* Hero */}
-      <section className="vx-section vx-bg-subtle relative overflow-hidden">
+      <section className="vx-section relative overflow-hidden">
         <div className="vx-container">
           <AnimatedReveal>
             <div className="max-w-3xl">
@@ -33,7 +36,7 @@ export function TeamPageContent({ locale }: { locale: string }) {
       </section>
 
       {/* Team Grid or Empty State */}
-      <section className="vx-section">
+      <section className="vx-section vx-bg-wallpaper-2">
         <div className="vx-container">
           {members.length === 0 ? (
             <AnimatedReveal>
@@ -70,6 +73,20 @@ export function TeamPageContent({ locale }: { locale: string }) {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <section className="vx-section vx-bg-teal text-white text-center">
+        <div className="vx-container max-w-3xl">
+          <AnimatedReveal>
+            <h2 className="text-white text-3xl font-bold mb-4">{t('cta.title')}</h2>
+            <p className="text-vertex-facetIce text-lg mb-8">{t('cta.subtitle')}</p>
+            <Link href={hrefFor(loc, 'jobs')} className="vx-btn vx-btn-light">
+              {tCommon('cta.viewOpportunities')}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </AnimatedReveal>
         </div>
       </section>
     </div>

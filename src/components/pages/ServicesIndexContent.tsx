@@ -20,7 +20,7 @@ export function ServicesIndexContent({ locale }: { locale: string }) {
   return (
     <div className="pt-[var(--vx-header-height)]">
       {/* Hero */}
-      <section className="vx-section vx-bg-subtle relative overflow-hidden">
+      <section className="vx-section vx-bg-wallpaper-2 relative overflow-hidden">
         <div className="vx-container">
           <AnimatedReveal>
             <div className="max-w-3xl">

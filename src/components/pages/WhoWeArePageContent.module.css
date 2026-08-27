@@ -338,7 +338,11 @@
 
 .whySection,
 .talentSection {
-  background: linear-gradient(180deg, #edf4f5, #f7fafb);
+  background-color: #fefefe;
+  background-image: url('/images/vertex-wallpaper-1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .centeredHeading {
