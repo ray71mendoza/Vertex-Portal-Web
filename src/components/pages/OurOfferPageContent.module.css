@@ -8,8 +8,8 @@
   padding: clamp(5.5rem, 8vw, 8rem) 0;
   background:
     linear-gradient(90deg, rgba(247, 251, 252, 0.97) 0%, rgba(247, 251, 252, 0.88) 46%, rgba(247, 251, 252, 0.42) 100%),
-    url('/images/vertex-wallpaper-light-4k-v2.png') center / cover no-repeat,
-    #edf4f5;
+    url('/images/vertex-wallpaper-1.png') center / cover no-repeat,
+    #fefefe;
 }
 
 .hero::after {
@@ -201,7 +201,11 @@
 }
 
 .methodologySection {
-  background: #edf4f5;
+  background-color: #fefefe;
+  background-image: url('/images/vertex-wallpaper-2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .methodologyHeading {

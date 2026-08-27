@@ -287,7 +287,11 @@
    ============================================ */
 .narrativeSection {
   padding: clamp(3rem, 6vw, 5rem) 0;
-  background: #fefefe;
+  background-color: #fefefe;
+  background-image: url('/images/vertex-wallpaper-1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-top: 1px solid rgba(3, 37, 45, 0.06);
   border-bottom: 1px solid rgba(3, 37, 45, 0.06);
 }
@@ -437,7 +441,11 @@
    ============================================ */
 .servicesSection {
   padding: clamp(2.5rem, 4vw, 3.5rem) 0;
-  background: #fefefe;
+  background-color: #fefefe;
+  background-image: url('/images/vertex-wallpaper-2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .servicesSectionHeader {
@@ -593,7 +601,11 @@
    ============================================ */
 .relatedSection {
   padding: clamp(3.5rem, 6vw, 5rem) 0;
-  background: #f7fafb;
+  background-color: #fefefe;
+  background-image: url('/images/vertex-wallpaper-1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-top: 1px solid rgba(3, 37, 45, 0.08);
 }
 

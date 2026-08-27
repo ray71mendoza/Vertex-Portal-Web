@@ -23,7 +23,7 @@ export function AboutPageContent({ locale }: { locale: string }) {
   return (
     <div className="pt-[var(--vx-header-height)]">
       {/* Hero */}
-      <section className="vx-section vx-bg-subtle relative overflow-hidden">
+      <section className="vx-section vx-bg-wallpaper-1 relative overflow-hidden">
         <div className="vx-container">
           <AnimatedReveal>
             <div className="max-w-3xl">
@@ -134,7 +134,7 @@ export function AboutPageContent({ locale }: { locale: string }) {
       </section>
 
       {/* Why Vertex */}
-      <section className="vx-section vx-bg-subtle">
+      <section className="vx-section vx-bg-wallpaper-2">
         <div className="vx-container">
           <AnimatedReveal>
             <div className="max-w-3xl mx-auto">

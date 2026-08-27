@@ -72,12 +72,14 @@
 /* ============================================
    BASE RESETS & WCAG ACCESSIBILITY
    ============================================ */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 html {
@@ -1047,6 +1049,22 @@ p, .vx-body {
 
 .vx-bg-quartz {
   background-color: #EBF1F3;
+}
+
+.vx-bg-wallpaper-1 {
+  background-color: #fefefe;
+  background-image: url('/images/vertex-wallpaper-1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.vx-bg-wallpaper-2 {
+  background-color: #fefefe;
+  background-image: url('/images/vertex-wallpaper-2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* ============================================

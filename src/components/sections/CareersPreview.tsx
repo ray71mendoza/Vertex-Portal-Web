@@ -14,7 +14,7 @@ export function CareersPreview({ locale }: { locale: string }) {
   const openJobsCount = getOpenJobs().length;
 
   return (
-    <section className="home-careers vx-section vx-bg-subtle" aria-label="Careers Preview">
+    <section className="home-careers vx-section vx-bg-wallpaper-2" aria-label="Careers Preview">
       <div className="vx-container">
         <AnimatedReveal>
           <div className="home-careers-card relative overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-vertex-darkBg via-vertex-ink to-vertex-apexTeal p-7 text-white shadow-2xl shadow-vertex-ink/15 md:p-12">

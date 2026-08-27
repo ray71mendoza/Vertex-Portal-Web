@@ -51,7 +51,7 @@ export function Footer({ locale }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit Vertex on Instagram"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
               >
                 <InstagramIcon className="h-4 w-4" />
               </a>
@@ -60,7 +60,7 @@ export function Footer({ locale }: FooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Visit Vertex on LinkedIn"
-                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
               >
                 <LinkedInIcon className="h-4 w-4" />
               </a>

@@ -372,6 +372,10 @@
     "empty": {
       "title": "Coming soon",
       "description": "We're preparing our team profiles."
+    },
+    "cta": {
+      "title": "Want to join our team?",
+      "subtitle": "Explore current opportunities at Vertex and become part of our projects."
     }
   },
   "contact": {
@@ -411,7 +415,7 @@
     },
     "success": {
       "title": "Message sent!",
-      "description": "Your email client opened with the message prepared."
+      "description": "We've received your message. Our team will get in touch with you soon."
     },
     "error": {
       "title": "Error sending message",

@@ -7,7 +7,7 @@ export function LegalPageContent({ type, locale }: { type: 'privacy' | 'terms'; 
 
   return (
     <div className="pt-[var(--vx-header-height)]">
-      <section className="vx-section vx-bg-subtle relative overflow-hidden">
+      <section className="vx-section vx-bg-wallpaper-2 relative overflow-hidden">
         <div className="vx-container">
           <div className="max-w-3xl">
             <h1 className="text-vertex-ink text-4xl md:text-5xl font-bold mb-4">
