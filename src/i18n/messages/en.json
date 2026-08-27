@@ -57,6 +57,9 @@
       "company": "Company",
       "careers": "Talent",
       "contactInfo": "Contact",
+      "phones": "Phone lines",
+      "followUs": "Follow us",
+      "social": "Social media",
       "rights": "All rights reserved.",
       "bogota": "Bogotá, Colombia",
       "cartagena": "Cartagena, Colombia"
@@ -340,13 +343,24 @@
     "detail": {
       "overview": "Overview",
       "challenge": "The challenge",
-      "solution": "The solution",
+      "solution": "Vertex solution",
       "services": "Services involved",
-      "scope": "Scope",
-      "process": "Process",
-      "results": "Results",
-      "related": "Related projects",
-      "similarProject": "Have a similar project?"
+      "scope": "Project scope",
+      "process": "Methodology & process",
+      "results": "Results & impact",
+      "related": "Other featured projects",
+      "similarProject": "Have a similar project or challenge?",
+      "similarProjectText": "Let’s design a tailored, strategic, and high-impact technology solution for your organization.",
+      "backToProjects": "Back to projects",
+      "prevProject": "Previous project",
+      "nextProject": "Next project",
+      "location": "Location",
+      "sector": "Sector",
+      "status": "Status",
+      "published": "Published date",
+      "exploreProject": "Explore project",
+      "quickFacts": "Project overview",
+      "deliverables": "Key deliverables"
     }
   },
   "team": {
@@ -373,7 +387,7 @@
       "email": "Email",
       "emailPlaceholder": "you@email.com",
       "phone": "Phone (optional)",
-      "phonePlaceholder": "+57 300 000 0000",
+      "phonePlaceholder": "+57 300 865 8910",
       "service": "Service of interest",
       "servicePlaceholder": "Select a service",
       "serviceOther": "Other",
@@ -383,9 +397,9 @@
       "privacy": "I have read and accept the",
       "privacyLink": "privacy policy",
       "submit": "Send message",
-      "submitting": "Preparing email...",
-      "integrationNotice": "This form prepares an email with your information. Final delivery happens from your email client.",
-      "sendAnother": "Prepare another message"
+      "submitting": "Sending...",
+      "sendAnother": "Send another message",
+      "integrationNotice": "Your message will be handled securely by our team via email."
     },
     "validation": {
       "nameRequired": "Name is required",
@@ -405,14 +419,22 @@
     },
     "info": {
       "title": "Contact information",
-      "email": "Email",
-      "offices": "Offices"
+      "email": "Corporate email",
+      "phone": "Phone lines",
+      "offices": "Offices",
+      "social": "Official channels",
+      "instagramAria": "Visit Vertex on Instagram",
+      "linkedinAria": "Visit Vertex on LinkedIn"
     }
   },
   "notFound": {
+    "badge": "Error 404",
     "title": "Page not found",
-    "description": "The page you're looking for doesn't exist or has been moved.",
-    "backHome": "Back to home"
+    "description": "The page you are looking for may have been moved, removed, or does not exist.",
+    "backHome": "Return to homepage",
+    "exploreOffer": "Our services",
+    "exploreProjects": "View projects",
+    "contactUs": "Contact our team"
   },
   "whoWeAre": {
     "hero": {

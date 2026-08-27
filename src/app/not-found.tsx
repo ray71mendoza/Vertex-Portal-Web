@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { NotFoundContent } from '@/components/pages/NotFoundContent';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: '404 - Página no encontrada / Page Not Found | Vertex',
@@ -10,10 +11,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NotFound() {
+export default function RootNotFound() {
   return (
-    <div className="pt-[var(--vx-header-height)]">
-      <NotFoundContent />
-    </div>
+    <html lang="es">
+      <head>
+        <link rel="icon" href="/images/vertex-symbol.png" type="image/png" />
+      </head>
+      <body className="vx-bg-dark">
+        <main id="main-content">
+          <NotFoundContent />
+        </main>
+      </body>
+    </html>
   );
 }

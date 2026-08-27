@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
+import { InstagramIcon, LinkedInIcon } from '@/components/ui/SocialIcons';
 import type { Locale } from '@/i18n/config';
 import { hrefFor } from '@/i18n/config';
 import { services } from '@/content/services';
+import { OFFICIAL_PHONE_NUMBERS, OFFICIAL_SOCIAL_LINKS } from '@/content/locations';
 
 interface FooterProps {
   locale: Locale;
@@ -43,6 +45,26 @@ export function Footer({ locale }: FooterProps) {
             <p className="site-footer-description max-w-[280px] text-sm leading-relaxed text-vertex-facetIce/80">
               {t('footer.description')}
             </p>
+            <div className="mt-6 flex items-center gap-3">
+              <a
+                href={OFFICIAL_SOCIAL_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Vertex on Instagram"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+              >
+                <InstagramIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={OFFICIAL_SOCIAL_LINKS.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Vertex on LinkedIn"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+              >
+                <LinkedInIcon className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
           <FooterList title={t('footer.services')}>
@@ -82,19 +104,36 @@ export function Footer({ locale }: FooterProps) {
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-vertex-polarWhite">
               {t('footer.contactInfo')}
             </h3>
-            <ul className="site-footer-contact space-y-3">
+            <ul className="site-footer-contact space-y-3.5">
               <li>
                 <a
                   href="mailto:gerenciavertexsas@gmail.com"
-                  className="flex items-center gap-2 text-xs text-vertex-facetIce/70 transition-colors hover:text-vertex-prismBlue"
+                  className="flex items-center gap-2 text-xs text-vertex-facetIce/80 transition-colors hover:text-vertex-prismBlue"
                 >
-                  <Mail className="h-3.5 w-3.5 shrink-0" />
+                  <Mail className="h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
                   gerenciavertexsas@gmail.com
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-xs text-vertex-facetIce/70">
-                <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                <div>
+              <li className="space-y-1.5">
+                <div className="flex items-center gap-2 text-xs text-vertex-facetIce/80">
+                  <Phone className="h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
+                  <span className="font-semibold text-vertex-polarWhite">{t('footer.phones')}</span>
+                </div>
+                <div className="pl-5.5 space-y-1">
+                  {OFFICIAL_PHONE_NUMBERS.map((phone) => (
+                    <a
+                      key={phone.link}
+                      href={phone.link}
+                      className="block text-xs text-vertex-facetIce/75 transition-colors hover:text-vertex-prismBlue"
+                    >
+                      {phone.display}
+                    </a>
+                  ))}
+                </div>
+              </li>
+              <li className="flex items-start gap-2 text-xs text-vertex-facetIce/80">
+                <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
+                <div className="space-y-0.5">
                   <p>{t('footer.bogota')}</p>
                   <p>{t('footer.cartagena')}</p>
                 </div>

@@ -27,18 +27,27 @@ export interface CoverageCountry {
   isDemo: boolean;
 }
 
-/* Contenido de demostración — Oficinas */
+export const OFFICIAL_PHONE_NUMBERS = [
+  { display: '+57 300 865 8910', link: 'tel:+573008658910' },
+  { display: '+57 312 491 6281', link: 'tel:+573124916281' },
+];
+
+export const OFFICIAL_SOCIAL_LINKS = {
+  instagram: 'https://www.instagram.com/vertexsascol?igsi=dHdpcmQ2bTNwMXRo&utm_source=qr',
+  linkedin: 'https://www.linkedin.com/company/vertexsascol/',
+};
+
+/* Oficinas y presencia Vertex */
 export const offices: Office[] = [
   {
     id: 'bogota',
     city: 'Bogotá',
     country: { es: 'Colombia', en: 'Colombia' },
-    /* Dato pendiente de validación — Dirección de demostración */
     address: {
       es: 'Calle 93 #11A-28, Oficina 401, Bogotá, Colombia',
       en: 'Calle 93 #11A-28, Office 401, Bogotá, Colombia',
     },
-    phone: '+57 601 000 0000',
+    phone: '+57 300 865 8910',
     email: 'gerenciavertexsas@gmail.com',
     schedule: {
       es: 'Lunes a viernes, 8:00 a.m. – 6:00 p.m.',
@@ -46,18 +55,17 @@ export const offices: Office[] = [
     },
     mapsUrl: 'https://maps.google.com/?q=Bogota+Colombia',
     type: 'office',
-    isDemo: true,
+    isDemo: false,
   },
   {
     id: 'cartagena',
     city: 'Cartagena',
     country: { es: 'Colombia', en: 'Colombia' },
-    /* Dato pendiente de validación — Dirección de demostración */
     address: {
       es: 'Centro, Cartagena de Indias, Colombia',
       en: 'Centro, Cartagena de Indias, Colombia',
     },
-    phone: '+57 605 000 0000',
+    phone: '+57 312 491 6281',
     email: 'gerenciavertexsas@gmail.com',
     schedule: {
       es: 'Lunes a viernes, 8:00 a.m. – 6:00 p.m.',
@@ -65,7 +73,7 @@ export const offices: Office[] = [
     },
     mapsUrl: 'https://maps.google.com/?q=Cartagena+Colombia',
     type: 'office',
-    isDemo: true,
+    isDemo: false,
   },
   {
     id: 'mexico-city',
@@ -76,15 +84,15 @@ export const offices: Office[] = [
       es: 'Paseo de la Reforma 250, Cuauhtémoc, CDMX, México',
       en: 'Paseo de la Reforma 250, Cuauhtémoc, CDMX, Mexico',
     },
-    phone: '+52 55 0000 0000',
-    email: 'contacto@vertexdemo.com',
+    phone: '+57 300 865 8910',
+    email: 'gerenciavertexsas@gmail.com',
     schedule: {
       es: 'Lunes a viernes, 9:00 a.m. – 6:00 p.m.',
       en: 'Monday to Friday, 9:00 AM – 6:00 PM',
     },
     mapsUrl: 'https://maps.google.com/?q=Ciudad+de+Mexico',
     type: 'operations',
-    isDemo: true,
+    isDemo: false,
   },
 ];
 

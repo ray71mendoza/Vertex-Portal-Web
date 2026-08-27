@@ -9,9 +9,10 @@ import {
   PhoneCall,
   ShieldCheck,
 } from 'lucide-react';
+import { InstagramIcon, LinkedInIcon } from '@/components/ui/SocialIcons';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { ContactForm } from '@/components/forms/ContactForm';
-import { offices } from '@/content/locations';
+import { offices, OFFICIAL_PHONE_NUMBERS, OFFICIAL_SOCIAL_LINKS } from '@/content/locations';
 import styles from './ContactPageContent.module.css';
 
 export function ContactPageContent({
@@ -72,8 +73,8 @@ export function ContactPageContent({
                       <a href="mailto:gerenciavertexsas@gmail.com">gerenciavertexsas@gmail.com</a>
                     </ContactItem>
                     <ContactItem icon={PhoneCall} label={loc === 'es' ? 'Líneas de atención' : 'Phone lines'}>
-                      {primaryOffices.map((office) => (
-                        <a key={office.phone} href={`tel:${office.phone.replace(/\s/g, '')}`}>{office.phone}</a>
+                      {OFFICIAL_PHONE_NUMBERS.map((phone) => (
+                        <a key={phone.link} href={phone.link}>{phone.display}</a>
                       ))}
                     </ContactItem>
                     <ContactItem icon={MapPin} label={t('info.offices')}>
@@ -81,6 +82,32 @@ export function ContactPageContent({
                         <span key={office.id}>{office.city}, {office.country[loc]}</span>
                       ))}
                     </ContactItem>
+                  </div>
+
+                  <div className="mt-8 border-t border-vertex-prismBlue/20 pt-6">
+                    <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-vertex-prismBlue">
+                      {loc === 'es' ? 'Canales oficiales' : 'Official channels'}
+                    </span>
+                    <div className="flex items-center gap-3">
+                      <a
+                        href={OFFICIAL_SOCIAL_LINKS.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Visit Vertex on Instagram"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-vertex-prismBlue/30 bg-white/5 text-vertex-facetIce transition-all hover:border-vertex-prismBlue hover:bg-vertex-prismBlue/20 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+                      >
+                        <InstagramIcon className="h-4 w-4" />
+                      </a>
+                      <a
+                        href={OFFICIAL_SOCIAL_LINKS.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Visit Vertex on LinkedIn"
+                        className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-vertex-prismBlue/30 bg-white/5 text-vertex-facetIce transition-all hover:border-vertex-prismBlue hover:bg-vertex-prismBlue/20 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+                      >
+                        <LinkedInIcon className="h-4 w-4" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

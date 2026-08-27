@@ -208,3 +208,33 @@ export function getVisibleProjects(): Project[] {
     .filter((p) => p.visible)
     .sort((a, b) => a.order - b.order);
 }
+
+export function getRelatedProjects(currentProjectId: string, limit = 2): Project[] {
+  const visible = getVisibleProjects();
+  const current = visible.find((p) => p.id === currentProjectId);
+  if (!current) return visible.slice(0, limit);
+
+  // Match by category or shared services
+  const matches = visible.filter((p) => {
+    if (p.id === currentProjectId) return false;
+    const sameCategory = p.category === current.category;
+    const sharedService = p.services.some((s) => current.services.includes(s));
+    return sameCategory || sharedService;
+  });
+
+  if (matches.length >= limit) return matches.slice(0, limit);
+  // If not enough matches, pad with other visible projects
+  const others = visible.filter((p) => p.id !== currentProjectId && !matches.some((m) => m.id === p.id));
+  return [...matches, ...others].slice(0, limit);
+}
+
+export function getNextPrevProjects(currentProjectId: string): { prev: Project | null; next: Project | null } {
+  const visible = getVisibleProjects();
+  const currentIndex = visible.findIndex((p) => p.id === currentProjectId);
+  if (currentIndex === -1) return { prev: null, next: null };
+
+  const prev = currentIndex > 0 ? visible[currentIndex - 1] : null;
+  const next = currentIndex < visible.length - 1 ? visible[currentIndex + 1] : null;
+  return { prev, next };
+}
+
