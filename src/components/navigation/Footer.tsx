@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import { ChevronDown, Mail, MapPin, Phone } from 'lucide-react';
 import { InstagramIcon, LinkedInIcon } from '@/components/ui/SocialIcons';
 import type { Locale } from '@/i18n/config';
 import { hrefFor } from '@/i18n/config';
@@ -31,49 +31,16 @@ export function Footer({ locale }: FooterProps) {
   return (
     <footer className="site-footer vx-bg-dark" role="contentinfo">
       <div className="vx-container">
-        <div className="site-footer-grid grid grid-cols-1 gap-10 py-16 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[1.25fr_1fr_0.8fr_0.8fr_1.35fr] xl:gap-8">
+        {/* Desktop / tablet: full column grid (unchanged) */}
+        <div className="site-footer-grid hidden grid-cols-1 gap-10 py-16 md:grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[1.25fr_1fr_0.8fr_0.8fr_1.35fr] xl:gap-8">
           <div className="site-footer-group lg:col-span-2 xl:col-span-1">
-            <Link href={hrefFor(locale, 'home')} aria-label="Vertex">
-              <Image
-                src="/images/vertex-logo.png"
-                alt="Vertex"
-                width={130}
-                height={40}
-                className="h-[32px] w-auto brightness-0 invert"
-              />
-            </Link>
-            <p className="site-footer-description max-w-[280px] text-sm leading-relaxed text-vertex-facetIce/80">
-              {t('footer.description')}
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <a
-                href={OFFICIAL_SOCIAL_LINKS.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit Vertex on Instagram"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
-              >
-                <InstagramIcon className="h-4 w-4" />
-              </a>
-              <a
-                href={OFFICIAL_SOCIAL_LINKS.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit Vertex on LinkedIn"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
-              >
-                <LinkedInIcon className="h-4 w-4" />
-              </a>
-            </div>
+            <FooterBrand locale={locale} />
           </div>
 
           <FooterList title={t('footer.services')}>
             {services.slice(0, 5).map((service) => (
               <li key={service.id}>
-                <Link
-                  href={hrefFor(locale, 'services', `/${service.slug[locale]}`)}
-                  className="footer-link"
-                >
+                <Link href={hrefFor(locale, 'services', `/${service.slug[locale]}`)} className="footer-link">
                   {tServices(`${service.id}.title`)}
                 </Link>
               </li>
@@ -104,41 +71,62 @@ export function Footer({ locale }: FooterProps) {
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-vertex-polarWhite">
               {t('footer.contactInfo')}
             </h3>
-            <ul className="site-footer-contact space-y-3.5">
-              <li>
-                <a
-                  href="mailto:gerenciavertexsas@gmail.com"
-                  className="flex items-center gap-2 text-xs text-vertex-facetIce/80 transition-colors hover:text-vertex-prismBlue"
-                >
-                  <Mail className="h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
-                  gerenciavertexsas@gmail.com
-                </a>
-              </li>
-              <li className="space-y-1.5">
-                <div className="flex items-center gap-2 text-xs text-vertex-facetIce/80">
-                  <Phone className="h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
-                  <span className="font-semibold text-vertex-polarWhite">{t('footer.phones')}</span>
-                </div>
-                <div className="pl-5.5 space-y-1">
-                  {OFFICIAL_PHONE_NUMBERS.map((phone) => (
-                    <a
-                      key={phone.link}
-                      href={phone.link}
-                      className="block text-xs text-vertex-facetIce/75 transition-colors hover:text-vertex-prismBlue"
-                    >
-                      {phone.display}
-                    </a>
+            <FooterContactInfo t={t} />
+          </div>
+        </div>
+
+        {/* Mobile: compact brand + accordion + contact */}
+        <div className="footer-mobile md:hidden">
+          <FooterBrand locale={locale} />
+
+          <details className="footer-accordion">
+            <summary>
+              {locale === 'es' ? 'Explorar' : 'Explore'}
+              <ChevronDown aria-hidden="true" />
+            </summary>
+            <div className="footer-accordion-body">
+              <div className="footer-accordion-group">
+                <h4>{t('footer.services')}</h4>
+                <ul>
+                  <li>
+                    <Link href={hrefFor(locale, 'ourOffer')} className="footer-link">
+                      {locale === 'es' ? 'Ver todos los servicios' : 'View all services'}
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              <div className="footer-accordion-group">
+                <h4>{t('footer.company')}</h4>
+                <ul>
+                  {companyLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href} className="footer-link">
+                        {link.label}
+                      </Link>
+                    </li>
                   ))}
-                </div>
-              </li>
-              <li className="flex items-start gap-2 text-xs text-vertex-facetIce/80">
-                <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
-                <div className="space-y-0.5">
-                  <p>{t('footer.bogota')}</p>
-                  <p>{t('footer.cartagena')}</p>
-                </div>
-              </li>
-            </ul>
+                </ul>
+              </div>
+              <div className="footer-accordion-group">
+                <h4>{t('footer.careers')}</h4>
+                <ul>
+                  {careerLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href} className="footer-link">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </details>
+
+          <div className="footer-mobile-contact">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-vertex-polarWhite">
+              {t('footer.contactInfo')}
+            </h3>
+            <FooterContactInfo t={t} />
           </div>
         </div>
 
@@ -157,6 +145,87 @@ export function Footer({ locale }: FooterProps) {
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterBrand({ locale }: { locale: Locale }) {
+  const t = useTranslations('common');
+
+  return (
+    <>
+      <Link href={hrefFor(locale, 'home')} aria-label="Vertex">
+        <Image
+          src="/images/vertex-logo.png"
+          alt="Vertex"
+          width={130}
+          height={40}
+          className="h-[32px] w-auto brightness-0 invert"
+        />
+      </Link>
+      <p className="site-footer-description max-w-[280px] text-sm leading-relaxed text-vertex-facetIce/80">
+        {t('footer.description')}
+      </p>
+      <div className="mt-6 flex items-center gap-3">
+        <a
+          href={OFFICIAL_SOCIAL_LINKS.instagram}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit Vertex on Instagram"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+        >
+          <InstagramIcon className="h-4 w-4" />
+        </a>
+        <a
+          href={OFFICIAL_SOCIAL_LINKS.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit Vertex on LinkedIn"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-vertex-facetIce/20 bg-white/5 text-vertex-facetIce/80 transition-all hover:border-vertex-prismBlue/60 hover:bg-vertex-prismBlue/15 hover:text-vertex-prismBlue focus-visible:outline-2 focus-visible:outline-vertex-prismBlue"
+        >
+          <LinkedInIcon className="h-4 w-4" />
+        </a>
+      </div>
+    </>
+  );
+}
+
+function FooterContactInfo({ t }: { t: ReturnType<typeof useTranslations> }) {
+  return (
+    <ul className="site-footer-contact space-y-3.5">
+      <li>
+        <a
+          href="mailto:gerenciavertexsas@gmail.com"
+          className="flex items-center gap-2 text-xs text-vertex-facetIce/80 transition-colors hover:text-vertex-prismBlue"
+        >
+          <Mail className="h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
+          gerenciavertexsas@gmail.com
+        </a>
+      </li>
+      <li className="space-y-1.5">
+        <div className="flex items-center gap-2 text-xs text-vertex-facetIce/80">
+          <Phone className="h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
+          <span className="font-semibold text-vertex-polarWhite">{t('footer.phones')}</span>
+        </div>
+        <div className="pl-5.5 space-y-1">
+          {OFFICIAL_PHONE_NUMBERS.map((phone) => (
+            <a
+              key={phone.link}
+              href={phone.link}
+              className="block text-xs text-vertex-facetIce/75 transition-colors hover:text-vertex-prismBlue"
+            >
+              {phone.display}
+            </a>
+          ))}
+        </div>
+      </li>
+      <li className="flex items-start gap-2 text-xs text-vertex-facetIce/80">
+        <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
+        <div className="space-y-0.5">
+          <p>{t('footer.bogota')}</p>
+          <p>{t('footer.cartagena')}</p>
+        </div>
+      </li>
+    </ul>
   );
 }
 

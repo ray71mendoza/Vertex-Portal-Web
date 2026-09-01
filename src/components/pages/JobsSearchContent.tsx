@@ -1,16 +1,21 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { Search, MapPin, Briefcase, Clock, X, ArrowRight } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
+import { Pagination } from '@/components/ui/Pagination';
 import {
   jobOpenings, jobAreaLabels, modalityLabels, contractTypeLabels,
   getUniqueCountries
 } from '@/content/jobs';
 import { hrefFor, type Locale } from '@/i18n/config';
 import styles from './JobsSearchContent.module.css';
+
+const JOBS_PER_PAGE_MOBILE = 4;
+const JOBS_PER_PAGE_DESKTOP = 6;
+const MOBILE_BREAKPOINT = 768;
 
 export function JobsSearchContent({ locale, initialArea = '' }: { locale: string; initialArea?: string }) {
   const t = useTranslations('jobs');
@@ -22,6 +27,16 @@ export function JobsSearchContent({ locale, initialArea = '' }: { locale: string
   const [selectedCountry, setSelectedCountry] = useState<string>('');
   const [selectedModality, setSelectedModality] = useState<string>('');
   const [selectedContract, setSelectedContract] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jobsPerPage, setJobsPerPage] = useState(JOBS_PER_PAGE_DESKTOP);
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`);
+    const applyBreakpoint = () => setJobsPerPage(mql.matches ? JOBS_PER_PAGE_MOBILE : JOBS_PER_PAGE_DESKTOP);
+    applyBreakpoint();
+    mql.addEventListener('change', applyBreakpoint);
+    return () => mql.removeEventListener('change', applyBreakpoint);
+  }, []);
 
   const countries = useMemo(() => getUniqueCountries(loc), [loc]);
 
@@ -51,7 +66,12 @@ export function JobsSearchContent({ locale, initialArea = '' }: { locale: string
     setSelectedCountry('');
     setSelectedModality('');
     setSelectedContract('');
+    setCurrentPage(1);
   };
+
+  const totalPages = Math.max(1, Math.ceil(filteredJobs.length / jobsPerPage));
+  const effectivePage = Math.min(currentPage, totalPages);
+  const paginatedJobs = filteredJobs.slice((effectivePage - 1) * jobsPerPage, effectivePage * jobsPerPage);
 
   return (
     <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
@@ -86,7 +106,7 @@ export function JobsSearchContent({ locale, initialArea = '' }: { locale: string
                   <input
                     type="text"
                     value={keyword}
-                    onChange={(e) => setKeyword(e.target.value)}
+                    onChange={(e) => { setKeyword(e.target.value); setCurrentPage(1); }}
                     placeholder={t('search.placeholder')}
                     className="vx-input !pl-10 !h-11"
                   />
@@ -96,7 +116,7 @@ export function JobsSearchContent({ locale, initialArea = '' }: { locale: string
                 <div className="md:col-span-2">
                   <select
                     value={selectedArea}
-                    onChange={(e) => setSelectedArea(e.target.value)}
+                    onChange={(e) => { setSelectedArea(e.target.value); setCurrentPage(1); }}
                     className="vx-select !h-11 text-sm"
                   >
                     <option value="">{t('search.allAreas')}</option>
@@ -110,7 +130,7 @@ export function JobsSearchContent({ locale, initialArea = '' }: { locale: string
                 <div className="md:col-span-2">
                   <select
                     value={selectedCountry}
-                    onChange={(e) => setSelectedCountry(e.target.value)}
+                    onChange={(e) => { setSelectedCountry(e.target.value); setCurrentPage(1); }}
                     className="vx-select !h-11 text-sm"
                   >
                     <option value="">{t('search.allCountries')}</option>
@@ -124,7 +144,7 @@ export function JobsSearchContent({ locale, initialArea = '' }: { locale: string
                 <div className="md:col-span-2">
                   <select
                     value={selectedModality}
-                    onChange={(e) => setSelectedModality(e.target.value)}
+                    onChange={(e) => { setSelectedModality(e.target.value); setCurrentPage(1); }}
                     className="vx-select !h-11 text-sm"
                   >
                     <option value="">{t('search.allModalities')}</option>
@@ -138,7 +158,7 @@ export function JobsSearchContent({ locale, initialArea = '' }: { locale: string
                 <div className="md:col-span-2">
                   <select
                     value={selectedContract}
-                    onChange={(e) => setSelectedContract(e.target.value)}
+                    onChange={(e) => { setSelectedContract(e.target.value); setCurrentPage(1); }}
                     className="vx-select !h-11 text-sm"
                   >
                     <option value="">{t('search.allContracts')}</option>
@@ -182,7 +202,7 @@ export function JobsSearchContent({ locale, initialArea = '' }: { locale: string
             </AnimatedReveal>
           ) : (
             <div className={styles.jobList}>
-              {filteredJobs.map((job, idx) => (
+              {paginatedJobs.map((job, idx) => (
                 <AnimatedReveal key={job.id} delay={Math.min(idx + 1, 3)} className={styles.cardReveal}>
                   <article className={styles.jobCard}>
                     <div className={styles.jobLayout}>
@@ -232,6 +252,15 @@ export function JobsSearchContent({ locale, initialArea = '' }: { locale: string
                 </AnimatedReveal>
               ))}
             </div>
+          )}
+
+          {filteredJobs.length > 0 && (
+            <Pagination
+              currentPage={effectivePage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              locale={loc}
+            />
           )}
         </div>
       </section>

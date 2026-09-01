@@ -700,6 +700,76 @@ body:has(.vx-homepage) .site-header[data-scrolled='false'] {
   padding-bottom: 2rem;
 }
 
+/* ============================================
+   MOBILE FOOTER (compact accordion)
+   ============================================ */
+.footer-mobile {
+  padding-top: 2.75rem;
+  padding-bottom: 1.5rem;
+}
+
+.footer-mobile-contact {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(114, 198, 232, 0.14);
+}
+
+.footer-accordion {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  padding-bottom: 0.25rem;
+  border-top: 1px solid rgba(114, 198, 232, 0.14);
+}
+
+.footer-accordion summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  color: var(--color-vertex-polarWhite, #FEFEFE);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.footer-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.footer-accordion summary svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--color-vertex-prismBlue, #72C6E8);
+  flex-shrink: 0;
+  transition: transform 200ms ease;
+}
+
+.footer-accordion[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.footer-accordion-body {
+  display: grid;
+  gap: 1.5rem;
+  padding-top: 1.25rem;
+}
+
+.footer-accordion-group h4 {
+  margin-bottom: 0.7rem;
+  color: rgba(182, 209, 216, 0.6);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-accordion-group ul {
+  display: grid;
+  gap: 0.65rem;
+}
+
 @media (max-width: 639px) {
   .vx-homepage .vx-h1-home {
     font-size: clamp(2.12rem, 9.15vw, 2.42rem);

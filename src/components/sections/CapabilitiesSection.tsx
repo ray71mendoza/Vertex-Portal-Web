@@ -8,6 +8,7 @@ import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { services } from '@/content/services';
 import { hrefFor, type Locale } from '@/i18n/config';
+import { useMobileAutoCarousel } from '@/hooks/useMobileAutoCarousel';
 import styles from './CapabilitiesSection.module.css';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -28,6 +29,7 @@ export function CapabilitiesSection({ locale }: CapabilitiesSectionProps) {
   const t = useTranslations('home.capabilities');
   const tServices = useTranslations('services.items');
   const loc = locale as Locale;
+  const carouselRef = useMobileAutoCarousel<HTMLDivElement>(services.length);
 
   return (
     <section className={`${styles.section} home-capabilities vx-section relative overflow-hidden`} aria-label="Capabilities">
@@ -68,7 +70,7 @@ export function CapabilitiesSection({ locale }: CapabilitiesSectionProps) {
             </figure>
           </AnimatedReveal>
 
-          <div className={`${styles.capabilitiesGrid} lg:col-span-7`}>
+          <div ref={carouselRef} className={`${styles.capabilitiesGrid} lg:col-span-7`}>
             {services.map((service, index) => {
               const IconComponent = iconMap[service.icon] || Lightbulb;
 

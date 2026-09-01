@@ -99,6 +99,7 @@
 
 .heroContent h1 {
   max-width: 15ch;
+  overflow-wrap: break-word;
   color: #fefefe;
   font-size: clamp(2.85rem, 5vw, 4.8rem);
   font-weight: 740;
@@ -110,6 +111,7 @@
 .tagline {
   max-width: 46rem;
   margin-top: 1.6rem;
+  overflow-wrap: break-word;
   color: #d8eef3;
   font-size: clamp(1.05rem, 1.65vw, 1.3rem);
   font-weight: 680;
@@ -119,6 +121,7 @@
 .description {
   max-width: 48rem;
   margin-top: 1rem;
+  overflow-wrap: break-word;
   color: #a9cbd3;
   font-size: 1rem;
   line-height: 1.8;
@@ -404,17 +407,19 @@
   }
 
   .heroContent h1 {
-    font-size: clamp(2.5rem, 12vw, 3.4rem);
+    max-width: none;
+    font-size: clamp(2.2rem, 9vw, 3.4rem);
   }
 
   .serviceLead {
-    grid-template-columns: 3.25rem minmax(0, 1fr);
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
   }
 
   .serviceIcon {
     width: 3.25rem;
     height: 3.25rem;
+    margin-top: 0;
     border-radius: 1rem;
   }
 
@@ -424,17 +429,58 @@
   }
 
   .section {
-    padding: 4.5rem 0;
+    padding: 2.75rem 0;
   }
 
+  .sectionIntro {
+    margin-bottom: 2rem;
+  }
+
+  /* Compact square-card grids instead of stacked full-width cards */
   .capabilitiesGrid,
-  .challengesGrid {
-    grid-template-columns: 1fr;
+  .challengesGrid,
+  .outcomeList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .outcomeList {
+    margin-top: 1.5rem;
+  }
+
+  .capabilitiesGrid .revealCard:nth-child(odd):last-child,
+  .challengesGrid .revealCard:nth-child(odd):last-child,
+  .outcomeList > div:nth-child(odd):last-child {
+    grid-column: 1 / -1;
   }
 
   .capabilityCard,
-  .challengeCard {
-    padding: 1.2rem;
+  .challengeCard,
+  .outcomeItem {
+    grid-template-columns: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 8rem;
+    gap: 0.55rem;
+    padding: 1.1rem 0.85rem;
+    text-align: center;
+  }
+
+  .capabilityCard svg,
+  .challengeCard svg,
+  .outcomeItem svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .capabilityCard span,
+  .challengeCard span,
+  .outcomeItem span {
+    font-size: 0.78rem;
+    line-height: 1.4;
   }
 
   .closingCta {

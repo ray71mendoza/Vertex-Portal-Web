@@ -24,9 +24,10 @@ import {
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { companyStatistics, testimonials, whyVertexPillars } from '@/content/company';
-import { offices } from '@/content/locations';
+import { getOfficesByType } from '@/content/locations';
 import { getVisibleMembers } from '@/content/team';
 import { hrefFor, type Locale } from '@/i18n/config';
+import { useMobileAutoCarousel } from '@/hooks/useMobileAutoCarousel';
 import styles from './WhoWeArePageContent.module.css';
 
 const pillarIconMap: Record<string, React.ElementType> = {
@@ -44,6 +45,9 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
   const loc = locale as Locale;
   const members = getVisibleMembers().slice(0, 4);
   const talentValues = ['diversity', 'collaboration', 'learning', 'innovation', 'growth', 'results'] as const;
+  const officeLocations = getOfficesByType('office');
+  const pillarsCarouselRef = useMobileAutoCarousel<HTMLDivElement>(whyVertexPillars.length);
+  const testimonialsCarouselRef = useMobileAutoCarousel<HTMLDivElement>(testimonials.length);
 
   const coverageAreas = [
     {
@@ -163,7 +167,7 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
             align="center"
             className={styles.centeredHeading}
           />
-          <div className={styles.pillarsGrid}>
+          <div ref={pillarsCarouselRef} className={styles.pillarsGrid}>
             {whyVertexPillars.map((pillar, idx) => {
               const IconComp = pillarIconMap[pillar.icon] || CheckCircle2;
               return (
@@ -191,7 +195,7 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
             align="center"
             className={styles.centeredHeading}
           />
-          <div className={styles.testimonialsGrid}>
+          <div ref={testimonialsCarouselRef} className={styles.testimonialsGrid}>
             {testimonials.map((testimonial, idx) => (
               <AnimatedReveal key={testimonial.id} delay={Math.min(idx + 1, 2)} className={styles.cardReveal}>
                 <article className={styles.testimonialCard}>
@@ -279,7 +283,7 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
             className={styles.centeredHeading}
           />
           <div className={styles.locationsGrid}>
-            {offices.map((office, idx) => (
+            {officeLocations.map((office, idx) => (
               <AnimatedReveal key={office.id} delay={Math.min(idx + 1, 3)} className={styles.cardReveal}>
                 <article className={styles.officeCard}>
                   <div className={styles.officeHeader}>

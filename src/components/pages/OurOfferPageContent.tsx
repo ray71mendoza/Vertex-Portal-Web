@@ -127,8 +127,10 @@ export function OurOfferPageContent({ locale }: { locale: string }) {
                       </div>
                       <span className={styles.stepNumber}>{step.number}</span>
                     </div>
-                    <h3 className={styles.stepTitle}>{t(`methodology.steps.${step.key}.title`)}</h3>
-                    <p className={styles.stepDescription}>{t(`methodology.steps.${step.key}.description`)}</p>
+                    <div className={styles.stepContent}>
+                      <h3 className={styles.stepTitle}>{t(`methodology.steps.${step.key}.title`)}</h3>
+                      <p className={styles.stepDescription}>{t(`methodology.steps.${step.key}.description`)}</p>
+                    </div>
                   </article>
                 </AnimatedReveal>
               );

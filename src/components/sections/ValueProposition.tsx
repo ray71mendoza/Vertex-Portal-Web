@@ -4,6 +4,8 @@ import { useTranslations } from 'next-intl';
 import { Target, Puzzle, Users, TrendingUp, Scaling, Leaf, Globe } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { useMobileAutoCarousel } from '@/hooks/useMobileAutoCarousel';
+import styles from './ValueProposition.module.css';
 
 const valueItems = [
   { key: 'strategy', icon: Target },
@@ -21,6 +23,7 @@ interface ValuePropositionProps {
 
 export function ValueProposition({ locale }: ValuePropositionProps) {
   const t = useTranslations('home.value');
+  const carouselRef = useMobileAutoCarousel<HTMLDivElement>(valueItems.length);
 
   return (
     <section className="home-value vx-section vx-bg-dark relative overflow-hidden" aria-label="Value Proposition">
@@ -43,12 +46,12 @@ export function ValueProposition({ locale }: ValuePropositionProps) {
         />
 
         {/* Value Proposition Minimal Cards */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12">
+        <div ref={carouselRef} className={styles.grid}>
           {valueItems.map((item, index) => {
             const IconComponent = item.icon;
             const spanClass = index === 0 ? 'lg:col-span-6' : 'lg:col-span-3';
             return (
-              <AnimatedReveal key={item.key} delay={Math.min(index + 1, 5)} className={`${spanClass} h-full`}>
+              <AnimatedReveal key={item.key} delay={Math.min(index + 1, 5)} className={`${styles.item} ${spanClass} h-full`}>
                 <div className={`home-value-card vx-card vx-card-dark relative flex h-full min-h-[200px] flex-col justify-between overflow-hidden !p-5 transition-all duration-300 border border-white/10 hover:border-vertex-prismBlue/40 sm:!p-7 ${index === 0 ? 'home-value-card-featured' : ''}`}>
                   <span className="absolute right-5 top-4 font-mono text-xs font-bold tracking-[0.15em] text-white/25">
                     {String(index + 1).padStart(2, '0')}

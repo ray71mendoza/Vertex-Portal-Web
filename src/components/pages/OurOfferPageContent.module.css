@@ -418,14 +418,90 @@
     padding: 4.5rem 0;
   }
 
-  .servicesGrid,
-  .methodologyGrid {
+  .servicesGrid {
     grid-template-columns: 1fr;
   }
 
-  .serviceCard,
-  .methodologyCard {
+  .serviceCard {
     min-height: 0;
+  }
+
+  /* Methodology becomes a vertical timeline on mobile instead of stacked cards */
+  .methodologyGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .methodologyCard {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.1rem;
+    min-height: 0;
+    padding: 0 0 2rem;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .cardReveal:last-child .methodologyCard {
+    padding-bottom: 0;
+  }
+
+  .stepTopline {
+    position: relative;
+    flex-direction: column;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  .stepTopline::after {
+    content: '';
+    position: absolute;
+    top: 2.85rem;
+    bottom: -2rem;
+    left: 50%;
+    width: 2px;
+    background: rgba(11, 69, 81, 0.16);
+    transform: translateX(-50%);
+  }
+
+  .cardReveal:last-child .stepTopline::after {
+    display: none;
+  }
+
+  .stepIcon {
+    display: none;
+  }
+
+  .stepNumber {
+    min-width: 0;
+    width: 2.85rem;
+    height: 2.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: #0b4551;
+    color: #fefefe;
+  }
+
+  .stepContent {
+    padding-top: 0.3rem;
+  }
+
+  .stepTitle {
+    font-size: 1.05rem;
+  }
+
+  .stepDescription {
+    margin-top: 0.45rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
   }
 
   .finalCta {

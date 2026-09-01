@@ -12,6 +12,7 @@ import { ShowcaseCarousel } from '@/components/ui/ShowcaseCarousel';
 import { recruitmentSteps, workAttributes, workEnvironmentValues } from '@/content/careers';
 import { showcaseItems } from '@/content/showcase';
 import { hrefFor, type Locale } from '@/i18n/config';
+import { useMobileAutoCarousel } from '@/hooks/useMobileAutoCarousel';
 import styles from './CareersPageContent.module.css';
 
 const stepIconMap: Record<string, React.ElementType> = {
@@ -26,6 +27,8 @@ export function CareersPageContent({ locale }: { locale: string }) {
   const t = useTranslations('careers');
   const tCommon = useTranslations('common');
   const loc = locale as Locale;
+  const whyCarouselRef = useMobileAutoCarousel<HTMLDivElement>(workAttributes.length, { breakpoint: 640 });
+  const environmentCarouselRef = useMobileAutoCarousel<HTMLDivElement>(workEnvironmentValues.length, { breakpoint: 640 });
 
   return (
     <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
@@ -73,7 +76,7 @@ export function CareersPageContent({ locale }: { locale: string }) {
             align="left"
             className={styles.whyHeading}
           />
-          <div className={styles.featureGrid}>
+          <div ref={whyCarouselRef} className={styles.featureGrid}>
             {workAttributes.map((attr, idx) => {
               const IconComp = attrIconMap[attr.icon] || Lightbulb;
               return (
@@ -105,7 +108,7 @@ export function CareersPageContent({ locale }: { locale: string }) {
             align="left"
             className={styles.environmentHeading}
           />
-          <div className={styles.featureGrid}>
+          <div ref={environmentCarouselRef} className={styles.featureGrid}>
             {workEnvironmentValues.map((val, idx) => (
               <AnimatedReveal key={val.id} delay={Math.min(idx + 1, 3)} className={styles.cardReveal}>
                 <article className={`${styles.featureCard} ${styles.environmentCard}`}>
@@ -145,8 +148,10 @@ export function CareersPageContent({ locale }: { locale: string }) {
                       </div>
                       <span className={styles.stepNumber}>{step.number}</span>
                     </div>
-                    <h3 className={styles.stepTitle}>{step.title[loc]}</h3>
-                    <p className={styles.stepDescription}>{step.description[loc]}</p>
+                    <div className={styles.stepContent}>
+                      <h3 className={styles.stepTitle}>{step.title[loc]}</h3>
+                      <p className={styles.stepDescription}>{step.description[loc]}</p>
+                    </div>
                   </article>
                 </AnimatedReveal>
               );
