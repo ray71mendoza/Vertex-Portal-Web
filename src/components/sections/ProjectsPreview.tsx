@@ -17,7 +17,8 @@ export function ProjectsPreview({ locale }: ProjectsPreviewProps) {
   const t = useTranslations('home.projects');
   const tStates = useTranslations('common.states');
   const loc = locale as Locale;
-  const featured = getFeaturedProjects().slice(0, 2);
+  const featured = getFeaturedProjects().slice(0, 4);
+
 
   // If no projects exist, show an elegant empty state
   if (featured.length === 0) {
