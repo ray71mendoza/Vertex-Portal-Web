@@ -1,18 +1,79 @@
 import { setRequestLocale } from 'next-intl/server';
+import type { Metadata } from 'next';
 import { WhoWeArePageContent } from '@/components/pages/WhoWeArePageContent';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getBreadcrumbSchema } from '@/lib/schema';
+import type { Locale } from '@/i18n/config';
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale === 'es';
+  const title = isEs
+    ? 'Quiénes Somos — Innovación, Talento y Tecnología'
+    : 'Who We Are — Innovation, Talent & Technology';
+  const description = isEs
+    ? 'Conoce a Vertex: compañía especializada en transformación digital, desarrollo de software, diseño estratégico y comunicación en Colombia y Latinoamérica.'
+    : 'Meet Vertex: specialized enterprise in digital transformation, custom software development, strategic design, and corporate communications in Colombia and Latin America.';
+
   return {
-    title: locale === 'es' ? 'Quiénes Somos — Vertex' : 'Who We Are — Vertex',
-    description: locale === 'es'
-      ? 'Conoce a Vertex: tecnología, talento y visión para transformar organizaciones en Latinoamérica.'
-      : 'Meet Vertex: technology, talent and vision to transform organizations across Latin America.',
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/about-us`,
+      languages: {
+        es: '/es/quienes-somos',
+        en: '/en/about-us',
+        'x-default': '/es/quienes-somos',
+      },
+    },
+    openGraph: {
+      title: `${title} | Vertex`,
+      description,
+      url: `/${locale}/about-us`,
+      type: 'website',
+      images: [
+        {
+          url: '/images/vertex-wallpaper-dark.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Vertex`,
+      description,
+      images: ['/images/vertex-wallpaper-dark.png'],
+    },
   };
 }
 
-export default async function AboutUsPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function AboutUsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
+  const currentLocale = locale as Locale;
   setRequestLocale(locale);
-  return <WhoWeArePageContent locale={locale} />;
+
+  const breadcrumbItems = [
+    { name: currentLocale === 'es' ? 'Inicio' : 'Home', url: `/${locale}` },
+    {
+      name: currentLocale === 'es' ? 'Quiénes Somos' : 'Who We Are',
+      url: `/${locale}/about-us`,
+    },
+  ];
+
+  return (
+    <>
+      <JsonLd data={getBreadcrumbSchema(breadcrumbItems)} />
+      <WhoWeArePageContent locale={locale} />
+    </>
+  );
 }

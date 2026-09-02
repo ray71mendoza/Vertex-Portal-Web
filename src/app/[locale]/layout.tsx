@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { locales, type Locale } from '@/i18n/config';
 import { Header } from '@/components/navigation/Header';
 import { Footer } from '@/components/navigation/Footer';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getOrganizationSchema, getWebSiteSchema } from '@/lib/schema';
 import '../globals.css';
 
 export function generateStaticParams() {
@@ -13,30 +15,83 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const isEs = locale === 'es';
-  const title = isEs
-    ? 'Vertex - Tecnología estratégica para transformar ideas en resultados'
-    : 'Vertex - Strategic technology to transform ideas into results';
+  const defaultTitle = isEs
+    ? 'Vertex — Tecnología estratégica para transformar ideas en resultados'
+    : 'Vertex — Strategic technology to transform ideas into results';
   const description = isEs
-    ? 'Innovación, transformación digital, desarrollo de software, diseño estratégico y comunicación. Soluciones tecnológicas integrales para organizaciones públicas y privadas.'
-    : 'Innovation, digital transformation, software development, strategic design and communication. Comprehensive technology solutions for public and private organizations.';
+    ? 'Innovación, transformación digital, desarrollo de software a la medida, diseño estratégico y comunicación en Colombia y Latinoamérica.'
+    : 'Innovation, digital transformation, custom software development, strategic design and communication in Colombia and Latin America.';
 
   return {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vertex.com.co'),
-    title,
+    title: {
+      default: defaultTitle,
+      template: '%s | Vertex',
+    },
     description,
+    keywords: isEs
+      ? [
+          'desarrollo de software Colombia',
+          'transformación digital Colombia',
+          'software a la medida Bogotá',
+          'inteligencia artificial empresas',
+          'diseño UX UI Colombia',
+          'software factory Colombia',
+          'consultoría tecnológica',
+          'Vertex Colombia',
+        ]
+      : [
+          'custom software development Colombia',
+          'digital transformation Latin America',
+          'enterprise software solutions',
+          'AI business solutions',
+          'UX UI design Colombia',
+          'Vertex technology',
+        ],
+    authors: [{ name: 'VERTEX S.A.S.' }],
+    creator: 'VERTEX S.A.S.',
+    publisher: 'VERTEX S.A.S.',
     alternates: {
       canonical: `/${locale}`,
       languages: {
         es: '/es',
         en: '/en',
+        'x-default': '/es',
       },
     },
     openGraph: {
-      title,
+      title: defaultTitle,
       description,
-      locale,
+      url: `/${locale}`,
+      siteName: 'VERTEX',
+      locale: isEs ? 'es_CO' : 'en_US',
+      alternateLocale: isEs ? 'en_US' : 'es_CO',
       type: 'website',
+      images: [
+        {
+          url: '/images/vertex-wallpaper-dark.png',
+          width: 1200,
+          height: 630,
+          alt: 'Vertex — Tecnología Estratégica',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: defaultTitle,
+      description,
       images: ['/images/vertex-wallpaper-dark.png'],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
   };
 }
@@ -56,6 +111,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const currentLocale = locale as Locale;
 
   return (
     <html lang={locale}>
@@ -64,20 +120,24 @@ export default async function LocaleLayout({
         <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
         <link rel="icon" href="/images/vertex-symbol.png" type="image/png" sizes="512x512" />
         <link rel="apple-touch-icon" href="/images/vertex-symbol.png" />
-        <link rel="alternate" hrefLang="es" href="/es" />
-        <link rel="alternate" hrefLang="en" href="/en" />
-        <link rel="alternate" hrefLang="x-default" href="/es" />
       </head>
       <body>
+        <JsonLd
+          data={[
+            getOrganizationSchema(currentLocale),
+            getWebSiteSchema(currentLocale),
+          ]}
+        />
         <NextIntlClientProvider messages={messages}>
           <a href="#main-content" className="skip-to-content">
             {locale === 'es' ? 'Ir al contenido principal' : 'Skip to main content'}
           </a>
-          <Header locale={locale as Locale} />
+          <Header locale={currentLocale} />
           <main id="main-content">{children}</main>
-          <Footer locale={locale as Locale} />
+          <Footer locale={currentLocale} />
         </NextIntlClientProvider>
       </body>
     </html>
   );
 }
+

@@ -148,10 +148,12 @@
   text-transform: uppercase;
 }
 
-.heroCta h2 {
+.heroCta h2,
+.heroCta .ctaHeading {
   margin-top: 0.75rem;
   color: #03252d;
   font-size: 1.25rem;
+  font-weight: 700;
   line-height: 1.4;
 }
 
@@ -163,6 +165,7 @@
   margin-top: 1.4rem;
   padding: 0.85rem 1.15rem;
 }
+
 
 .heroCta svg,
 .closingContent :global(.vx-btn) svg {
@@ -297,9 +300,66 @@
   border-bottom: 1px solid rgba(3, 37, 45, 0.1);
 }
 
-.outcomeHeader h2 {
+.outcomeHeader h2,
+.outcomeHeader h3 {
   font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 700;
+  color: #03252d;
 }
+
+.relatedSection {
+  padding: clamp(4rem, 6vw, 6rem) 0;
+  background: #f7fafb;
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.relatedCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.75rem;
+  background: #fefefe;
+  border: 1px solid rgba(3, 37, 45, 0.1);
+  border-radius: 1.25rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.relatedCard:hover {
+  border-color: rgba(11, 69, 81, 0.35);
+  box-shadow: 0 16px 36px rgba(3, 37, 45, 0.08);
+  transform: translateY(-2px);
+}
+
+.relatedCardTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #03252d;
+  margin-bottom: 0.5rem;
+}
+
+.relatedCardDesc {
+  font-size: 0.88rem;
+  color: #2d636e;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.relatedCardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #0b4551;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
 
 .outcomeList {
   display: grid;

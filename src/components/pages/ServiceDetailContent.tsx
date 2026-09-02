@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { getServiceBySlug, type ServiceData } from '@/content/services';
+import { getProjectsByServiceCategory } from '@/content/projects';
 import { hrefFor, type Locale } from '@/i18n/config';
 import styles from './ServiceDetailContent.module.css';
 
@@ -47,6 +48,7 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
   const benefits = service.benefits[loc] || [];
   const targetAudience = service.targetAudience[loc] || [];
   const contactHref = `${hrefFor(loc, 'contact')}?service=${service.id}`;
+  const relatedProjects = getProjectsByServiceCategory(service.id, 2);
 
   return (
     <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
@@ -75,9 +77,13 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
                 </div>
               </div>
 
-              <aside className={styles.heroCta}>
+              <aside className={styles.heroCta} aria-label={loc === 'es' ? 'Contacto de servicio' : 'Service contact'}>
                 <span>{loc === 'es' ? 'Soluciones a la medida' : 'Tailored solutions'}</span>
-                <h2>{loc === 'es' ? 'Convirtamos tu reto en una solución concreta.' : 'Let’s turn your challenge into a concrete solution.'}</h2>
+                <p className={styles.ctaHeading}>
+                  {loc === 'es'
+                    ? 'Convirtamos tu reto en una solución concreta.'
+                    : 'Let’s turn your challenge into a concrete solution.'}
+                </p>
                 <Link href={contactHref} className="vx-btn vx-btn-primary">
                   {tCommon('cta.contactUs')}
                   <ArrowRight aria-hidden="true" />
@@ -130,7 +136,10 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
         </section>
       )}
 
-      <section className={`${styles.section} ${styles.outcomesSection}`} aria-label={loc === 'es' ? 'Resultados y público objetivo' : 'Outcomes and target audience'}>
+      <section
+        className={`${styles.section} ${styles.outcomesSection}`}
+        aria-label={loc === 'es' ? 'Resultados y público objetivo' : 'Outcomes and target audience'}
+      >
         <div className="vx-container">
           <div className={styles.outcomesGrid}>
             <AnimatedReveal className={styles.revealCard}>
@@ -152,6 +161,37 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
           </div>
         </div>
       </section>
+
+      {relatedProjects.length > 0 && (
+        <section className={styles.relatedSection} aria-labelledby="related-projects-title">
+          <div className="vx-container">
+            <SectionIntro
+              eyebrow={loc === 'es' ? 'Casos y Experiencia' : 'Cases & Experience'}
+              title={loc === 'es' ? 'Proyectos y Aplicaciones Relacionadas' : 'Related Projects & Case Studies'}
+              id="related-projects-title"
+            />
+            <div className={styles.relatedGrid}>
+              {relatedProjects.map((p) => {
+                const pSlug = p.slug[loc];
+                const pBasePath = loc === 'es' ? 'proyectos' : 'projects';
+                const pHref = `/${loc}/${pBasePath}/${pSlug}`;
+                return (
+                  <Link key={p.id} href={pHref} className={styles.relatedCard}>
+                    <div>
+                      <h3 className={styles.relatedCardTitle}>{p.title[loc]}</h3>
+                      <p className={styles.relatedCardDesc}>{p.description[loc]}</p>
+                    </div>
+                    <span className={styles.relatedCardLink}>
+                      {loc === 'es' ? 'Ver caso de estudio' : 'View case study'}
+                      <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className={styles.closingCta} aria-labelledby="service-cta-title">
         <div
@@ -203,7 +243,7 @@ function OutcomePanel({
     <article className={styles.outcomePanel}>
       <header className={styles.outcomeHeader}>
         <span>{eyebrow}</span>
-        <h2>{title}</h2>
+        <h3>{title}</h3>
       </header>
       <div className={styles.outcomeList}>
         {items.map((item) => (

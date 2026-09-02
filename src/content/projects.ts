@@ -238,3 +238,11 @@ export function getNextPrevProjects(currentProjectId: string): { prev: Project |
   return { prev, next };
 }
 
+export function getProjectsByServiceCategory(category: ServiceCategory, limit = 2): Project[] {
+  const visible = getVisibleProjects();
+  const matched = visible.filter((p) => p.category === category || p.services.includes(category));
+  if (matched.length > 0) return matched.slice(0, limit);
+  return visible.slice(0, limit);
+}
+
+

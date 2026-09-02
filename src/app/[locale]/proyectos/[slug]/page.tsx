@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { ProjectDetailContent } from '@/components/pages/ProjectDetailContent';
 import { getProjectBySlug, getVisibleProjects } from '@/content/projects';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getProjectSchema, getBreadcrumbSchema } from '@/lib/schema';
+import type { Locale } from '@/i18n/config';
 
 export function generateStaticParams() {
   const visible = getVisibleProjects();
@@ -16,19 +20,47 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const project = getProjectBySlug(slug, locale as 'es' | 'en');
+  const currentLocale = locale as Locale;
+  const project = getProjectBySlug(slug, currentLocale);
   if (!project) return {};
 
-  const title = `${project.title[locale as 'es' | 'en']} | Vertex`;
-  const description = project.description[locale as 'es' | 'en'];
+  const esSlug = project.slug.es;
+  const enSlug = project.slug.en;
+  const title = project.title[currentLocale];
+  const description = project.description[currentLocale];
+  const coverImage = project.coverImage || '/images/vertex-wallpaper-dark.png';
+  const currentPath = `/${locale}/proyectos/${slug}`;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: currentPath,
+      languages: {
+        es: `/es/proyectos/${esSlug}`,
+        en: `/en/projects/${enSlug}`,
+        'x-default': `/es/proyectos/${esSlug}`,
+      },
+    },
     openGraph: {
-      title,
+      title: `${title} | Vertex`,
       description,
-      images: [project.coverImage || '/images/vertex-wallpaper-dark.png'],
+      url: currentPath,
+      type: 'article',
+      images: [
+        {
+          url: coverImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Vertex`,
+      description,
+      images: [coverImage],
     },
   };
 }
@@ -39,6 +71,36 @@ export default async function ProyectoDetailPage({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
+  const currentLocale = locale as Locale;
+  const project = getProjectBySlug(slug, currentLocale);
+
+  if (!project) {
+    notFound();
+  }
+
   setRequestLocale(locale);
-  return <ProjectDetailContent slug={slug} locale={locale} />;
+
+  const breadcrumbItems = [
+    { name: currentLocale === 'es' ? 'Inicio' : 'Home', url: `/${locale}` },
+    {
+      name: currentLocale === 'es' ? 'Proyectos' : 'Projects',
+      url: `/${locale}/proyectos`,
+    },
+    {
+      name: project.title[currentLocale],
+      url: `/${locale}/proyectos/${slug}`,
+    },
+  ];
+
+  return (
+    <>
+      <JsonLd
+        data={[
+          getBreadcrumbSchema(breadcrumbItems),
+          getProjectSchema(project, currentLocale),
+        ]}
+      />
+      <ProjectDetailContent slug={slug} locale={locale} />
+    </>
+  );
 }

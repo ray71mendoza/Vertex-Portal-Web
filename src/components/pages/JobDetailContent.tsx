@@ -17,17 +17,18 @@ import {
 
 const createApplicationSchema = (t: (key: string) => string) =>
   z.object({
-    name: z.string().min(1, t('validation.nameRequired')),
-    email: z.string().min(1, t('validation.emailRequired')).email(t('validation.emailInvalid')),
-    phone: z.string().min(1, t('validation.phoneRequired')),
-    country: z.string().min(1, t('validation.countryRequired')),
-    city: z.string().min(1, t('validation.cityRequired')),
+    name: z.string().min(1, t('application.validation.nameRequired')),
+    email: z.string().min(1, t('application.validation.emailRequired')).email(t('application.validation.emailInvalid')),
+    phone: z.string().min(1, t('application.validation.phoneRequired')),
+    country: z.string().min(1, t('application.validation.countryRequired')),
+    city: z.string().min(1, t('application.validation.cityRequired')),
     linkedin: z.string().optional(),
     portfolio: z.string().optional(),
     message: z.string().optional(),
-    privacy: z.boolean().refine((val) => val === true, t('validation.privacyRequired')),
+    privacy: z.boolean().refine((val) => val === true, t('application.validation.privacyRequired')),
     honeypot: z.string().max(0),
   });
+
 
 type ApplicationFormData = z.infer<ReturnType<typeof createApplicationSchema>>;
 

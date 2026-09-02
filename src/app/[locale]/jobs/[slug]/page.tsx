@@ -1,23 +1,131 @@
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
-import { getJobBySlug } from '@/content/jobs';
+import type { Metadata } from 'next';
+import { getJobBySlug, getOpenJobs } from '@/content/jobs';
 import { JobDetailContent } from '@/components/pages/JobDetailContent';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getBreadcrumbSchema } from '@/lib/schema';
+import type { Locale } from '@/i18n/config';
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+export function generateStaticParams() {
+  const openJobs = getOpenJobs();
+  return openJobs.map((j) => ({
+    slug: j.slug,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}): Promise<Metadata> {
   const { locale, slug } = await params;
+  const currentLocale = locale as Locale;
   const job = getJobBySlug(slug);
-  if (!job) return { title: 'Job Not Found — Vertex' };
-  const loc = locale as 'es' | 'en';
+  if (!job) return { title: 'Job Opening Not Found | Vertex' };
+
+  const title = `${job.title[currentLocale]} | Vertex Careers`;
+  const description = job.summary[currentLocale];
+  const currentPath = `/${locale}/jobs/${slug}`;
+
   return {
-    title: `${job.title[loc]} — Vertex`,
-    description: job.summary[loc],
+    title,
+    description,
+    alternates: {
+      canonical: currentPath,
+      languages: {
+        es: `/es/empleos/${slug}`,
+        en: `/en/jobs/${slug}`,
+        'x-default': `/es/empleos/${slug}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url: currentPath,
+      type: 'article',
+      images: [
+        {
+          url: '/images/vertex-wallpaper-dark.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/images/vertex-wallpaper-dark.png'],
+    },
   };
 }
 
-export default async function JobsDetailPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+export default async function JobsDetailPage({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>;
+}) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
+  const currentLocale = locale as Locale;
   const job = getJobBySlug(slug);
   if (!job) notFound();
-  return <JobDetailContent job={job} locale={locale} />;
+
+  setRequestLocale(locale);
+
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vertex.com.co';
+  const jobUrl = `${SITE_URL}/${locale}/jobs/${slug}`;
+
+  const breadcrumbItems = [
+    { name: currentLocale === 'es' ? 'Inicio' : 'Home', url: `/${locale}` },
+    {
+      name: currentLocale === 'es' ? 'Empleos' : 'Jobs',
+      url: `/${locale}/jobs`,
+    },
+    {
+      name: job.title[currentLocale],
+      url: `/${locale}/jobs/${slug}`,
+    },
+  ];
+
+  const jobPostingSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    title: job.title[currentLocale],
+    description: `${job.summary[currentLocale]} ${job.description[currentLocale]}`,
+    datePosted: job.publishedAt,
+    validThrough: '2026-12-31T23:59:59Z',
+    employmentType: job.contractType === 'full-time' ? 'FULL_TIME' : 'OTHER',
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: 'VERTEX S.A.S.',
+      sameAs: SITE_URL,
+      logo: `${SITE_URL}/images/vertex-logo.png`,
+    },
+    jobLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: job.city || 'Bogota',
+        addressRegion: 'Cundinamarca',
+        addressCountry: 'CO',
+      },
+    },
+    applicantLocationRequirements: {
+      '@type': 'Country',
+      name: 'Colombia',
+    },
+    jobLocationType: job.modality === 'remote' ? 'TELECOMMUTE' : undefined,
+    url: jobUrl,
+  };
+
+  return (
+    <>
+      <JsonLd
+        data={[getBreadcrumbSchema(breadcrumbItems), jobPostingSchema]}
+      />
+      <JobDetailContent job={job} locale={locale} />
+    </>
+  );
 }

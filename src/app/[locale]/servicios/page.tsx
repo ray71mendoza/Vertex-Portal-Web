@@ -1,8 +1,79 @@
 import { setRequestLocale } from 'next-intl/server';
+import type { Metadata } from 'next';
 import { ServicesIndexContent } from '@/components/pages/ServicesIndexContent';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { getBreadcrumbSchema } from '@/lib/schema';
+import type { Locale } from '@/i18n/config';
 
-export default async function ServiciosPage({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale === 'es';
+  const title = isEs
+    ? 'Servicios Especializados en Tecnología, Software y Estrategia'
+    : 'Specialized Services in Technology, Software & Strategy';
+  const description = isEs
+    ? 'Descubre nuestros servicios: desarrollo de software a la medida, transformación digital, inteligencia artificial, branding, comunicación y experiencias feriales.'
+    : 'Explore our services: custom software development, digital transformation, AI solutions, strategic branding, communications, and trade show experiences.';
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/servicios`,
+      languages: {
+        es: '/es/servicios',
+        en: '/en/services',
+        'x-default': '/es/servicios',
+      },
+    },
+    openGraph: {
+      title: `${title} | Vertex`,
+      description,
+      url: `/${locale}/servicios`,
+      type: 'website',
+      images: [
+        {
+          url: '/images/vertex-wallpaper-dark.png',
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Vertex`,
+      description,
+      images: ['/images/vertex-wallpaper-dark.png'],
+    },
+  };
+}
+
+export default async function ServiciosPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const currentLocale = locale as Locale;
   setRequestLocale(locale);
-  return <ServicesIndexContent locale={locale} />;
+
+  const breadcrumbItems = [
+    { name: currentLocale === 'es' ? 'Inicio' : 'Home', url: `/${locale}` },
+    {
+      name: currentLocale === 'es' ? 'Servicios' : 'Services',
+      url: `/${locale}/servicios`,
+    },
+  ];
+
+  return (
+    <>
+      <JsonLd data={getBreadcrumbSchema(breadcrumbItems)} />
+      <ServicesIndexContent locale={locale} />
+    </>
+  );
 }
