@@ -17,6 +17,7 @@ import {
   Sparkles,
   Video,
 } from 'lucide-react';
+import Image from 'next/image';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { getServiceBySlug, type ServiceData } from '@/content/services';
 import { getProjectsByServiceCategory } from '@/content/projects';
@@ -103,11 +104,11 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
           />
           <div className={styles.capabilitiesGrid}>
             {capabilities.map((capability, index) => (
-              <AnimatedReveal key={capability} delay={Math.min(index + 1, 4)} className={styles.revealCard}>
-                <article className={styles.capabilityCard}>
+              <AnimatedReveal key={capability} delay={Math.min(index + 1, 4)} className={styles.capabilityPillReveal}>
+                <span className={styles.capabilityPill}>
                   <CheckCircle2 aria-hidden="true" />
-                  <span>{capability}</span>
-                </article>
+                  {capability}
+                </span>
               </AnimatedReveal>
             ))}
           </div>
@@ -122,13 +123,13 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
               title={loc === 'es' ? 'Desafíos que abordamos' : 'Challenges we address'}
               id="challenges-title"
             />
-            <div className={styles.challengesGrid}>
+            <div className={styles.challengesPanel}>
               {problems.map((problem, index) => (
-                <AnimatedReveal key={problem} delay={Math.min(index + 1, 4)} className={styles.revealCard}>
-                  <article className={styles.challengeCard}>
+                <AnimatedReveal key={problem} delay={Math.min(index + 1, 4)} className={styles.challengeRowReveal}>
+                  <div className={styles.challengeRow}>
                     <ShieldAlert aria-hidden="true" />
                     <span>{problem}</span>
-                  </article>
+                  </div>
                 </AnimatedReveal>
               ))}
             </div>
@@ -177,14 +178,27 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
                 const pHref = `/${loc}/${pBasePath}/${pSlug}`;
                 return (
                   <Link key={p.id} href={pHref} className={styles.relatedCard}>
-                    <div>
-                      <h3 className={styles.relatedCardTitle}>{p.title[loc]}</h3>
-                      <p className={styles.relatedCardDesc}>{p.description[loc]}</p>
+                    <div className={styles.relatedCardMedia}>
+                      {p.coverImage && (
+                        <Image
+                          src={p.coverImage}
+                          alt={p.title[loc]}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, 100vw"
+                          className={styles.relatedCardImage}
+                        />
+                      )}
                     </div>
-                    <span className={styles.relatedCardLink}>
-                      {loc === 'es' ? 'Ver caso de estudio' : 'View case study'}
-                      <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                    </span>
+                    <div className={styles.relatedCardBody}>
+                      <div>
+                        <h3 className={styles.relatedCardTitle}>{p.title[loc]}</h3>
+                        <p className={styles.relatedCardDesc}>{p.description[loc]}</p>
+                      </div>
+                      <span className={styles.relatedCardLink}>
+                        {loc === 'es' ? 'Ver caso de estudio' : 'View case study'}
+                        <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                      </span>
+                    </div>
                   </Link>
                 );
               })}

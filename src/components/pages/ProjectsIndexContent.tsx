@@ -4,15 +4,17 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, FolderOpen } from 'lucide-react';
+import { ArrowRight, FolderOpen, MapPin } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { getVisibleProjects } from '@/content/projects';
 import { hrefFor, type Locale } from '@/i18n/config';
+import styles from './ProjectsIndexContent.module.css';
 
 export function ProjectsIndexContent({ locale }: { locale: string }) {
   const t = useTranslations('projects');
   const tCommon = useTranslations('common');
   const tStates = useTranslations('common.states');
+  const tServices = useTranslations('services.items');
   const loc = locale as Locale;
 
   const [activeFilter, setActiveFilter] = useState<string>('all');
@@ -26,10 +28,16 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
     return project.category === activeFilter || project.sector === activeFilter;
   });
 
+  const filters = [
+    { key: 'all', label: t('filters.all') },
+    { key: 'active', label: tStates('active') },
+    { key: 'completed', label: tStates('completed') },
+  ];
+
   return (
     <div className="pt-[var(--vx-header-height)]">
       {/* Hero */}
-      <section className="vx-section relative overflow-hidden">
+      <section className={`vx-section vx-bg-wallpaper-2 relative overflow-hidden ${styles.hero}`}>
         <div className="vx-container">
           <AnimatedReveal>
             <div className="max-w-3xl">
@@ -53,37 +61,16 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
           {/* Filters */}
           {visibleProjects.length > 0 && (
             <AnimatedReveal>
-              <div className="flex flex-wrap gap-2 mb-10 pb-4 border-b border-gray-100">
-                <button
-                  onClick={() => setActiveFilter('all')}
-                  className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-                    activeFilter === 'all'
-                      ? 'bg-vertex-apexTeal text-white'
-                      : 'bg-vertex-lightSubtle text-vertex-facetTeal hover:bg-gray-200'
-                  }`}
-                >
-                  {t('filters.all')}
-                </button>
-                <button
-                  onClick={() => setActiveFilter('active')}
-                  className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-                    activeFilter === 'active'
-                      ? 'bg-vertex-apexTeal text-white'
-                      : 'bg-vertex-lightSubtle text-vertex-facetTeal hover:bg-gray-200'
-                  }`}
-                >
-                  {tStates('active')}
-                </button>
-                <button
-                  onClick={() => setActiveFilter('completed')}
-                  className={`px-4 py-2 text-sm font-medium rounded-full transition-colors ${
-                    activeFilter === 'completed'
-                      ? 'bg-vertex-apexTeal text-white'
-                      : 'bg-vertex-lightSubtle text-vertex-facetTeal hover:bg-gray-200'
-                  }`}
-                >
-                  {tStates('completed')}
-                </button>
+              <div className={styles.filterRow}>
+                {filters.map((filter) => (
+                  <button
+                    key={filter.key}
+                    onClick={() => setActiveFilter(filter.key)}
+                    className={`${styles.filterButton} ${activeFilter === filter.key ? styles.filterButtonActive : ''}`}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
               </div>
             </AnimatedReveal>
           )}
@@ -98,34 +85,46 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
               </div>
             </AnimatedReveal>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className={styles.grid}>
               {filteredProjects.map((project, index) => (
                 <AnimatedReveal key={project.id} delay={Math.min(index + 1, 3)}>
                   <Link
                     href={hrefFor(loc, 'projects', `/${project.slug[loc]}`)}
-                    className="vx-card group overflow-hidden !p-0 block"
+                    className={styles.card}
                   >
-                    <div className="aspect-[16/10] bg-vertex-lightSubtle relative overflow-hidden">
+                    <div className={styles.cardMedia}>
                       {project.coverImage && (
                         <Image
                           src={project.coverImage}
                           alt={project.title[loc]}
                           fill
                           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className={styles.cardImage}
                         />
                       )}
-                      <span className={`absolute top-3 right-3 vx-badge ${project.status === 'active' ? 'vx-badge-active' : 'vx-badge-completed'}`}>
+                      <div className={styles.cardScrim} aria-hidden="true" />
+                      <span
+                        className={`${styles.cardBadge} ${project.status === 'active' ? styles.cardBadgeActive : styles.cardBadgeCompleted}`}
+                      >
                         {tStates(project.status)}
                       </span>
+                      <span className={styles.cardCategory}>
+                        {tServices(`${project.category}.title`)}
+                      </span>
                     </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-vertex-ink group-hover:text-vertex-apexTeal transition-colors mb-2">
-                        {project.title[loc]}
-                      </h3>
-                      <p className="text-sm text-vertex-facetBlue line-clamp-2">
-                        {project.description[loc]}
-                      </p>
+                    <div className={styles.cardBody}>
+                      <h3 className={styles.cardTitle}>{project.title[loc]}</h3>
+                      {project.location && (
+                        <div className={styles.cardLocation}>
+                          <MapPin aria-hidden="true" />
+                          {project.location[loc]}
+                        </div>
+                      )}
+                      <p className={styles.cardDescription}>{project.description[loc]}</p>
+                      <div className={styles.cardFooter}>
+                        {loc === 'es' ? 'Ver caso de estudio' : 'View case study'}
+                        <ArrowRight aria-hidden="true" />
+                      </div>
                     </div>
                   </Link>
                 </AnimatedReveal>

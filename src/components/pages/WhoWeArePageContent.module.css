@@ -643,25 +643,30 @@
 
 .locationsGrid {
   display: grid;
-  grid-auto-rows: 1fr;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.4rem;
+  grid-auto-rows: auto;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
 }
 
 .officeCard {
-  height: 100%;
-  min-height: 28rem;
+  height: auto;
+  min-height: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem 2.25rem;
   border: 1px solid rgba(3, 37, 45, 0.12);
   border-radius: 1.5rem;
-  padding: 1.7rem;
+  padding: 1.85rem 2.25rem;
   background: #fefefe;
   box-shadow: 0 14px 34px rgba(3, 37, 45, 0.07);
 }
 
 .officeHeader {
   display: flex;
+  flex: 0 0 auto;
+  min-width: 14rem;
   align-items: center;
   gap: 0.9rem;
 }
@@ -709,8 +714,10 @@
 
 .officeInfo {
   display: grid;
-  gap: 0.85rem;
-  margin-top: 1.35rem;
+  flex: 1 1 22rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1.75rem;
+  margin-top: 0;
 }
 
 .officeInfo li {
@@ -741,11 +748,13 @@
 
 .officeMapButton {
   display: flex;
+  flex: 0 0 auto;
+  min-width: 11rem;
   min-height: 3rem;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-top: auto;
+  margin-top: 0;
   border: 1px solid rgba(11, 69, 81, 0.18);
   border-radius: 0.9rem;
   padding: 0.75rem 0.9rem;
@@ -1074,12 +1083,18 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .locationsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .officeCard {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.7rem;
   }
 
-  .officeCard {
-    min-height: 27rem;
+  .officeInfo {
+    grid-template-columns: 1fr;
+  }
+
+  .officeMapButton {
+    width: 100%;
   }
 
   .finalCtaContent {
