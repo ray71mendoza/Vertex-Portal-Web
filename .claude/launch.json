@@ -3,8 +3,9 @@
   "configurations": [
     {
       "name": "vertex-dev",
-      "url": "http://localhost:3000",
-      "port": 3000
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "3050"],
+      "port": 3050
     },
     {
       "name": "caribbean-preview",

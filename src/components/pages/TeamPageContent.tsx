@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Users } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
+import { LinkedInIcon } from '@/components/ui/SocialIcons';
 import { getVisibleMembers } from '@/content/team';
 import { hrefFor, type Locale } from '@/i18n/config';
 
@@ -68,6 +69,18 @@ export function TeamPageContent({ locale }: { locale: string }) {
                     <p className="text-sm text-vertex-facetBlue leading-relaxed mb-4">
                       {member.bio[locale as 'es' | 'en']}
                     </p>
+                    {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-vertex-apexTeal hover:text-vertex-ink transition-colors"
+                        aria-label={`LinkedIn — ${member.name}`}
+                      >
+                        <LinkedInIcon className="w-4 h-4" />
+                        LinkedIn
+                      </a>
+                    )}
                   </div>
                 </AnimatedReveal>
               ))}

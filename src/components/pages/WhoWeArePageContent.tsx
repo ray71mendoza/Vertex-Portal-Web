@@ -43,7 +43,7 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
   const t = useTranslations('whoWeAre');
   const tCommon = useTranslations('common');
   const loc = locale as Locale;
-  const members = getVisibleMembers().slice(0, 4);
+  const members = getVisibleMembers();
   const talentValues = ['diversity', 'collaboration', 'learning', 'innovation', 'growth', 'results'] as const;
   const officeLocations = getOfficesByType('office');
   const pillarsCarouselRef = useMobileAutoCarousel<HTMLDivElement>(whyVertexPillars.length);
@@ -380,7 +380,13 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
               <AnimatedReveal key={member.id} delay={Math.min(index + 1, 4)} className={styles.cardReveal}>
                 <article className={styles.memberCard}>
                   <div className={styles.memberHeader}>
-                    <div className={styles.memberAvatar} aria-hidden="true">{getInitials(member.name)}</div>
+                    <div className={styles.memberAvatar} aria-hidden="true">
+                      {member.photo ? (
+                        <Image src={member.photo} alt="" fill sizes="96px" className={styles.memberAvatarImage} />
+                      ) : (
+                        getInitials(member.name)
+                      )}
+                    </div>
                     <div className={styles.memberIdentity}>
                       <span className={styles.memberArea}>{member.area[loc]}</span>
                       <h3>{member.name}</h3>
