@@ -100,6 +100,13 @@ export function Header({ locale }: HeaderProps) {
     };
   }, [isMobileOpen]);
 
+  const handleLogoClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === hrefFor(locale, 'home')) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const isActive = (href: string) => {
     const cleanHref = href.split('#')[0];
     return pathname === cleanHref || (cleanHref !== `/${locale}` && pathname.startsWith(cleanHref));
@@ -134,6 +141,7 @@ export function Header({ locale }: HeaderProps) {
       <div className="vx-container flex h-full items-center justify-between gap-5">
         <Link
           href={hrefFor(locale, 'home')}
+          onClick={handleLogoClick}
           className="relative z-50 flex shrink-0 rounded-md"
           aria-label={locale === 'es' ? 'Vertex, inicio' : 'Vertex, home'}
         >
