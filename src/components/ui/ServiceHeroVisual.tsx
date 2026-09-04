@@ -17,7 +17,7 @@ export function ServiceHeroVisual({ image, alt, label, caption }: ServiceHeroVis
         src={image}
         alt={alt}
         fill
-        sizes="(min-width: 1024px) 26vw, 100vw"
+        sizes="(min-width: 1280px) 45vw, (min-width: 900px) 50vw, 100vw"
         className={styles.image}
       />
       <div className={styles.scrim} aria-hidden="true" />

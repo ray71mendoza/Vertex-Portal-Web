@@ -1,7 +1,9 @@
 .visual {
   position: relative;
   overflow: hidden;
-  min-height: 22rem;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 16rem;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 1.5rem;
   background: #04141a;
@@ -22,7 +24,7 @@
 .caption {
   position: absolute;
   right: 1.25rem;
-  bottom: 1.25rem;
+  bottom: 1.15rem;
   left: 1.25rem;
 }
 
@@ -36,15 +38,17 @@
 }
 
 .caption p {
-  margin-top: 0.4rem;
+  margin-top: 0.35rem;
   color: #fefefe;
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 620;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 @media (max-width: 700px) {
   .visual {
-    min-height: 16rem;
+    aspect-ratio: 16 / 10;
+    min-height: 13.5rem;
   }
 }
+

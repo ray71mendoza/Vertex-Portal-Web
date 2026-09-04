@@ -87,16 +87,20 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
                   caption={tServices(`${service.id}.tagline`)}
                 />
                 <aside className={styles.heroCta} aria-label={loc === 'es' ? 'Contacto de servicio' : 'Service contact'}>
-                  <span>{loc === 'es' ? 'Soluciones a la medida' : 'Tailored solutions'}</span>
-                  <p className={styles.ctaHeading}>
-                    {loc === 'es'
-                      ? 'Convirtamos tu reto en una solución concreta.'
-                      : 'Let’s turn your challenge into a concrete solution.'}
-                  </p>
-                  <Link href={contactHref} className="vx-btn vx-btn-primary">
-                    {tCommon('cta.contactUs')}
-                    <ArrowRight aria-hidden="true" />
-                  </Link>
+                  <div className={styles.heroCtaBody}>
+                    <span>{loc === 'es' ? 'Soluciones a la medida' : 'Tailored solutions'}</span>
+                    <p className={styles.ctaHeading}>
+                      {loc === 'es'
+                        ? 'Convirtamos tu reto en una solución concreta.'
+                        : 'Let’s turn your challenge into a concrete solution.'}
+                    </p>
+                  </div>
+                  <div className={styles.heroCtaAction}>
+                    <Link href={contactHref} className={`vx-btn vx-btn-primary ${styles.heroCtaBtn}`}>
+                      {tCommon('cta.contactUs')}
+                      <ArrowRight aria-hidden="true" />
+                    </Link>
+                  </div>
                 </aside>
               </div>
             </div>

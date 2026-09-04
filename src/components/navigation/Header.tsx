@@ -210,6 +210,14 @@ export function Header({ locale }: HeaderProps) {
             </div>
           </DesktopMenu>
 
+          <Link
+            href={hrefFor(locale, 'projects')}
+            className={linkClass(hrefFor(locale, 'projects'))}
+            aria-current={isActive(hrefFor(locale, 'projects')) ? 'page' : undefined}
+          >
+            {t('projects')}
+          </Link>
+
           <DesktopMenu
             id="careers"
             label={t('careers')}
@@ -296,6 +304,9 @@ export function Header({ locale }: HeaderProps) {
               ]}
               onNavigate={() => setIsMobileOpen(false)}
             />
+            <Link href={hrefFor(locale, 'projects')} onClick={() => setIsMobileOpen(false)} className="mobile-nav-link">
+              {t('projects')}
+            </Link>
             <MobileGroup locale={locale} title={t('careers')} href={hrefFor(locale, 'careers')} items={careerItems} onNavigate={() => setIsMobileOpen(false)} />
             <Link href={hrefFor(locale, 'contact')} onClick={() => setIsMobileOpen(false)} className="mobile-nav-link">
               {t('contact')}
