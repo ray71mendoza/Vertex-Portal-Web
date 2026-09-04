@@ -1,9 +1,14 @@
+import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { CareersPageContent } from '@/components/pages/CareersPageContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getBreadcrumbSchema } from '@/lib/schema';
-import type { Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }];
+}
 
 export async function generateMetadata({
   params,
@@ -23,7 +28,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/careers`,
+      canonical: hrefFor(locale as Locale, 'careers'),
       languages: {
         es: '/es/trabaja-con-nosotros',
         en: '/en/careers',
@@ -33,7 +38,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${title} | Vertex`,
       description,
-      url: `/${locale}/careers`,
+      url: hrefFor(locale as Locale, 'careers'),
       type: 'website',
       images: [
         {
@@ -60,12 +65,17 @@ export default async function CareersPage({
 }) {
   const { locale } = await params;
   const currentLocale = locale as Locale;
+
+  if (currentLocale !== 'en') {
+    redirect(hrefFor(currentLocale, 'careers'));
+  }
+
   setRequestLocale(locale);
 
   const breadcrumbItems = [
-    { name: currentLocale === 'es' ? 'Inicio' : 'Home', url: `/${locale}` },
+    { name: 'Home', url: `/${locale}` },
     {
-      name: currentLocale === 'es' ? 'Trabaja con nosotros' : 'Careers',
+      name: 'Careers',
       url: `/${locale}/careers`,
     },
   ];

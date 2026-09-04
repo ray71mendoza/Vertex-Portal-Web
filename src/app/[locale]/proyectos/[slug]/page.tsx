@@ -1,15 +1,16 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { ProjectDetailContent } from '@/components/pages/ProjectDetailContent';
 import { getProjectBySlug, getVisibleProjects } from '@/content/projects';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getProjectSchema, getBreadcrumbSchema } from '@/lib/schema';
-import type { Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
 
 export function generateStaticParams() {
   const visible = getVisibleProjects();
   return visible.map((p) => ({
+    locale: 'es',
     slug: p.slug.es,
   }));
 }
@@ -29,7 +30,7 @@ export async function generateMetadata({
   const title = project.title[currentLocale];
   const description = project.description[currentLocale];
   const coverImage = project.coverImage || '/images/vertex-wallpaper-dark.png';
-  const currentPath = `/${locale}/proyectos/${slug}`;
+  const currentPath = hrefFor(currentLocale, 'projects', `/${currentLocale === 'es' ? esSlug : enSlug}`);
 
   return {
     title,
@@ -76,6 +77,10 @@ export default async function ProyectoDetailPage({
 
   if (!project) {
     notFound();
+  }
+
+  if (currentLocale !== 'es') {
+    redirect(hrefFor(currentLocale, 'projects', `/${slug}`));
   }
 
   setRequestLocale(locale);

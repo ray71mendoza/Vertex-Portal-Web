@@ -1,6 +1,12 @@
+import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { LegalPageContent } from '@/components/pages/LegalPageContent';
+import { hrefFor, type Locale } from '@/i18n/config';
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }];
+}
 
 export async function generateMetadata({
   params,
@@ -18,7 +24,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/privacy`,
+      canonical: hrefFor(locale as Locale, 'privacy'),
       languages: {
         es: '/es/privacidad',
         en: '/en/privacy',
@@ -30,6 +36,12 @@ export async function generateMetadata({
 
 export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const currentLocale = locale as Locale;
+
+  if (currentLocale !== 'en') {
+    redirect(hrefFor(currentLocale, 'privacy'));
+  }
+
   setRequestLocale(locale);
   return <LegalPageContent type="privacy" locale={locale} />;
 }

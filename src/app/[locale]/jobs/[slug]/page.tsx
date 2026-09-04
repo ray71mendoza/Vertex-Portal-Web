@@ -1,15 +1,16 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { getJobBySlug, getOpenJobs } from '@/content/jobs';
 import { JobDetailContent } from '@/components/pages/JobDetailContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getBreadcrumbSchema } from '@/lib/schema';
-import type { Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
 
 export function generateStaticParams() {
   const openJobs = getOpenJobs();
   return openJobs.map((j) => ({
+    locale: 'en',
     slug: j.slug,
   }));
 }
@@ -26,7 +27,7 @@ export async function generateMetadata({
 
   const title = `${job.title[currentLocale]} | Vertex Careers`;
   const description = job.summary[currentLocale];
-  const currentPath = `/${locale}/jobs/${slug}`;
+  const currentPath = hrefFor(currentLocale, 'jobs', `/${slug}`);
 
   return {
     title,
@@ -72,15 +73,19 @@ export default async function JobsDetailPage({
   const job = getJobBySlug(slug);
   if (!job) notFound();
 
+  if (currentLocale !== 'en') {
+    redirect(hrefFor(currentLocale, 'jobs', `/${slug}`));
+  }
+
   setRequestLocale(locale);
 
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vertex.com.co';
   const jobUrl = `${SITE_URL}/${locale}/jobs/${slug}`;
 
   const breadcrumbItems = [
-    { name: currentLocale === 'es' ? 'Inicio' : 'Home', url: `/${locale}` },
+    { name: 'Home', url: `/${locale}` },
     {
-      name: currentLocale === 'es' ? 'Empleos' : 'Jobs',
+      name: 'Jobs',
       url: `/${locale}/jobs`,
     },
     {

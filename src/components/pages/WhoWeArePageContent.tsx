@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { CarouselPauseButton } from '@/components/ui/CarouselPauseButton';
 import { companyStatistics, testimonials, whyVertexPillars } from '@/content/company';
 import { getOfficesByType } from '@/content/locations';
 import { getVisibleMembers } from '@/content/team';
@@ -46,8 +47,8 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
   const members = getVisibleMembers();
   const talentValues = ['diversity', 'collaboration', 'learning', 'innovation', 'growth', 'results'] as const;
   const officeLocations = getOfficesByType('office');
-  const pillarsCarouselRef = useMobileAutoCarousel<HTMLDivElement>(whyVertexPillars.length);
-  const testimonialsCarouselRef = useMobileAutoCarousel<HTMLDivElement>(testimonials.length);
+  const { ref: pillarsCarouselRef, isPaused: pillarsPaused, togglePause: togglePillarsPause } = useMobileAutoCarousel<HTMLDivElement>(whyVertexPillars.length);
+  const { ref: testimonialsCarouselRef, isPaused: testimonialsPaused, togglePause: toggleTestimonialsPause } = useMobileAutoCarousel<HTMLDivElement>(testimonials.length);
 
   const coverageAreas = [
     {
@@ -166,6 +167,7 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
             align="center"
             className={styles.centeredHeading}
           />
+          <CarouselPauseButton isPaused={pillarsPaused} onToggle={togglePillarsPause} locale={loc} />
           <div ref={pillarsCarouselRef} className={styles.pillarsGrid}>
             {whyVertexPillars.map((pillar, idx) => {
               const IconComp = pillarIconMap[pillar.icon] || CheckCircle2;
@@ -194,6 +196,7 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
             align="center"
             className={styles.centeredHeading}
           />
+          <CarouselPauseButton isPaused={testimonialsPaused} onToggle={toggleTestimonialsPause} locale={loc} />
           <div ref={testimonialsCarouselRef} className={styles.testimonialsGrid}>
             {testimonials.map((testimonial, idx) => (
               <AnimatedReveal key={testimonial.id} delay={Math.min(idx + 1, 2)} className={styles.cardReveal}>

@@ -1,9 +1,14 @@
+import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { ContactPageContent } from '@/components/pages/ContactPageContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getBreadcrumbSchema } from '@/lib/schema';
-import type { Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
+
+export function generateStaticParams() {
+  return [{ locale: 'es' }];
+}
 
 export async function generateMetadata({
   params,
@@ -23,7 +28,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/contacto`,
+      canonical: hrefFor(locale as Locale, 'contact'),
       languages: {
         es: '/es/contacto',
         en: '/en/contact',
@@ -33,7 +38,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${title} | Vertex`,
       description,
-      url: `/${locale}/contacto`,
+      url: hrefFor(locale as Locale, 'contact'),
       type: 'website',
       images: [
         {
@@ -63,6 +68,12 @@ export default async function ContactoPage({
   const { locale } = await params;
   const { service } = await searchParams;
   const currentLocale = locale as Locale;
+
+  if (currentLocale !== 'es') {
+    const suffix = service ? `?service=${encodeURIComponent(service)}` : '';
+    redirect(`${hrefFor(currentLocale, 'contact')}${suffix}`);
+  }
+
   setRequestLocale(locale);
 
   const breadcrumbItems = [

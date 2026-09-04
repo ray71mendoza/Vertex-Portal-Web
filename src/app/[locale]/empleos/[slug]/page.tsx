@@ -1,15 +1,16 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { getJobBySlug, getOpenJobs } from '@/content/jobs';
 import { JobDetailContent } from '@/components/pages/JobDetailContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getBreadcrumbSchema } from '@/lib/schema';
-import type { Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
 
 export function generateStaticParams() {
   const openJobs = getOpenJobs();
   return openJobs.map((j) => ({
+    locale: 'es',
     slug: j.slug,
   }));
 }
@@ -26,7 +27,7 @@ export async function generateMetadata({
 
   const title = `${job.title[currentLocale]} | Empleos Vertex`;
   const description = job.summary[currentLocale];
-  const currentPath = `/${locale}/empleos/${slug}`;
+  const currentPath = hrefFor(currentLocale, 'jobs', `/${slug}`);
 
   return {
     title,
@@ -71,6 +72,10 @@ export default async function EmpleosDetailPage({
   const currentLocale = locale as Locale;
   const job = getJobBySlug(slug);
   if (!job) notFound();
+
+  if (currentLocale !== 'es') {
+    redirect(hrefFor(currentLocale, 'jobs', `/${slug}`));
+  }
 
   setRequestLocale(locale);
 

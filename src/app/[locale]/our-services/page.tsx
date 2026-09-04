@@ -1,9 +1,14 @@
+import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { OurOfferPageContent } from '@/components/pages/OurOfferPageContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getBreadcrumbSchema } from '@/lib/schema';
-import type { Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }];
+}
 
 export async function generateMetadata({
   params,
@@ -23,7 +28,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/our-services`,
+      canonical: hrefFor(locale as Locale, 'ourOffer'),
       languages: {
         es: '/es/nuestra-oferta',
         en: '/en/our-services',
@@ -33,7 +38,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${title} | Vertex`,
       description,
-      url: `/${locale}/our-services`,
+      url: hrefFor(locale as Locale, 'ourOffer'),
       type: 'website',
       images: [
         {
@@ -60,12 +65,17 @@ export default async function OurServicesPage({
 }) {
   const { locale } = await params;
   const currentLocale = locale as Locale;
+
+  if (currentLocale !== 'en') {
+    redirect(hrefFor(currentLocale, 'ourOffer'));
+  }
+
   setRequestLocale(locale);
 
   const breadcrumbItems = [
-    { name: currentLocale === 'es' ? 'Inicio' : 'Home', url: `/${locale}` },
+    { name: 'Home', url: `/${locale}` },
     {
-      name: currentLocale === 'es' ? 'Nuestra Oferta' : 'Our Offer',
+      name: 'Our Offer',
       url: `/${locale}/our-services`,
     },
   ];

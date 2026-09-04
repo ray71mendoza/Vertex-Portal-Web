@@ -38,6 +38,10 @@ function getTransporter(): Transporter {
   return cachedTransporter;
 }
 
+function stripControlChars(value: string): string {
+  return value.replace(/[\r\n\t\x00-\x1F\x7F]/g, '');
+}
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -52,12 +56,17 @@ export async function sendContactEmail(payload: ContactEmailPayload): Promise<vo
   const fromAddress = process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER!;
   const isEs = payload.preferredLanguage === 'es';
 
+  const name = stripControlChars(payload.name);
+  const organization = payload.organization ? stripControlChars(payload.organization) : '';
+  const phone = payload.phone ? stripControlChars(payload.phone) : '';
+  const service = payload.service ? stripControlChars(payload.service) : '';
+
   const rows: Array<[string, string]> = [
-    [isEs ? 'Nombre' : 'Name', payload.name],
-    [isEs ? 'Organización' : 'Organization', payload.organization || '-'],
+    [isEs ? 'Nombre' : 'Name', name],
+    [isEs ? 'Organización' : 'Organization', organization || '-'],
     [isEs ? 'Correo' : 'Email', payload.email],
-    [isEs ? 'Teléfono' : 'Phone', payload.phone || '-'],
-    [isEs ? 'Servicio de interés' : 'Service of interest', payload.service || '-'],
+    [isEs ? 'Teléfono' : 'Phone', phone || '-'],
+    [isEs ? 'Servicio de interés' : 'Service of interest', service || '-'],
     [isEs ? 'Idioma preferido' : 'Preferred language', payload.preferredLanguage.toUpperCase()],
   ];
 
@@ -92,8 +101,8 @@ export async function sendContactEmail(payload: ContactEmailPayload): Promise<vo
     to: CONTACT_DESTINATION_EMAIL,
     replyTo: payload.email,
     subject: isEs
-      ? `Solicitud de contacto Vertex - ${payload.name}`
-      : `Vertex contact request - ${payload.name}`,
+      ? `Solicitud de contacto Vertex - ${name}`
+      : `Vertex contact request - ${name}`,
     text: textBody,
     html: htmlBody,
   });

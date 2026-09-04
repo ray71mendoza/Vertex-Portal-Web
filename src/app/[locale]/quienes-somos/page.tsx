@@ -1,9 +1,14 @@
+import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { WhoWeArePageContent } from '@/components/pages/WhoWeArePageContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getBreadcrumbSchema } from '@/lib/schema';
-import type { Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
+
+export function generateStaticParams() {
+  return [{ locale: 'es' }];
+}
 
 export async function generateMetadata({
   params,
@@ -23,7 +28,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/quienes-somos`,
+      canonical: hrefFor(locale as Locale, 'whoWeAre'),
       languages: {
         es: '/es/quienes-somos',
         en: '/en/about-us',
@@ -33,7 +38,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${title} | Vertex`,
       description,
-      url: `/${locale}/quienes-somos`,
+      url: hrefFor(locale as Locale, 'whoWeAre'),
       type: 'website',
       images: [
         {
@@ -60,6 +65,11 @@ export default async function QuienesSomosPage({
 }) {
   const { locale } = await params;
   const currentLocale = locale as Locale;
+
+  if (currentLocale !== 'es') {
+    redirect(hrefFor(currentLocale, 'whoWeAre'));
+  }
+
   setRequestLocale(locale);
 
   const breadcrumbItems = [

@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Target, Puzzle, Users, TrendingUp, Scaling, Leaf, Globe } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { CarouselPauseButton } from '@/components/ui/CarouselPauseButton';
 import { useMobileAutoCarousel } from '@/hooks/useMobileAutoCarousel';
 import styles from './ValueProposition.module.css';
 
@@ -23,7 +24,7 @@ interface ValuePropositionProps {
 
 export function ValueProposition({ locale }: ValuePropositionProps) {
   const t = useTranslations('home.value');
-  const carouselRef = useMobileAutoCarousel<HTMLDivElement>(valueItems.length);
+  const { ref: carouselRef, isPaused, togglePause } = useMobileAutoCarousel<HTMLDivElement>(valueItems.length);
 
   return (
     <section className="home-value vx-section vx-bg-dark relative overflow-hidden" aria-label="Value Proposition">
@@ -46,6 +47,7 @@ export function ValueProposition({ locale }: ValuePropositionProps) {
         />
 
         {/* Value Proposition Minimal Cards */}
+        <CarouselPauseButton isPaused={isPaused} onToggle={togglePause} locale={locale} />
         <div ref={carouselRef} className={styles.grid}>
           {valueItems.map((item, index) => {
             const IconComponent = item.icon;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseMobileAutoCarouselOptions {
   /** Milliseconds between automatic advances. */
@@ -17,6 +17,10 @@ interface UseMobileAutoCarouselOptions {
  * interaction on the container pauses auto-advance for a while so it never
  * fights a manual swipe, and the next tick always resumes from wherever the
  * user actually scrolled to (no separate index state to desync).
+ *
+ * Also exposes `isPaused`/`togglePause` so consumers can render an explicit
+ * pause/play control (WCAG 2.2.2 requires a way to stop content that moves
+ * automatically for more than 5 seconds).
  */
 export function useMobileAutoCarousel<T extends HTMLElement>(
   itemCount: number,
@@ -24,6 +28,15 @@ export function useMobileAutoCarousel<T extends HTMLElement>(
 ) {
   const ref = useRef<T>(null);
   const { intervalMs = 4200, breakpoint = 640, pauseAfterInteractionMs = 5000 } = options;
+
+  const [isPaused, setIsPaused] = useState(false);
+  const isPausedRef = useRef(isPaused);
+
+  useEffect(() => {
+    isPausedRef.current = isPaused;
+  }, [isPaused]);
+
+  const togglePause = useCallback(() => setIsPaused((value) => !value), []);
 
   useEffect(() => {
     const container = ref.current;
@@ -39,6 +52,7 @@ export function useMobileAutoCarousel<T extends HTMLElement>(
 
     const tick = () => {
       if (!mql.matches) return;
+      if (isPausedRef.current) return;
       if (Date.now() - lastInteraction < pauseAfterInteractionMs) return;
 
       const children = Array.from(container.children) as HTMLElement[];
@@ -66,5 +80,5 @@ export function useMobileAutoCarousel<T extends HTMLElement>(
     };
   }, [itemCount, intervalMs, breakpoint, pauseAfterInteractionMs]);
 
-  return ref;
+  return { ref, isPaused, togglePause };
 }

@@ -409,6 +409,7 @@
       "nameRequired": "El nombre es obligatorio",
       "emailRequired": "El correo es obligatorio",
       "emailInvalid": "Ingresa un correo electrónico válido",
+      "messageRequired": "El mensaje es obligatorio",
       "messageMin": "El mensaje debe tener al menos 10 caracteres",
       "privacyRequired": "Debes aceptar la política de privacidad"
     },

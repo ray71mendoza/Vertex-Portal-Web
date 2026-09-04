@@ -1,23 +1,14 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { services, getServiceBySlug } from '@/content/services';
 import { ServiceDetailContent } from '@/components/pages/ServiceDetailContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getServiceSchema, getBreadcrumbSchema } from '@/lib/schema';
-import { locales, type Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
 
 export function generateStaticParams() {
-  const params: { locale: string; slug: string }[] = [];
-  locales.forEach((locale) => {
-    services.forEach((service) => {
-      params.push({
-        locale,
-        slug: service.slug[locale as Locale],
-      });
-    });
-  });
-  return params;
+  return services.map((service) => ({ locale: 'es', slug: service.slug.es }));
 }
 
 export async function generateMetadata({
@@ -103,8 +94,7 @@ export async function generateMetadata({
     descriptions[service.id]?.[currentLocale] ||
     'Soluciones tecnológicas y estratégicas integrales por Vertex.';
 
-  const currentPath = `/${locale}/servicios/${slug}`;
-  const canonicalPath = `/${locale}/servicios/${slug}`;
+  const canonicalPath = hrefFor(currentLocale, 'services', `/${currentLocale === 'es' ? esSlug : enSlug}`);
 
   return {
     title: metaTitle,
@@ -120,7 +110,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${metaTitle} | Vertex`,
       description: metaDescription,
-      url: currentPath,
+      url: canonicalPath,
       type: 'website',
       images: [
         {
@@ -151,6 +141,10 @@ export default async function ServicioDetailPage({
 
   if (!service) {
     notFound();
+  }
+
+  if (currentLocale !== 'es') {
+    redirect(hrefFor(currentLocale, 'services', `/${slug}`));
   }
 
   setRequestLocale(locale);

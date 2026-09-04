@@ -1,23 +1,14 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { services, getServiceBySlug } from '@/content/services';
 import { ServiceDetailContent } from '@/components/pages/ServiceDetailContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getServiceSchema, getBreadcrumbSchema } from '@/lib/schema';
-import { locales, type Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
 
 export function generateStaticParams() {
-  const params: { locale: string; slug: string }[] = [];
-  locales.forEach((locale) => {
-    services.forEach((service) => {
-      params.push({
-        locale,
-        slug: service.slug[locale as Locale],
-      });
-    });
-  });
-  return params;
+  return services.map((service) => ({ locale: 'en', slug: service.slug.en }));
 }
 
 export async function generateMetadata({
@@ -103,7 +94,7 @@ export async function generateMetadata({
     descriptions[service.id]?.[currentLocale] ||
     'Comprehensive technology and strategic solutions by Vertex.';
 
-  const currentPath = `/${locale}/services/${slug}`;
+  const currentPath = hrefFor(currentLocale, 'services', `/${currentLocale === 'es' ? esSlug : enSlug}`);
 
   return {
     title: metaTitle,
@@ -152,12 +143,16 @@ export default async function ServiceDetailPage({
     notFound();
   }
 
+  if (currentLocale !== 'en') {
+    redirect(hrefFor(currentLocale, 'services', `/${slug}`));
+  }
+
   setRequestLocale(locale);
 
   const breadcrumbItems = [
-    { name: currentLocale === 'es' ? 'Inicio' : 'Home', url: `/${locale}` },
+    { name: 'Home', url: `/${locale}` },
     {
-      name: currentLocale === 'es' ? 'Servicios' : 'Services',
+      name: 'Services',
       url: `/${locale}/services`,
     },
     {

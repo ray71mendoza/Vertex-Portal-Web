@@ -1,6 +1,12 @@
+import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { LegalPageContent } from '@/components/pages/LegalPageContent';
+import { hrefFor, type Locale } from '@/i18n/config';
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }];
+}
 
 export async function generateMetadata({
   params,
@@ -18,7 +24,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/terms`,
+      canonical: hrefFor(locale as Locale, 'terms'),
       languages: {
         es: '/es/terminos',
         en: '/en/terms',
@@ -30,6 +36,12 @@ export async function generateMetadata({
 
 export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const currentLocale = locale as Locale;
+
+  if (currentLocale !== 'en') {
+    redirect(hrefFor(currentLocale, 'terms'));
+  }
+
   setRequestLocale(locale);
   return <LegalPageContent type="terms" locale={locale} />;
 }

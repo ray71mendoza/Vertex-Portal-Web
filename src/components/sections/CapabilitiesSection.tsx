@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { ArrowRight, Building2, Code2, LayoutGrid, Lightbulb, Megaphone, Palette, Video } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import { CarouselPauseButton } from '@/components/ui/CarouselPauseButton';
 import { services } from '@/content/services';
 import { hrefFor, type Locale } from '@/i18n/config';
 import { useMobileAutoCarousel } from '@/hooks/useMobileAutoCarousel';
@@ -29,7 +30,7 @@ export function CapabilitiesSection({ locale }: CapabilitiesSectionProps) {
   const t = useTranslations('home.capabilities');
   const tServices = useTranslations('services.items');
   const loc = locale as Locale;
-  const carouselRef = useMobileAutoCarousel<HTMLDivElement>(services.length);
+  const { ref: carouselRef, isPaused, togglePause } = useMobileAutoCarousel<HTMLDivElement>(services.length);
 
   return (
     <section className={`${styles.section} home-capabilities vx-section relative overflow-hidden`} aria-label="Capabilities">
@@ -70,7 +71,9 @@ export function CapabilitiesSection({ locale }: CapabilitiesSectionProps) {
             </figure>
           </AnimatedReveal>
 
-          <div ref={carouselRef} className={`${styles.capabilitiesGrid} lg:col-span-7`}>
+          <div className="lg:col-span-7">
+          <CarouselPauseButton isPaused={isPaused} onToggle={togglePause} locale={locale} />
+          <div ref={carouselRef} className={styles.capabilitiesGrid}>
             {services.map((service, index) => {
               const IconComponent = iconMap[service.icon] || Lightbulb;
 
@@ -101,6 +104,7 @@ export function CapabilitiesSection({ locale }: CapabilitiesSectionProps) {
                 </AnimatedReveal>
               );
             })}
+          </div>
           </div>
         </div>
       </div>

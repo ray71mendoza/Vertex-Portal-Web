@@ -1,12 +1,19 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { Montserrat } from 'next/font/google';
 import { locales, type Locale } from '@/i18n/config';
 import { Header } from '@/components/navigation/Header';
 import { Footer } from '@/components/navigation/Footer';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getOrganizationSchema, getWebSiteSchema } from '@/lib/schema';
 import '../globals.css';
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-montserrat',
+});
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -114,7 +121,7 @@ export default async function LocaleLayout({
   const currentLocale = locale as Locale;
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={montserrat.variable}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />

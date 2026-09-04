@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { sendContactEmail } from '@/lib/mailer';
+import { checkRateLimit } from '@/lib/rateLimit';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1).max(200),
@@ -14,6 +15,11 @@ const contactSchema = z.object({
 });
 
 export async function POST(request: Request) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  if (!checkRateLimit(ip)) {
+    return NextResponse.json({ success: false, error: 'Too many requests' }, { status: 429 });
+  }
+
   let body: unknown;
   try {
     body = await request.json();

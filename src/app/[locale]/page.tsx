@@ -1,6 +1,5 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
 import { HeroHome } from '@/components/sections/HeroHome';
 import { AboutPreview } from '@/components/sections/AboutPreview';
 import { CapabilitiesSection } from '@/components/sections/CapabilitiesSection';
@@ -9,12 +8,6 @@ import { ProjectsPreview } from '@/components/sections/ProjectsPreview';
 import { RegionalReachPreview } from '@/components/sections/RegionalReachPreview';
 import { CareersPreview } from '@/components/sections/CareersPreview';
 import { CTAFinal } from '@/components/sections/CTAFinal';
-
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-montserrat',
-});
 
 export async function generateMetadata({
   params,
@@ -73,7 +66,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
 
   return (
-    <div className={`page-enter vx-homepage ${montserrat.variable} ${montserrat.className}`}>
+    <div className="page-enter vx-homepage">
       <HeroHome locale={locale} />
       <AboutPreview locale={locale} />
       <CapabilitiesSection locale={locale} />

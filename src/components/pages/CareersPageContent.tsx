@@ -9,6 +9,7 @@ import {
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ShowcaseCarousel } from '@/components/ui/ShowcaseCarousel';
+import { CarouselPauseButton } from '@/components/ui/CarouselPauseButton';
 import { recruitmentSteps, workAttributes, workEnvironmentValues } from '@/content/careers';
 import { careersShowcaseItems } from '@/content/showcase';
 import { hrefFor, type Locale } from '@/i18n/config';
@@ -27,8 +28,8 @@ export function CareersPageContent({ locale }: { locale: string }) {
   const t = useTranslations('careers');
   const tCommon = useTranslations('common');
   const loc = locale as Locale;
-  const whyCarouselRef = useMobileAutoCarousel<HTMLDivElement>(workAttributes.length, { breakpoint: 640 });
-  const environmentCarouselRef = useMobileAutoCarousel<HTMLDivElement>(workEnvironmentValues.length, { breakpoint: 640 });
+  const { ref: whyCarouselRef, isPaused: whyPaused, togglePause: toggleWhyPause } = useMobileAutoCarousel<HTMLDivElement>(workAttributes.length, { breakpoint: 640 });
+  const { ref: environmentCarouselRef, isPaused: environmentPaused, togglePause: toggleEnvironmentPause } = useMobileAutoCarousel<HTMLDivElement>(workEnvironmentValues.length, { breakpoint: 640 });
 
   return (
     <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
@@ -76,6 +77,7 @@ export function CareersPageContent({ locale }: { locale: string }) {
             align="left"
             className={styles.whyHeading}
           />
+          <CarouselPauseButton isPaused={whyPaused} onToggle={toggleWhyPause} locale={locale} />
           <div ref={whyCarouselRef} className={styles.featureGrid}>
             {workAttributes.map((attr, idx) => {
               const IconComp = attrIconMap[attr.icon] || Lightbulb;
@@ -108,6 +110,7 @@ export function CareersPageContent({ locale }: { locale: string }) {
             align="left"
             className={styles.environmentHeading}
           />
+          <CarouselPauseButton isPaused={environmentPaused} onToggle={toggleEnvironmentPause} locale={locale} />
           <div ref={environmentCarouselRef} className={styles.featureGrid}>
             {workEnvironmentValues.map((val, idx) => (
               <AnimatedReveal key={val.id} delay={Math.min(idx + 1, 3)} className={styles.cardReveal}>

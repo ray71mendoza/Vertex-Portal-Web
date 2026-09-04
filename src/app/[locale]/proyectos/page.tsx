@@ -1,9 +1,14 @@
+import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { ProjectsIndexContent } from '@/components/pages/ProjectsIndexContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getBreadcrumbSchema } from '@/lib/schema';
-import type { Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
+
+export function generateStaticParams() {
+  return [{ locale: 'es' }];
+}
 
 export async function generateMetadata({
   params,
@@ -23,7 +28,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/proyectos`,
+      canonical: hrefFor(locale as Locale, 'projects'),
       languages: {
         es: '/es/proyectos',
         en: '/en/projects',
@@ -33,7 +38,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${title} | Vertex`,
       description,
-      url: `/${locale}/proyectos`,
+      url: hrefFor(locale as Locale, 'projects'),
       type: 'website',
       images: [
         {
@@ -60,6 +65,11 @@ export default async function ProyectosPage({
 }) {
   const { locale } = await params;
   const currentLocale = locale as Locale;
+
+  if (currentLocale !== 'es') {
+    redirect(hrefFor(currentLocale, 'projects'));
+  }
+
   setRequestLocale(locale);
 
   const breadcrumbItems = [

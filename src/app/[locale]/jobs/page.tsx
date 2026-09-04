@@ -1,9 +1,14 @@
+import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { JobsSearchContent } from '@/components/pages/JobsSearchContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getBreadcrumbSchema } from '@/lib/schema';
-import type { Locale } from '@/i18n/config';
+import { hrefFor, type Locale } from '@/i18n/config';
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }];
+}
 
 export async function generateMetadata({
   params,
@@ -23,7 +28,7 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `/${locale}/jobs`,
+      canonical: hrefFor(locale as Locale, 'jobs'),
       languages: {
         es: '/es/empleos',
         en: '/en/jobs',
@@ -33,7 +38,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${title} | Vertex`,
       description,
-      url: `/${locale}/jobs`,
+      url: hrefFor(locale as Locale, 'jobs'),
       type: 'website',
       images: [
         {
@@ -63,12 +68,18 @@ export default async function JobsPage({
   const { locale } = await params;
   const { area = '' } = await searchParams;
   const currentLocale = locale as Locale;
+
+  if (currentLocale !== 'en') {
+    const suffix = area ? `?area=${encodeURIComponent(area)}` : '';
+    redirect(`${hrefFor(currentLocale, 'jobs')}${suffix}`);
+  }
+
   setRequestLocale(locale);
 
   const breadcrumbItems = [
-    { name: currentLocale === 'es' ? 'Inicio' : 'Home', url: `/${locale}` },
+    { name: 'Home', url: `/${locale}` },
     {
-      name: currentLocale === 'es' ? 'Empleos' : 'Jobs',
+      name: 'Jobs',
       url: `/${locale}/jobs`,
     },
   ];

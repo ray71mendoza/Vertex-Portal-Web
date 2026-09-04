@@ -128,6 +128,8 @@ Copia la plantilla de configuración e ingresa los valores de entorno locales si
 cp .env.example .env.local
 ```
 
+> **`NEXT_PUBLIC_SITE_URL` en producción**: esta variable debe configurarse en Vercel (Project Settings → Environment Variables) apuntando al dominio de producción real (ej. `https://vertex.com.co`). Se usa para construir las URLs canónicas, las etiquetas Open Graph, `sitemap.xml` y el `Host`/`Sitemap` de `robots.txt`. Si el dominio `*.vercel.app` asignado automáticamente por Vercel no debe indexarse (por ser un alias/preview del dominio custom), agrega una regla adicional en `src/app/robots.ts` que bloquee ese host específico usando `process.env.VERCEL_URL`, o configura un redirect 301 permanente desde el dominio `.vercel.app` hacia el dominio custom en la configuración de dominios de Vercel.
+
 ### 3. Instalar dependencias
 ```bash
 npm install
