@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowRight, Bot, Layers3, MapPinned } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { ShowcaseCarousel } from '@/components/ui/ShowcaseCarousel';
-import { showcaseItems } from '@/content/showcase';
+import { homeShowcaseItems } from '@/content/showcase';
 import { hrefFor, type Locale } from '@/i18n/config';
 
 interface HeroHomeProps {
@@ -164,7 +164,7 @@ export function HeroHome({ locale }: HeroHomeProps) {
           <div className="lg:col-span-5">
             <AnimatedReveal delay={2}>
               <div className="home-hero-carousel">
-                <ShowcaseCarousel items={showcaseItems} locale={loc} compact />
+                <ShowcaseCarousel items={homeShowcaseItems} locale={loc} compact />
               </div>
             </AnimatedReveal>
           </div>

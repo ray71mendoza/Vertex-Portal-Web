@@ -51,8 +51,8 @@ export function CapabilitiesSection({ locale }: CapabilitiesSectionProps) {
           <AnimatedReveal className="lg:col-span-5">
             <figure className={`${styles.staticVisual} home-capabilities-visual`}>
               <Image
-                src="/images/demo-software-platform.svg"
-                alt={loc === 'es' ? 'Plataforma digital integrada de Vertex' : 'Integrated Vertex digital platform'}
+                src="/images/capabilities-ecosystem.jpg"
+                alt={loc === 'es' ? 'Ecosistema de capacidades de Vertex' : 'Vertex capabilities ecosystem'}
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className={styles.staticImage}

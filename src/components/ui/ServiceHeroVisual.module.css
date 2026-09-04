@@ -1,0 +1,50 @@
+.visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 22rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1.5rem;
+  background: #04141a;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4, 20, 26, 0.05) 40%, rgba(4, 20, 26, 0.88) 100%);
+}
+
+.caption {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  left: 1.25rem;
+}
+
+.caption span {
+  display: block;
+  color: #8fd9ee;
+  font-size: 0.64rem;
+  font-weight: 760;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.caption p {
+  margin-top: 0.4rem;
+  color: #fefefe;
+  font-size: 0.86rem;
+  font-weight: 620;
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .visual {
+    min-height: 16rem;
+  }
+}

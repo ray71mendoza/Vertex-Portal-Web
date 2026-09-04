@@ -37,17 +37,17 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
   return (
     <div className="pt-[var(--vx-header-height)]">
       {/* Hero */}
-      <section className={`vx-section vx-bg-wallpaper-2 relative overflow-hidden ${styles.hero}`}>
-        <div className="vx-container">
+      <section className={`vx-section relative overflow-hidden ${styles.hero}`}>
+        <div className="vx-container relative z-10">
           <AnimatedReveal>
             <div className="max-w-3xl">
-              <div className="text-sm font-semibold text-vertex-apexTeal uppercase tracking-wider mb-2">
+              <div className="text-sm font-semibold text-vertex-prismBlue uppercase tracking-wider mb-2">
                 {tCommon('nav.projects')}
               </div>
-              <h1 className="text-vertex-ink text-4xl md:text-5xl font-bold mb-6">
+              <h1 className="text-white text-4xl md:text-5xl font-bold mb-6">
                 {t('hero.title')}
               </h1>
-              <p className="text-vertex-facetTeal text-lg md:text-xl leading-relaxed">
+              <p className="text-white/90 text-lg md:text-xl leading-relaxed">
                 {t('hero.subtitle')}
               </p>
             </div>

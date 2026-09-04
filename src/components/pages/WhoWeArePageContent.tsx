@@ -97,10 +97,9 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
 
             <AnimatedReveal delay={2} className={styles.heroVisualReveal}>
               <div className={styles.heroVisual}>
+                <Image src="/images/whoweare-hero-visual.jpg" alt="" fill priority sizes="(min-width: 1024px) 42vw, 100vw" className={styles.heroVisualImage} />
+                <div className={styles.heroVisualScrim} aria-hidden="true" />
                 <span className={styles.heroVisualLabel}>{loc === 'es' ? 'Visión integral' : 'Integrated vision'}</span>
-                <div className={styles.heroSymbolWrap}>
-                  <Image src="/images/vertex-symbol.png" alt="" width={180} height={180} priority />
-                </div>
                 <p>{loc === 'es' ? 'Estrategia que conecta personas, tecnología y resultados.' : 'Strategy connecting people, technology and results.'}</p>
                 <div className={styles.heroChips}>
                   <span>{loc === 'es' ? 'Estrategia' : 'Strategy'}</span>
@@ -354,8 +353,8 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
             </AnimatedReveal>
             <AnimatedReveal delay={2}>
               <div className={styles.talentVisual}>
-                <div className={styles.talentVisualGlow} aria-hidden="true" />
-                <Image src="/images/vertex-symbol.png" alt="" width={190} height={190} />
+                <Image src="/images/talent-culture.jpg" alt="" fill sizes="(min-width: 1024px) 42vw, 100vw" className={styles.talentVisualImage} />
+                <div className={styles.talentVisualScrim} aria-hidden="true" />
                 <div className={styles.talentVisualCaption}>
                   <span>{loc === 'es' ? 'Cultura Vertex' : 'Vertex culture'}</span>
                   <strong>{loc === 'es' ? 'Talento multidisciplinario con propósito' : 'Purposeful multidisciplinary talent'}</strong>

@@ -10,7 +10,7 @@ import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ShowcaseCarousel } from '@/components/ui/ShowcaseCarousel';
 import { recruitmentSteps, workAttributes, workEnvironmentValues } from '@/content/careers';
-import { showcaseItems } from '@/content/showcase';
+import { careersShowcaseItems } from '@/content/showcase';
 import { hrefFor, type Locale } from '@/i18n/config';
 import { useMobileAutoCarousel } from '@/hooks/useMobileAutoCarousel';
 import styles from './CareersPageContent.module.css';
@@ -61,7 +61,7 @@ export function CareersPageContent({ locale }: { locale: string }) {
               </div>
             </AnimatedReveal>
             <AnimatedReveal delay={2} className="lg:col-span-7">
-              <ShowcaseCarousel items={showcaseItems.slice().reverse()} locale={loc} compact />
+              <ShowcaseCarousel items={careersShowcaseItems} locale={loc} compact />
             </AnimatedReveal>
           </div>
         </div>

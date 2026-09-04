@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
+import { ServiceHeroVisual } from '@/components/ui/ServiceHeroVisual';
 import { getServiceBySlug, type ServiceData } from '@/content/services';
 import { getProjectsByServiceCategory } from '@/content/projects';
 import { hrefFor, type Locale } from '@/i18n/config';
@@ -78,18 +79,26 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
                 </div>
               </div>
 
-              <aside className={styles.heroCta} aria-label={loc === 'es' ? 'Contacto de servicio' : 'Service contact'}>
-                <span>{loc === 'es' ? 'Soluciones a la medida' : 'Tailored solutions'}</span>
-                <p className={styles.ctaHeading}>
-                  {loc === 'es'
-                    ? 'Convirtamos tu reto en una solución concreta.'
-                    : 'Let’s turn your challenge into a concrete solution.'}
-                </p>
-                <Link href={contactHref} className="vx-btn vx-btn-primary">
-                  {tCommon('cta.contactUs')}
-                  <ArrowRight aria-hidden="true" />
-                </Link>
-              </aside>
+              <div className={styles.heroSide}>
+                <ServiceHeroVisual
+                  image={`/images/services/${service.id}.jpg`}
+                  alt={tServices(`${service.id}.title`)}
+                  label={loc === 'es' ? 'En imágenes' : 'In focus'}
+                  caption={tServices(`${service.id}.tagline`)}
+                />
+                <aside className={styles.heroCta} aria-label={loc === 'es' ? 'Contacto de servicio' : 'Service contact'}>
+                  <span>{loc === 'es' ? 'Soluciones a la medida' : 'Tailored solutions'}</span>
+                  <p className={styles.ctaHeading}>
+                    {loc === 'es'
+                      ? 'Convirtamos tu reto en una solución concreta.'
+                      : 'Let’s turn your challenge into a concrete solution.'}
+                  </p>
+                  <Link href={contactHref} className="vx-btn vx-btn-primary">
+                    {tCommon('cta.contactUs')}
+                    <ArrowRight aria-hidden="true" />
+                  </Link>
+                </aside>
+              </div>
             </div>
           </AnimatedReveal>
         </div>

@@ -139,9 +139,7 @@
   border: 1px solid rgba(114, 198, 232, 0.2);
   border-radius: 2rem;
   padding: 2rem;
-  background:
-    radial-gradient(circle at 50% 30%, rgba(114, 198, 232, 0.2), transparent 30%),
-    linear-gradient(145deg, rgba(18, 59, 69, 0.72), rgba(7, 26, 31, 0.94));
+  background: #071a1f;
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.26);
 }
 
@@ -152,6 +150,18 @@
   border-radius: 1.4rem;
   content: '';
   pointer-events: none;
+  z-index: 2;
+}
+
+.heroVisualImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroVisualScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 26, 31, 0.1) 35%, rgba(7, 26, 31, 0.92) 100%);
 }
 
 .heroVisualLabel {
@@ -164,23 +174,6 @@
   font-weight: 750;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-}
-
-.heroSymbolWrap {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  width: 11rem;
-  height: 11rem;
-  transform: translateX(-50%);
-}
-
-.heroSymbolWrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  opacity: 0.72;
-  filter: drop-shadow(0 18px 35px rgba(114, 198, 232, 0.18));
 }
 
 .heroVisual > p {
@@ -820,23 +813,19 @@
   justify-content: center;
   border: 1px solid rgba(114, 198, 232, 0.15);
   border-radius: 2rem;
-  background: radial-gradient(circle at 50% 35%, rgba(114, 198, 232, 0.18), transparent 32%), linear-gradient(145deg, #071a1f, #0b4551);
+  background: #071a1f;
   box-shadow: 0 22px 50px rgba(3, 37, 45, 0.16);
 }
 
-.talentVisualGlow {
-  position: absolute;
-  right: -4rem;
-  bottom: -4rem;
-  width: 18rem;
-  height: 18rem;
-  border: 1px solid rgba(114, 198, 232, 0.18);
-  border-radius: 999px;
+.talentVisualImage {
+  object-fit: cover;
+  object-position: center;
 }
 
-.talentVisual > img {
-  opacity: 0.68;
-  filter: drop-shadow(0 22px 40px rgba(114, 198, 232, 0.18));
+.talentVisualScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 26, 31, 0.15) 45%, rgba(7, 26, 31, 0.92) 100%);
 }
 
 .talentVisualCaption {
@@ -1153,11 +1142,6 @@
   .heroVisualLabel {
     top: 1.4rem;
     left: 1.4rem;
-  }
-
-  .heroSymbolWrap {
-    width: 9rem;
-    height: 9rem;
   }
 
   .aboutGrid,

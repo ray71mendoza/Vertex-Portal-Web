@@ -127,10 +127,16 @@
   line-height: 1.8;
 }
 
+.heroSide {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
 .heroCta {
   border: 1px solid rgba(255, 255, 255, 0.26);
-  border-radius: 1.5rem;
-  padding: 1.6rem;
+  border-radius: 1.25rem;
+  padding: 1.15rem;
   background: rgba(254, 254, 254, 0.93);
   box-shadow: 0 24px 56px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(14px);
@@ -150,20 +156,21 @@
 
 .heroCta h2,
 .heroCta .ctaHeading {
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   color: #03252d;
-  font-size: 1.25rem;
+  font-size: 1.02rem;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .heroCta :global(.vx-btn) {
   width: 100%;
-  min-height: 3.35rem;
+  min-height: 2.75rem;
   justify-content: space-between;
   gap: 0.75rem;
-  margin-top: 1.4rem;
-  padding: 0.85rem 1.15rem;
+  margin-top: 1rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.86rem;
 }
 
 
