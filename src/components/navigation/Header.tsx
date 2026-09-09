@@ -27,6 +27,7 @@ import type { Locale } from '@/i18n/config';
 import { hrefFor } from '@/i18n/config';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { services } from '@/content/services';
+import { trackContactCtaClick } from '@/lib/analytics';
 import styles from './Header.module.css';
 
 const serviceIconMap: Record<string, React.ElementType> = {
@@ -257,7 +258,11 @@ export function Header({ locale }: HeaderProps) {
 
         <div className="hidden items-center gap-3.5 xl:flex">
           <LanguageSwitcher locale={locale} isScrolled={navTone === 'light'} />
-          <Link href={hrefFor(locale, 'contact')} className="vx-btn vx-btn-primary !h-11 !min-h-11 !px-5 !text-sm">
+          <Link
+            href={hrefFor(locale, 'contact')}
+            onClick={() => trackContactCtaClick({ placement: 'header_desktop', locale })}
+            className="vx-btn vx-btn-primary !h-11 !min-h-11 !px-5 !text-sm"
+          >
             {t('letsTalk')}
           </Link>
         </div>
@@ -321,7 +326,14 @@ export function Header({ locale }: HeaderProps) {
             </Link>
             <div className="mt-auto border-t border-vertex-ink/10 pt-5">
               <LanguageSwitcher locale={locale} isScrolled isMobile />
-              <Link href={hrefFor(locale, 'contact')} onClick={() => setIsMobileOpen(false)} className="vx-btn vx-btn-primary mt-4 w-full">
+              <Link
+                href={hrefFor(locale, 'contact')}
+                onClick={() => {
+                  trackContactCtaClick({ placement: 'header_mobile', locale });
+                  setIsMobileOpen(false);
+                }}
+                className="vx-btn vx-btn-primary mt-4 w-full"
+              >
                 {t('letsTalk')}
               </Link>
             </div>

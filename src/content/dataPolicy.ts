@@ -19,6 +19,10 @@ export interface PolicySection {
   paragraphs?: { es: string; en: string }[];
   list?: { es: string; en: string }[];
   definitions?: { term: { es: string; en: string }; definition: { es: string; en: string } }[];
+  table?: {
+    headers: { es: string; en: string }[];
+    rows: { es: string; en: string }[][];
+  };
 }
 
 export const dataPolicySections: PolicySection[] = [
@@ -311,8 +315,38 @@ export const dataPolicySections: PolicySection[] = [
     ],
   },
   {
-    id: 'normatividad',
+    id: 'cookies-analitica',
     number: '12',
+    title: {
+      es: 'Cookies, analítica y tecnologías de rastreo en el sitio web',
+      en: 'Cookies, analytics, and tracking technologies on the website',
+    },
+    paragraphs: [
+      {
+        es: 'Además del tratamiento descrito en las secciones anteriores, el sitio web de Vertex utiliza cookies propias y, únicamente con tu autorización, tecnologías de analítica y publicidad de terceros. El detalle completo de cada cookie, su finalidad, proveedor y vigencia aproximada está publicado en nuestra Política de Cookies.',
+        en: 'In addition to the processing described in the previous sections, the Vertex website uses first-party cookies and, only with your authorization, third-party analytics and advertising technologies. The full detail of each cookie, its purpose, provider, and approximate retention period is published in our Cookie Policy.',
+      },
+      {
+        es: 'Antes de que otorgues tu autorización, únicamente se activan las cookies estrictamente necesarias para el funcionamiento del sitio y Vercel Web Analytics, una tecnología de analítica sin cookies y anonimizada que no identifica a personas individuales.',
+        en: 'Before you grant your authorization, only the cookies strictly necessary for the site to function are active, along with Vercel Web Analytics, a cookieless and anonymized analytics technology that does not identify individual people.',
+      },
+      {
+        es: 'Si otorgas tu autorización para la categoría de Analítica, el sitio activa Google Analytics 4 y Microsoft Clarity para entender el uso del sitio, y una cookie propia (vertex_attribution) para identificar de forma agregada qué canal de adquisición condujo a un contacto comercial. Si otorgas tu autorización para la categoría de Marketing, el sitio activa el LinkedIn Insight Tag, Google Ads y Meta Pixel para medir y mejorar nuestra publicidad. Ninguna de estas tecnologías se activa antes de tu autorización.',
+        en: 'If you grant your authorization for the Analytics category, the site activates Google Analytics 4 and Microsoft Clarity to understand site usage, along with a first-party cookie (vertex_attribution) to identify, on an aggregate basis, which acquisition channel led to a commercial inquiry. If you grant your authorization for the Marketing category, the site activates the LinkedIn Insight Tag, Google Ads, and Meta Pixel to measure and improve our advertising. None of these technologies is activated before your authorization.',
+      },
+      {
+        es: 'El contenido de nuestro formulario de contacto (nombre, correo, teléfono, mensaje) y de las postulaciones a vacantes (hoja de vida, datos del candidato) nunca se envía a Google Analytics, Microsoft Clarity, LinkedIn, Google Ads o Meta Pixel. Estas herramientas solo reciben eventos genéricos (por ejemplo, "se envió el formulario de contacto") sin el contenido de los campos. Adicionalmente, la información de postulantes a vacantes nunca se utiliza para crear audiencias publicitarias ni se comparte con LinkedIn, Google Ads o Meta.',
+        en: 'The content of our contact form (name, email, phone, message) and of job applications (résumé, candidate details) is never sent to Google Analytics, Microsoft Clarity, LinkedIn, Google Ads, or Meta Pixel. These tools only receive generic events (for example, "the contact form was submitted") without the field contents. Additionally, job applicant information is never used to build advertising audiences or shared with LinkedIn, Google Ads, or Meta.',
+      },
+      {
+        es: 'Puedes cambiar o retirar tu autorización de Analítica y Marketing en cualquier momento desde el enlace "Preferencias de cookies" disponible en el pie de página del sitio. Al retirar una categoría, se eliminan las cookies propias correspondientes y se detiene el envío de nuevos eventos a esas herramientas.',
+        en: 'You can change or withdraw your Analytics and Marketing authorization at any time from the "Cookie preferences" link available in the site footer. Withdrawing a category deletes the corresponding first-party cookies and stops sending new events to those tools.',
+      },
+    ],
+  },
+  {
+    id: 'normatividad',
+    number: '13',
     title: { es: 'Normatividad vigente', en: 'Applicable law' },
     paragraphs: [
       {
@@ -323,7 +357,7 @@ export const dataPolicySections: PolicySection[] = [
   },
   {
     id: 'vigencia',
-    number: '13',
+    number: '14',
     title: { es: 'Vigencia', en: 'Effective date' },
     paragraphs: [
       {

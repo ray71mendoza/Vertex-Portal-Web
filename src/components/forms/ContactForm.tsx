@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { AlertCircle, ArrowRight, CheckCircle2, Info, Loader2 } from 'lucide-react';
 import { services } from '@/content/services';
 import { hrefFor, type Locale } from '@/i18n/config';
+import { trackCommercialLead, trackContactFormStart } from '@/lib/analytics';
 import styles from './ContactForm.module.css';
 
 const createContactSchema = (t: (key: string) => string) =>
@@ -31,6 +32,13 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
   const loc = locale as Locale;
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const schema = createContactSchema(t);
+  const hasStartedRef = useRef(false);
+
+  const handleFormFocus = () => {
+    if (hasStartedRef.current) return;
+    hasStartedRef.current = true;
+    trackContactFormStart({ locale: loc });
+  };
 
   const {
     register,
@@ -63,6 +71,7 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
       }
 
       setStatus('success');
+      trackCommercialLead({ service: data.service || undefined, locale: loc });
       reset();
     } catch {
       setStatus('error');
@@ -88,7 +97,7 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
             <p>{loc === 'es' ? 'Completa el formulario y nos pondremos en contacto contigo.' : 'Complete the form and we will get in touch with you.'}</p>
           </header>
 
-          <form onSubmit={handleSubmit(onSubmit)} className={styles.form} noValidate>
+          <form onSubmit={handleSubmit(onSubmit)} onFocus={handleFormFocus} className={styles.form} noValidate>
             <div className={styles.notice}>
               <Info aria-hidden="true" />
               <span>{t('form.integrationNotice')}</span>
@@ -106,6 +115,7 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
                   type="text"
                   placeholder={t('form.namePlaceholder')}
                   aria-invalid={Boolean(errors.name)}
+                  data-clarity-mask="true"
                   {...register('name')}
                 />
               </Field>
@@ -115,6 +125,7 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
                   type="email"
                   placeholder={t('form.emailPlaceholder')}
                   aria-invalid={Boolean(errors.email)}
+                  data-clarity-mask="true"
                   {...register('email')}
                 />
               </Field>
@@ -134,6 +145,7 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
                   id="phone"
                   type="tel"
                   placeholder={t('form.phonePlaceholder')}
+                  data-clarity-mask="true"
                   {...register('phone')}
                 />
               </Field>
@@ -158,6 +170,7 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
                 id="message"
                 placeholder={t('form.messagePlaceholder')}
                 aria-invalid={Boolean(errors.message)}
+                data-clarity-mask="true"
                 {...register('message')}
               />
             </Field>

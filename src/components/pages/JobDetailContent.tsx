@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -14,6 +14,7 @@ import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import {
   JobOpening, modalityLabels, contractTypeLabels
 } from '@/content/jobs';
+import { trackJobApplicationStart, trackJobApplicationSubmit, trackJobView } from '@/lib/analytics';
 
 const createApplicationSchema = (t: (key: string) => string) =>
   z.object({
@@ -38,8 +39,20 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
   const loc = locale as 'es' | 'en';
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [copied, setCopied] = useState(false);
+  const hasStartedApplicationRef = useRef(false);
 
   const schema = createApplicationSchema(t);
+
+  useEffect(() => {
+    trackJobView({ job_slug: job.slug, job_title: job.title[loc], locale: loc });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fires once per job detail mount, keyed by the job identity.
+  }, [job.id]);
+
+  const handleApplicationFormFocus = () => {
+    if (hasStartedApplicationRef.current) return;
+    hasStartedApplicationRef.current = true;
+    trackJobApplicationStart({ job_slug: job.slug, job_title: job.title[loc], locale: loc });
+  };
 
   const {
     register,
@@ -74,6 +87,7 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
 
     window.open(`mailto:gerenciavertexsas@gmail.com?subject=${subject}&body=${body}`, '_self');
     setStatus('success');
+    trackJobApplicationSubmit({ job_slug: job.slug, job_title: job.title[loc], locale: loc });
     reset();
   };
 
@@ -245,7 +259,7 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
                       </button>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+                    <form onSubmit={handleSubmit(onSubmit)} onFocus={handleApplicationFormFocus} className="space-y-4" noValidate>
                       <div className="hidden" aria-hidden="true">
                         <input type="text" {...register('honeypot')} tabIndex={-1} autoComplete="off" />
                       </div>
@@ -254,7 +268,7 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
                         <label htmlFor="name" className="vx-label text-xs">
                           {t('application.name')} <span className="text-rose-500">*</span>
                         </label>
-                        <input id="name" type="text" className="vx-input !h-10 !text-sm" {...register('name')} />
+                        <input id="name" type="text" className="vx-input !h-10 !text-sm" data-clarity-mask="true" {...register('name')} />
                         {errors.name && <p className="vx-error text-xs mt-1">{errors.name.message}</p>}
                       </div>
 
@@ -262,7 +276,7 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
                         <label htmlFor="email" className="vx-label text-xs">
                           {t('application.email')} <span className="text-rose-500">*</span>
                         </label>
-                        <input id="email" type="email" className="vx-input !h-10 !text-sm" {...register('email')} />
+                        <input id="email" type="email" className="vx-input !h-10 !text-sm" data-clarity-mask="true" {...register('email')} />
                         {errors.email && <p className="vx-error text-xs mt-1">{errors.email.message}</p>}
                       </div>
 
@@ -271,7 +285,7 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
                           <label htmlFor="phone" className="vx-label text-xs">
                             {t('application.phone')} <span className="text-rose-500">*</span>
                           </label>
-                          <input id="phone" type="tel" className="vx-input !h-10 !text-sm" {...register('phone')} />
+                          <input id="phone" type="tel" className="vx-input !h-10 !text-sm" data-clarity-mask="true" {...register('phone')} />
                           {errors.phone && <p className="vx-error text-xs mt-1">{errors.phone.message}</p>}
                         </div>
 
@@ -303,7 +317,7 @@ export function JobDetailContent({ job, locale }: { job: JobOpening; locale: str
                         <label htmlFor="message" className="vx-label text-xs">
                           {t('application.message')}
                         </label>
-                        <textarea id="message" rows={3} className="vx-textarea !text-sm" {...register('message')} />
+                        <textarea id="message" rows={3} className="vx-textarea !text-sm" data-clarity-mask="true" {...register('message')} />
                       </div>
 
                       <div className="flex items-start gap-2 pt-2">

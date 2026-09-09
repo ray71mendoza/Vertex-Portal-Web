@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import {
@@ -14,6 +15,7 @@ import { recruitmentSteps, workAttributes, workEnvironmentValues } from '@/conte
 import { careersShowcaseItems } from '@/content/showcase';
 import { hrefFor, type Locale } from '@/i18n/config';
 import { useMobileAutoCarousel } from '@/hooks/useMobileAutoCarousel';
+import { trackCareersView } from '@/lib/analytics';
 import styles from './CareersPageContent.module.css';
 
 const stepIconMap: Record<string, React.ElementType> = {
@@ -30,6 +32,10 @@ export function CareersPageContent({ locale }: { locale: string }) {
   const loc = locale as Locale;
   const { ref: whyCarouselRef, isPaused: whyPaused, togglePause: toggleWhyPause } = useMobileAutoCarousel<HTMLDivElement>(workAttributes.length, { breakpoint: 640 });
   const { ref: environmentCarouselRef, isPaused: environmentPaused, togglePause: toggleEnvironmentPause } = useMobileAutoCarousel<HTMLDivElement>(workEnvironmentValues.length, { breakpoint: 640 });
+
+  useEffect(() => {
+    trackCareersView({ locale: loc });
+  }, [loc]);
 
   return (
     <div className={`${styles.page} pt-[var(--vx-header-height)]`}>

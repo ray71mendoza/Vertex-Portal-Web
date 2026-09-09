@@ -2,11 +2,16 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Montserrat } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import { locales, type Locale } from '@/i18n/config';
 import { Header } from '@/components/navigation/Header';
 import { Footer } from '@/components/navigation/Footer';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getOrganizationSchema, getWebSiteSchema } from '@/lib/schema';
+import { ConsentProvider } from '@/providers/ConsentProvider';
+import { CookieBanner } from '@/components/consent/CookieBanner';
+import { CookiePreferencesModal } from '@/components/consent/CookiePreferencesModal';
+import { AnalyticsScripts } from '@/components/consent/AnalyticsScripts';
 import '../globals.css';
 
 const montserrat = Montserrat({
@@ -136,13 +141,19 @@ export default async function LocaleLayout({
           ]}
         />
         <NextIntlClientProvider messages={messages}>
-          <a href="#main-content" className="skip-to-content">
-            {locale === 'es' ? 'Ir al contenido principal' : 'Skip to main content'}
-          </a>
-          <Header locale={currentLocale} />
-          <main id="main-content">{children}</main>
-          <Footer locale={currentLocale} />
+          <ConsentProvider>
+            <a href="#main-content" className="skip-to-content">
+              {locale === 'es' ? 'Ir al contenido principal' : 'Skip to main content'}
+            </a>
+            <Header locale={currentLocale} />
+            <main id="main-content">{children}</main>
+            <Footer locale={currentLocale} />
+            <CookieBanner />
+            <CookiePreferencesModal />
+          </ConsentProvider>
         </NextIntlClientProvider>
+        <AnalyticsScripts />
+        <Analytics />
       </body>
     </html>
   );

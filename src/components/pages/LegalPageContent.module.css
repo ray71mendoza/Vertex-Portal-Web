@@ -104,12 +104,15 @@
   align-items: center;
   gap: 0.5rem;
   margin-top: 1.1rem;
+  border: none;
   border-radius: 0.75rem;
   padding: 0.7rem 1rem;
   background: rgba(254, 254, 254, 0.12);
   color: #fefefe;
+  font-family: inherit;
   font-size: 0.82rem;
   font-weight: 650;
+  cursor: pointer;
   transition: background-color 180ms ease;
 }
 
@@ -232,6 +235,47 @@
   color: #367480;
   font-size: 0.9rem;
   line-height: 1.65;
+}
+
+.tableWrap {
+  margin-top: 1.25rem;
+  overflow-x: auto;
+  border: 1px solid rgba(3, 37, 45, 0.1);
+  border-radius: 1rem;
+}
+
+.table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(3, 37, 45, 0.08);
+}
+
+.table th {
+  background: #f7fafb;
+  color: #0b4551;
+  font-weight: 750;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.table td {
+  color: #367480;
+  line-height: 1.5;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 @media (max-width: 900px) {

@@ -8,6 +8,7 @@ import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
 import { ShowcaseCarousel } from '@/components/ui/ShowcaseCarousel';
 import { homeShowcaseItems } from '@/content/showcase';
 import { hrefFor, type Locale } from '@/i18n/config';
+import { trackContactCtaClick } from '@/lib/analytics';
 
 interface HeroHomeProps {
   locale: string;
@@ -128,7 +129,11 @@ export function HeroHome({ locale }: HeroHomeProps) {
                   {tCta('discoverSolutions')}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href={hrefFor(loc, 'contact')} className="vx-btn vx-btn-ghost !h-[52px] !px-6">
+                <Link
+                  href={hrefFor(loc, 'contact')}
+                  onClick={() => trackContactCtaClick({ placement: 'hero_home', locale: loc })}
+                  className="vx-btn vx-btn-ghost !h-[52px] !px-6"
+                >
                   {tCta('letsTalk')}
                 </Link>
               </div>

@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { key: 'team', priority: 0.7, changeFrequency: 'monthly' },
     { key: 'privacy', priority: 0.3, changeFrequency: 'monthly' },
     { key: 'terms', priority: 0.3, changeFrequency: 'monthly' },
+    { key: 'cookies', priority: 0.3, changeFrequency: 'monthly' },
   ];
 
   const mainEntries: MetadataRoute.Sitemap = [];

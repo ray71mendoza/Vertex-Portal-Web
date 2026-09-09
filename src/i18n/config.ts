@@ -18,7 +18,8 @@ export type RouteKey =
   | 'jobs'
   | 'contact'
   | 'privacy'
-  | 'terms';
+  | 'terms'
+  | 'cookies';
 
 export const localizedRoutes: Record<RouteKey, Record<Locale, string>> = {
   home: { es: '', en: '' },
@@ -32,6 +33,7 @@ export const localizedRoutes: Record<RouteKey, Record<Locale, string>> = {
   contact: { es: 'contacto', en: 'contact' },
   privacy: { es: 'privacidad', en: 'privacy' },
   terms: { es: 'terminos', en: 'terms' },
+  cookies: { es: 'cookies', en: 'cookies' },
 };
 
 export function hrefFor(locale: Locale, route: RouteKey, suffix = '') {

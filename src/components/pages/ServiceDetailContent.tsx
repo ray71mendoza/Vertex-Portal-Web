@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -23,6 +24,7 @@ import { ServiceHeroVisual } from '@/components/ui/ServiceHeroVisual';
 import { getServiceBySlug, type ServiceData } from '@/content/services';
 import { getProjectsByServiceCategory } from '@/content/projects';
 import { hrefFor, type Locale } from '@/i18n/config';
+import { trackContactCtaClick, trackServiceView } from '@/lib/analytics';
 import styles from './ServiceDetailContent.module.css';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -51,6 +53,15 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
   const targetAudience = service.targetAudience[loc] || [];
   const contactHref = `${hrefFor(loc, 'contact')}?service=${service.id}`;
   const relatedProjects = getProjectsByServiceCategory(service.id, 2);
+
+  useEffect(() => {
+    trackServiceView({ service_slug: service.id, service_name: tServices(`${service.id}.title`), locale: loc });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fires once per service detail mount, keyed by the service identity.
+  }, [service.id]);
+
+  const handleContactCtaClick = () => {
+    trackContactCtaClick({ service_slug: service.id, locale: loc });
+  };
 
   return (
     <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
@@ -96,7 +107,7 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
                     </p>
                   </div>
                   <div className={styles.heroCtaAction}>
-                    <Link href={contactHref} className={`vx-btn vx-btn-primary ${styles.heroCtaBtn}`}>
+                    <Link href={contactHref} onClick={handleContactCtaClick} className={`vx-btn vx-btn-primary ${styles.heroCtaBtn}`}>
                       {tCommon('cta.contactUs')}
                       <ArrowRight aria-hidden="true" />
                     </Link>
@@ -232,7 +243,7 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
               <span>{loc === 'es' ? 'Hablemos de tu reto' : 'Let’s discuss your challenge'}</span>
               <h2 id="service-cta-title">{t('detail.needThis')}</h2>
               <p>{t('detail.talkAbout')}</p>
-              <Link href={contactHref} className="vx-btn vx-btn-light">
+              <Link href={contactHref} onClick={handleContactCtaClick} className="vx-btn vx-btn-light">
                 {tCommon('cta.contactUs')}
                 <ArrowRight aria-hidden="true" />
               </Link>

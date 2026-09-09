@@ -25,7 +25,8 @@
       "contact": "Contacto",
       "letsTalk": "Hablemos",
       "privacy": "Privacidad",
-      "terms": "Términos"
+      "terms": "Términos",
+      "cookies": "Cookies"
     },
     "cta": {
       "learnMore": "Conocer más",
@@ -62,7 +63,9 @@
       "social": "Redes sociales",
       "rights": "Todos los derechos reservados.",
       "bogota": "Bogotá, Colombia",
-      "cartagena": "Cartagena, Colombia"
+      "cartagena": "Cartagena, Colombia",
+      "cookiePolicy": "Política de Cookies",
+      "cookiePreferences": "Preferencias de cookies"
     },
     "breadcrumb": {
       "home": "Inicio"
@@ -507,11 +510,26 @@
       "title": "Cómo acompañamos a nuestros clientes",
       "disclaimer": "Las etapas pueden variar según las características de cada proyecto.",
       "steps": {
-        "understand": { "title": "Comprensión del reto", "description": "Analizamos el contexto, las necesidades y los objetivos de la organización para entender con claridad el desafío." },
-        "diagnose": { "title": "Diagnóstico y objetivos", "description": "Definimos el alcance, las prioridades y los resultados esperados a partir de un diagnóstico informado." },
-        "design": { "title": "Diseño de la solución", "description": "Creamos la arquitectura estratégica, técnica y visual de la solución, alineada con los objetivos del proyecto." },
-        "implement": { "title": "Implementación y acompañamiento", "description": "Desarrollamos, integramos y ponemos en marcha la solución con seguimiento continuo y comunicación transparente." },
-        "measure": { "title": "Medición y evolución", "description": "Evaluamos el impacto, identificamos oportunidades de mejora y acompañamos la evolución de la solución." }
+        "understand": {
+          "title": "Comprensión del reto",
+          "description": "Analizamos el contexto, las necesidades y los objetivos de la organización para entender con claridad el desafío."
+        },
+        "diagnose": {
+          "title": "Diagnóstico y objetivos",
+          "description": "Definimos el alcance, las prioridades y los resultados esperados a partir de un diagnóstico informado."
+        },
+        "design": {
+          "title": "Diseño de la solución",
+          "description": "Creamos la arquitectura estratégica, técnica y visual de la solución, alineada con los objetivos del proyecto."
+        },
+        "implement": {
+          "title": "Implementación y acompañamiento",
+          "description": "Desarrollamos, integramos y ponemos en marcha la solución con seguimiento continuo y comunicación transparente."
+        },
+        "measure": {
+          "title": "Medición y evolución",
+          "description": "Evaluamos el impacto, identificamos oportunidades de mejora y acompañamos la evolución de la solución."
+        }
       }
     },
     "cta": {
@@ -678,6 +696,44 @@
     "contact": {
       "title": "Contacto — Vertex",
       "description": "Hablemos de tu proyecto. Contáctanos para diseñar juntos la solución tecnológica que tu organización necesita."
+    }
+  },
+  "consent": {
+    "banner": {
+      "title": "Tus preferencias de privacidad",
+      "description": "Utilizamos cookies esenciales para el funcionamiento del sitio y, con tu autorización, tecnologías de analítica y marketing para comprender cómo se utiliza Vertex y mejorar nuestros servicios.",
+      "acceptAll": "Aceptar todas",
+      "rejectNonEssential": "Rechazar no esenciales",
+      "customize": "Personalizar",
+      "policyPrefix": "Consulta nuestra",
+      "policyLinkLabel": "Política de Cookies"
+    },
+    "modal": {
+      "title": "Preferencias de cookies",
+      "description": "Elige qué tecnologías puede utilizar Vertex en este sitio web. Las cookies necesarias siempre están activas porque el sitio no puede funcionar correctamente sin ellas.",
+      "alwaysActive": "Siempre activa",
+      "save": "Guardar preferencias",
+      "acceptAll": "Aceptar todas",
+      "rejectAll": "Rechazar no esenciales",
+      "close": "Cerrar",
+      "categories": {
+        "necessary": {
+          "title": "Necesarias",
+          "description": "Requeridas para el funcionamiento básico del sitio, la seguridad y para recordar tu decisión de consentimiento."
+        },
+        "preferences": {
+          "title": "Preferencias",
+          "description": "Recuerda elecciones como tu idioma preferido entre visitas."
+        },
+        "analytics": {
+          "title": "Analítica",
+          "description": "Nos ayuda a entender cómo los visitantes usan Vertex (Google Analytics, Microsoft Clarity) para mejorar el sitio."
+        },
+        "marketing": {
+          "title": "Marketing",
+          "description": "Se usa para medir y mejorar nuestra publicidad (LinkedIn Insight Tag, Google Ads, Meta Pixel)."
+        }
+      }
     }
   }
 }

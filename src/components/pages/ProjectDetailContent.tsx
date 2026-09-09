@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -33,6 +34,7 @@ import {
 } from '@/content/projects';
 import { services, type ServiceCategory } from '@/content/services';
 import { hrefFor, type Locale } from '@/i18n/config';
+import { trackEvent, trackProjectView } from '@/lib/analytics';
 import styles from './ProjectDetailContent.module.css';
 
 const serviceIconMap: Record<ServiceCategory, React.ElementType> = {
@@ -62,6 +64,15 @@ export function ProjectDetailContent({ slug, locale }: { slug: string; locale: s
   const relatedProjects = getRelatedProjects(project.id, 2);
   const { prev, next } = getNextPrevProjects(project.id);
   const contactHref = `${hrefFor(loc, 'contact')}?service=${project.category}`;
+
+  useEffect(() => {
+    trackProjectView({ project_slug: project.id, project_name: project.title[loc], locale: loc });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fires once per project detail mount, keyed by the project identity.
+  }, [project.id]);
+
+  const handleProjectCtaClick = () => {
+    trackEvent('project_cta_click', { project_slug: project.id, locale: loc });
+  };
 
   return (
     <div className={`${styles.page} pt-[var(--vx-header-height)]`}>
@@ -416,7 +427,7 @@ export function ProjectDetailContent({ slug, locale }: { slug: string; locale: s
               </h2>
               <p className={styles.closingText}>{t('detail.similarProjectText')}</p>
               <div className={styles.closingActions}>
-                <Link href={contactHref} className="vx-btn vx-btn-light">
+                <Link href={contactHref} onClick={handleProjectCtaClick} className="vx-btn vx-btn-light">
                   {tCommon('cta.contactUs')}
                   <ArrowRight aria-hidden="true" />
                 </Link>

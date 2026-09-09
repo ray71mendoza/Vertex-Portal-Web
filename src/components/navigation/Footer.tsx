@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
@@ -5,8 +7,10 @@ import { ChevronDown, Mail, MapPin, Phone } from 'lucide-react';
 import { InstagramIcon, LinkedInIcon } from '@/components/ui/SocialIcons';
 import type { Locale } from '@/i18n/config';
 import { hrefFor } from '@/i18n/config';
+import { CookiePreferencesButton } from '@/components/consent/CookiePreferencesButton';
 import { services } from '@/content/services';
 import { OFFICIAL_PHONE_NUMBERS, OFFICIAL_SOCIAL_LINKS } from '@/content/locations';
+import { trackEmailClick, trackPhoneClick } from '@/lib/analytics';
 
 interface FooterProps {
   locale: Locale;
@@ -141,6 +145,10 @@ export function Footer({ locale }: FooterProps) {
             <Link href={hrefFor(locale, 'terms')} className="footer-link !text-vertex-facetIce/50">
               {t('nav.terms')}
             </Link>
+            <Link href={hrefFor(locale, 'cookies')} className="footer-link !text-vertex-facetIce/50">
+              {t('footer.cookiePolicy')}
+            </Link>
+            <CookiePreferencesButton className="footer-link !text-vertex-facetIce/50" />
           </div>
         </div>
       </div>
@@ -195,6 +203,7 @@ function FooterContactInfo({ t }: { t: ReturnType<typeof useTranslations> }) {
       <li>
         <a
           href="mailto:gerenciavertexsas@gmail.com"
+          onClick={() => trackEmailClick({ placement: 'footer' })}
           className="flex items-center gap-2 text-xs text-vertex-facetIce/80 transition-colors hover:text-vertex-prismBlue"
         >
           <Mail className="h-3.5 w-3.5 shrink-0 text-vertex-prismBlue" />
@@ -211,6 +220,7 @@ function FooterContactInfo({ t }: { t: ReturnType<typeof useTranslations> }) {
             <a
               key={phone.link}
               href={phone.link}
+              onClick={() => trackPhoneClick({ placement: 'footer' })}
               className="block text-xs text-vertex-facetIce/75 transition-colors hover:text-vertex-prismBlue"
             >
               {phone.display}

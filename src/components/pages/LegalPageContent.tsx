@@ -3,22 +3,28 @@
 import { ChevronDown, Mail } from 'lucide-react';
 import { dataPolicySections } from '@/content/dataPolicy';
 import { termsSections } from '@/content/termsPolicy';
+import { cookiePolicySections } from '@/content/cookiePolicy';
 import type { PolicySection } from '@/content/dataPolicy';
+import { useConsent } from '@/providers/ConsentProvider';
 import styles from './LegalPageContent.module.css';
 
 interface LegalPageContentProps {
-  type: 'privacy' | 'terms';
+  type: 'privacy' | 'terms' | 'cookies';
   locale: string;
 }
 
 export function LegalPageContent({ type, locale }: LegalPageContentProps) {
   const loc = locale === 'en' ? 'en' : 'es';
   const isPrivacy = type === 'privacy';
-  const sections: PolicySection[] = isPrivacy ? dataPolicySections : termsSections;
+  const isCookies = type === 'cookies';
+  const sections: PolicySection[] = isPrivacy ? dataPolicySections : isCookies ? cookiePolicySections : termsSections;
+  const { openPreferences } = useConsent();
 
   const title = isPrivacy
     ? (loc === 'es' ? 'Política de Tratamiento de Datos Personales' : 'Personal Data Processing Policy')
-    : (loc === 'es' ? 'Términos y Condiciones' : 'Terms & Conditions');
+    : isCookies
+      ? (loc === 'es' ? 'Política de Cookies' : 'Cookie Policy')
+      : (loc === 'es' ? 'Términos y Condiciones' : 'Terms & Conditions');
 
   const lastUpdated = loc === 'es' ? 'Última actualización: septiembre de 2026' : 'Last updated: September 2026';
 
@@ -26,9 +32,13 @@ export function LegalPageContent({ type, locale }: LegalPageContentProps) {
     ? (loc === 'es'
         ? 'En Vertex protegemos la información personal de quienes interactúan con nosotros, de acuerdo con la Ley 1581 de 2012 de Colombia. A continuación encontrarás cómo recolectamos, usamos y protegemos tus datos, y cómo ejercer tus derechos.'
         : 'At Vertex, we protect the personal information of everyone who interacts with us, in accordance with Colombian Law 1581 of 2012. Below you will find how we collect, use, and protect your data, and how to exercise your rights.')
-    : (loc === 'es'
-        ? 'Bienvenido al sitio web corporativo de Vertex. Al acceder y navegar en este sitio, aceptas cumplir con los siguientes términos y condiciones de uso.'
-        : 'Welcome to the Vertex corporate website. By accessing and browsing this site, you agree to comply with the following terms and conditions of use.');
+    : isCookies
+      ? (loc === 'es'
+          ? 'Esta página explica qué cookies y tecnologías similares usa el sitio web de Vertex, para qué las usamos, y cómo puedes aceptarlas, rechazarlas o cambiar tu elección en cualquier momento.'
+          : 'This page explains what cookies and similar technologies the Vertex website uses, what we use them for, and how you can accept, reject, or change your choice at any time.')
+      : (loc === 'es'
+          ? 'Bienvenido al sitio web corporativo de Vertex. Al acceder y navegar en este sitio, aceptas cumplir con los siguientes términos y condiciones de uso.'
+          : 'Welcome to the Vertex corporate website. By accessing and browsing this site, you agree to comply with the following terms and conditions of use.');
 
   const tocLabel = loc === 'es' ? 'Contenido' : 'Contents';
   const showToc = sections.length > 2;
@@ -76,6 +86,20 @@ export function LegalPageContent({ type, locale }: LegalPageContentProps) {
                       <Mail aria-hidden="true" />
                       gerenciavertexsas@gmail.com
                     </a>
+                  </div>
+                )}
+
+                {isCookies && (
+                  <div className={styles.rightsCallout}>
+                    <h3>{loc === 'es' ? '¿Quieres cambiar tu elección?' : 'Want to change your choice?'}</h3>
+                    <p>
+                      {loc === 'es'
+                        ? 'Abre el panel de preferencias para aceptar, rechazar o personalizar las cookies en cualquier momento.'
+                        : 'Open the preferences panel to accept, reject, or customize cookies at any time.'}
+                    </p>
+                    <button type="button" onClick={openPreferences} className={styles.rightsCalloutLink}>
+                      {loc === 'es' ? 'Preferencias de cookies' : 'Cookie preferences'}
+                    </button>
                   </div>
                 )}
 
@@ -128,6 +152,29 @@ export function LegalPageContent({ type, locale }: LegalPageContentProps) {
                       ))}
                     </dl>
                   )}
+
+                  {section.table && (
+                    <div className={styles.tableWrap}>
+                      <table className={styles.table}>
+                        <thead>
+                          <tr>
+                            {section.table.headers.map((header, i) => (
+                              <th key={i}>{header[loc]}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {section.table.rows.map((row, i) => (
+                            <tr key={i}>
+                              {row.map((cell, j) => (
+                                <td key={j}>{cell[loc]}</td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </section>
               ))}
 
@@ -143,6 +190,20 @@ export function LegalPageContent({ type, locale }: LegalPageContentProps) {
                     <Mail aria-hidden="true" />
                     gerenciavertexsas@gmail.com
                   </a>
+                </div>
+              )}
+
+              {isCookies && (
+                <div className={styles.mobileRightsCallout}>
+                  <h3>{loc === 'es' ? '¿Quieres cambiar tu elección?' : 'Want to change your choice?'}</h3>
+                  <p>
+                    {loc === 'es'
+                      ? 'Abre el panel de preferencias para aceptar, rechazar o personalizar las cookies en cualquier momento.'
+                      : 'Open the preferences panel to accept, reject, or customize cookies at any time.'}
+                  </p>
+                  <button type="button" onClick={openPreferences} className={styles.rightsCalloutLink}>
+                    {loc === 'es' ? 'Preferencias de cookies' : 'Cookie preferences'}
+                  </button>
                 </div>
               )}
             </div>
