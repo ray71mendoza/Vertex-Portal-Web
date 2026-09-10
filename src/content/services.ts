@@ -141,14 +141,14 @@ export const services: ServiceData[] = [
       es: [
         'Software diseñado para las necesidades exactas de la organización',
         'Integración completa entre sistemas',
-        'Escalabilidad y rendimiento garantizados',
+        'Escalabilidad y rendimiento optimizados según el crecimiento de la organización',
         'Soporte continuo y evolución del producto',
         'Reducción de dependencia de soluciones genéricas',
       ],
       en: [
         'Software designed for the organization\'s exact needs',
         'Complete system integration',
-        'Guaranteed scalability and performance',
+        'Scalability and performance optimized to the organization\'s growth',
         'Continuous support and product evolution',
         'Reduced dependency on generic solutions',
       ],

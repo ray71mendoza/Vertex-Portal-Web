@@ -455,6 +455,9 @@
       "p2": "Integramos estrategia, tecnología, inteligencia artificial, diseño y comunicación en un modelo de trabajo multidisciplinario que permite abordar desafíos complejos con soluciones concretas.",
       "p3": "Nuestra propuesta no consiste solamente en desarrollar productos digitales. Diseñamos soluciones integrales que combinan visión estratégica, capacidad técnica y comunicación efectiva."
     },
+    "testimonials": {
+      "demoNotice": "Testimonio de demostración"
+    },
     "whyVertex": {
       "eyebrow": "Por qué Vertex",
       "title": "Razones para trabajar con nosotros"

@@ -8,7 +8,8 @@ export interface CompanyStatistic {
   value: string;
   label: { es: string; en: string };
   icon: string;
-  isDemo: boolean;
+  /** 'metric' renders as a large number; 'trait' renders as a short qualitative descriptor. */
+  emphasis: 'metric' | 'trait';
 }
 
 export interface WhyVertexPillar {
@@ -28,42 +29,47 @@ export interface Testimonial {
   isDemo: boolean;
 }
 
-/* Contenido de demostración — Estadísticas provisionales */
+/* Estadísticas y rasgos distintivos de la compañía.
+   Solo 'areas' es una cifra (verificable: coincide con el número real de
+   categorías de servicio en content/services.ts). Las demás son
+   descriptores cualitativos de la forma de trabajo de Vertex, no cifras de
+   resultado — evita afirmaciones objetivas no comprobables (Ley 1480/2011,
+   arts. 29-30). */
 export const companyStatistics: CompanyStatistic[] = [
-  {
-    id: 'countries',
-    value: '8+',
-    label: { es: 'Países alcanzados', en: 'Countries reached' },
-    icon: 'Globe',
-    isDemo: true,
-  },
-  {
-    id: 'projects',
-    value: '120+',
-    label: { es: 'Proyectos desarrollados', en: 'Projects delivered' },
-    icon: 'FolderKanban',
-    isDemo: true,
-  },
-  {
-    id: 'professionals',
-    value: '50+',
-    label: { es: 'Profesionales especializados', en: 'Specialized professionals' },
-    icon: 'Users',
-    isDemo: true,
-  },
   {
     id: 'areas',
     value: '7',
     label: { es: 'Áreas de experiencia', en: 'Areas of expertise' },
     icon: 'Layers',
-    isDemo: true,
+    emphasis: 'metric',
   },
   {
-    id: 'satisfaction',
-    value: '97%',
-    label: { es: 'Nivel de satisfacción', en: 'Satisfaction rate' },
-    icon: 'ThumbsUp',
-    isDemo: true,
+    id: 'bilingual',
+    value: 'Bilingüe',
+    label: { es: 'Atención y contenido en español e inglés', en: 'Service and content in Spanish and English' },
+    icon: 'Globe',
+    emphasis: 'trait',
+  },
+  {
+    id: 'methodology',
+    value: 'Ágil',
+    label: { es: 'Entregas iterativas con foco en resultados medibles', en: 'Iterative delivery focused on measurable results' },
+    icon: 'Zap',
+    emphasis: 'trait',
+  },
+  {
+    id: 'aiData',
+    value: 'IA + Datos',
+    label: { es: 'Soluciones potenciadas por inteligencia artificial y analítica', en: 'Solutions powered by artificial intelligence and analytics' },
+    icon: 'Sparkles',
+    emphasis: 'trait',
+  },
+  {
+    id: 'base',
+    value: 'Colombia',
+    label: { es: 'Sede y operación principal, con visión de expansión regional', en: 'Primary base of operations, with a vision for regional expansion' },
+    icon: 'MapPin',
+    emphasis: 'trait',
   },
 ];
 

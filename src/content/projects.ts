@@ -58,8 +58,8 @@ export const projects: Project[] = [
       en: 'Vertex engineered a modular ecosystem featuring Drag & Drop interactive boards, document management with digital signatures, predictive analytics, bi-directional messaging, and automated invoicing.',
     },
     results: {
-      es: 'Centralización total del pipeline comercial, reducción de tiempos operativos de facturación y seguimiento en tiempo real de leads.',
-      en: 'Complete centralization of commercial pipelines, reduced invoicing operational overhead, and real-time lead tracking.',
+      es: 'Centralización del pipeline comercial en una sola plataforma, reducción de tiempos operativos de facturación y seguimiento en tiempo real de leads.',
+      en: 'Centralization of the commercial pipeline on a single platform, reduced invoicing operational overhead, and real-time lead tracking.',
     },
     services: ['software-development', 'innovation-digital-transformation'],
     coverImage: '/images/projects/vertex-crm-pro.jpg',
@@ -87,8 +87,8 @@ export const projects: Project[] = [
       en: 'Colombia',
     },
     description: {
-      es: 'Sistema de Gestión Documental Electrónica de Archivo (SGDEA) Enterprise diseñado para garantizar la inmutabilidad, trazabilidad, ciclo de vida documental y estricto cumplimiento normativo (normas AGN, Ley 594 de 2000 y Acuerdo 001 de 2024).',
-      en: 'Enterprise Electronic Document & Records Management System (SGDEA) designed to guarantee immutability, traceability, full document lifecycle, and strict regulatory compliance with national archiving standards.',
+      es: 'Sistema de Gestión Documental Electrónica de Archivo (SGDEA) Enterprise diseñado para reforzar la inmutabilidad, trazabilidad, ciclo de vida documental y cumplimiento normativo (normas AGN, Ley 594 de 2000 y Acuerdo 001 de 2024).',
+      en: 'Enterprise Electronic Document & Records Management System (SGDEA) designed to reinforce immutability, traceability, full document lifecycle, and regulatory compliance with national archiving standards.',
     },
     challenge: {
       es: 'Dependencia de procesos en papel físico, vulnerabilidad en la custodia documental, falta de tablas de retención electrónica estandarizadas y riesgo de incumplimiento de la normativa archivística.',
@@ -99,8 +99,8 @@ export const projects: Project[] = [
       en: 'Vertex deployed a modular NestJS and Next.js architecture featuring automated filing, digital signatures, OpenSearch full-text search, immutable S3 storage, and cryptographic audit trails.',
     },
     results: {
-      es: 'Eliminación del uso de papel físico, consulta instantánea de expedientes electrónicos y cumplimiento estricto de normas AGN y Ley 594.',
-      en: 'Zero paper reliance, instantaneous electronic record search, and rigorous compliance with national archive regulations.',
+      es: 'Reducción significativa del uso de papel físico, consulta instantánea de expedientes electrónicos y cumplimiento de normas AGN y Ley 594.',
+      en: 'Significant reduction in physical paper use, instantaneous electronic record search, and compliance with national archive regulations.',
     },
     services: ['software-development', 'public-sector-large-projects', 'innovation-digital-transformation'],
     coverImage: '/images/projects/vertex-nexo.jpg',
@@ -140,8 +140,8 @@ export const projects: Project[] = [
       en: 'Vertex built a high-performance collaborative workspace with reactive boards, agile story estimation, Cumulative Flow Diagrams (CFD), and real-time Burndown/Velocity analytics.',
     },
     results: {
-      es: 'Optimización del flujo de entrega continua, visibilidad completa del ciclo de vida del software y alineación estratégica de equipos de ingeniería.',
-      en: 'Optimized continuous delivery workflows, full visibility into software lifecycles, and strategic alignment for engineering teams.',
+      es: 'Optimización del flujo de entrega continua, mayor visibilidad del ciclo de vida del software y alineación estratégica de equipos de ingeniería.',
+      en: 'Optimized continuous delivery workflows, greater visibility into software lifecycles, and strategic alignment for engineering teams.',
     },
     services: ['software-development', 'innovation-digital-transformation'],
     coverImage: '/images/projects/vertex-sprint.jpg',

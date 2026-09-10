@@ -29,7 +29,7 @@ export function ContactPageContent({
   const assurances = [
     {
       icon: ShieldCheck,
-      title: loc === 'es' ? 'Confidencialidad garantizada' : 'Guaranteed confidentiality',
+      title: loc === 'es' ? 'Compromiso de confidencialidad' : 'Confidentiality commitment',
       description: loc === 'es' ? 'Tratamos tu información con seguridad.' : 'We handle your information securely.',
     },
     {

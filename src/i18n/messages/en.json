@@ -455,6 +455,9 @@
       "p2": "We integrate strategy, technology, artificial intelligence, design and communication in a multidisciplinary work model that allows us to address complex challenges with concrete solutions.",
       "p3": "Our approach goes beyond developing digital products. We design comprehensive solutions that combine strategic vision, technical capability and effective communication."
     },
+    "testimonials": {
+      "demoNotice": "Demonstration testimonial"
+    },
     "whyVertex": {
       "eyebrow": "Why Vertex",
       "title": "Reasons to work with us"

@@ -48,7 +48,7 @@ export function CapabilitiesSection({ locale }: CapabilitiesSectionProps) {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-12 lg:items-stretch">
+        <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-stretch">
           <AnimatedReveal className="lg:col-span-5">
             <figure className={`${styles.staticVisual} home-capabilities-visual`}>
               <Image

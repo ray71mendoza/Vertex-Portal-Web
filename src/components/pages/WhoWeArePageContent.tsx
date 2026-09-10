@@ -150,7 +150,9 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
             <div className={styles.statsGrid}>
               {companyStatistics.map((stat) => (
                 <div key={stat.id} className={styles.statCard}>
-                  <span className={styles.statValue}>{stat.value}</span>
+                  <span className={stat.emphasis === 'trait' ? styles.statValueTrait : styles.statValue}>
+                    {stat.value}
+                  </span>
                   <span className={styles.statLabel}>{stat.label[loc]}</span>
                 </div>
               ))}
@@ -213,6 +215,9 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
                       <small>{testimonial.company}</small>
                     </div>
                   </div>
+                  {testimonial.isDemo && (
+                    <span className={styles.demoBadge}>{t('testimonials.demoNotice')}</span>
+                  )}
                 </article>
               </AnimatedReveal>
             ))}
