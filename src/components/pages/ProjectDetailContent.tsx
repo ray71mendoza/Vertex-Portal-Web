@@ -413,7 +413,7 @@ export function ProjectDetailContent({ slug, locale }: { slug: string; locale: s
       <section className={styles.closingCta} aria-labelledby="project-cta-title">
         <div
           className={styles.closingWallpaper}
-          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
           aria-hidden="true"
         />
         <div className="vx-container">

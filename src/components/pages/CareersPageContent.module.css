@@ -14,7 +14,7 @@
 .environmentSection {
   scroll-margin-top: 6rem;
   background-color: #fefefe;
-  background-image: url('/images/vertex-wallpaper-1.png');
+  background-image: url('/images/vertex-wallpaper-1.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -224,7 +224,7 @@
   inset: 0;
   background:
     linear-gradient(90deg, rgba(3, 26, 33, 0.93), rgba(11, 69, 81, 0.78)),
-    url('/images/vertex-service-hero-background-v2.png') center / cover no-repeat;
+    url('/images/vertex-service-hero-background-v2.webp') center / cover no-repeat;
   opacity: 0.62;
   pointer-events: none;
 }

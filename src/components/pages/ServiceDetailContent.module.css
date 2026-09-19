@@ -8,7 +8,7 @@
   padding: clamp(2rem, 3.5vw, 3.5rem) 0 clamp(2.25rem, 4vw, 3.75rem) 0;
   background:
     linear-gradient(90deg, rgba(3, 20, 27, 0.96) 0%, rgba(3, 28, 38, 0.91) 45%, rgba(4, 42, 57, 0.5) 100%),
-    url('/images/vertex-service-hero-background-v2.png') center / cover no-repeat,
+    url('/images/vertex-service-hero-background-v2.webp') center / cover no-repeat,
     #071a1f;
 }
 
@@ -199,7 +199,7 @@
 
 .challengesSection {
   background-color: #fefefe;
-  background-image: url('/images/vertex-wallpaper-2.png');
+  background-image: url('/images/vertex-wallpaper-2.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

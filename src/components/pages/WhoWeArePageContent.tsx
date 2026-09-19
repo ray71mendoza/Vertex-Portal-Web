@@ -40,6 +40,10 @@ const pillarIconMap: Record<string, React.ElementType> = {
   MapPin,
 };
 
+// Hidden until real, confirmed client testimonials replace the demo content
+// in src/content/company.ts — flip back to true for launch once that's done.
+const SHOW_TESTIMONIALS = false;
+
 export function WhoWeArePageContent({ locale }: { locale: string }) {
   const t = useTranslations('whoWeAre');
   const tCommon = useTranslations('common');
@@ -70,7 +74,7 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
       <section className={`${styles.hero} vx-section vx-bg-dark`} aria-labelledby="who-hero-title">
         <div
           className={styles.heroWallpaper}
-          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
           aria-hidden="true"
         />
         <div className={styles.heroOverlay} aria-hidden="true" />
@@ -189,41 +193,43 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
         </div>
       </section>
 
-      <section className={`${styles.testimonialsSection} vx-section`} aria-label="Testimonials">
-        <div className="vx-container">
-          <SectionHeading
-            eyebrow={loc === 'es' ? 'Experiencias compartidas' : 'Shared experiences'}
-            title={loc === 'es' ? 'Personas que eligen Vertex' : 'People who choose Vertex'}
-            subtitle={loc === 'es' ? 'Relaciones construidas con cercanía, claridad y compromiso con cada resultado.' : 'Relationships built on proximity, clarity and commitment to every result.'}
-            align="center"
-            className={styles.centeredHeading}
-          />
-          <CarouselPauseButton isPaused={testimonialsPaused} onToggle={toggleTestimonialsPause} locale={loc} />
-          <div ref={testimonialsCarouselRef} className={styles.testimonialsGrid}>
-            {testimonials.map((testimonial, idx) => (
-              <AnimatedReveal key={testimonial.id} delay={Math.min(idx + 1, 2)} className={styles.cardReveal}>
-                <article className={styles.testimonialCard}>
-                  <Quote className={styles.quoteIcon} aria-hidden="true" />
-                  <blockquote>{testimonial.quote[loc]}</blockquote>
-                  <div className={styles.testimonialAuthor}>
-                    <div className={styles.testimonialAvatar} aria-hidden="true">
-                      {getInitials(testimonial.name)}
+      {SHOW_TESTIMONIALS && (
+        <section className={`${styles.testimonialsSection} vx-section`} aria-label="Testimonials">
+          <div className="vx-container">
+            <SectionHeading
+              eyebrow={loc === 'es' ? 'Experiencias compartidas' : 'Shared experiences'}
+              title={loc === 'es' ? 'Personas que eligen Vertex' : 'People who choose Vertex'}
+              subtitle={loc === 'es' ? 'Relaciones construidas con cercanía, claridad y compromiso con cada resultado.' : 'Relationships built on proximity, clarity and commitment to every result.'}
+              align="center"
+              className={styles.centeredHeading}
+            />
+            <CarouselPauseButton isPaused={testimonialsPaused} onToggle={toggleTestimonialsPause} locale={loc} />
+            <div ref={testimonialsCarouselRef} className={styles.testimonialsGrid}>
+              {testimonials.map((testimonial, idx) => (
+                <AnimatedReveal key={testimonial.id} delay={Math.min(idx + 1, 2)} className={styles.cardReveal}>
+                  <article className={styles.testimonialCard}>
+                    <Quote className={styles.quoteIcon} aria-hidden="true" />
+                    <blockquote>{testimonial.quote[loc]}</blockquote>
+                    <div className={styles.testimonialAuthor}>
+                      <div className={styles.testimonialAvatar} aria-hidden="true">
+                        {getInitials(testimonial.name)}
+                      </div>
+                      <div>
+                        <strong>{testimonial.name}</strong>
+                        <span>{testimonial.role[loc]}</span>
+                        <small>{testimonial.company}</small>
+                      </div>
                     </div>
-                    <div>
-                      <strong>{testimonial.name}</strong>
-                      <span>{testimonial.role[loc]}</span>
-                      <small>{testimonial.company}</small>
-                    </div>
-                  </div>
-                  {testimonial.isDemo && (
-                    <span className={styles.demoBadge}>{t('testimonials.demoNotice')}</span>
-                  )}
-                </article>
-              </AnimatedReveal>
-            ))}
+                    {testimonial.isDemo && (
+                      <span className={styles.demoBadge}>{t('testimonials.demoNotice')}</span>
+                    )}
+                  </article>
+                </AnimatedReveal>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section id="alcance-regional" className={`${styles.reachSection} vx-section vx-bg-dark scroll-mt-24`} aria-label="Regional Reach">
         <div className="vx-container">
@@ -423,7 +429,7 @@ export function WhoWeArePageContent({ locale }: { locale: string }) {
       <section className={`${styles.finalCta} vx-section vx-bg-teal`} aria-label="CTA">
         <div
           className={styles.finalCtaWallpaper}
-          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
           aria-hidden="true"
         />
         <div className="relative z-10 vx-container">

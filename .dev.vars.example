@@ -1,0 +1,10 @@
+# Local-only secrets/config for `npm run preview` (wrangler dev). Copy this
+# file to `.dev.vars` (already gitignored) and fill in real values — never
+# commit `.dev.vars` itself.
+
+NEXTJS_ENV=development
+
+# Contact form email delivery — see docs/cloudflare-deployment.md
+RESEND_API_KEY=your_resend_api_key
+CONTACT_FROM_EMAIL=verified-sender@vertex.com.co
+CONTACT_TO_EMAIL=gerenciavertexsas@gmail.com

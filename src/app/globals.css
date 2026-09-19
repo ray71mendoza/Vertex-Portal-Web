@@ -1128,7 +1128,7 @@ p, .vx-body {
 
 .vx-bg-wallpaper-1 {
   background-color: #fefefe;
-  background-image: url('/images/vertex-wallpaper-1.png');
+  background-image: url('/images/vertex-wallpaper-1.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1136,7 +1136,7 @@ p, .vx-body {
 
 .vx-bg-wallpaper-2 {
   background-color: #fefefe;
-  background-image: url('/images/vertex-wallpaper-2.png');
+  background-image: url('/images/vertex-wallpaper-2.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

@@ -8,6 +8,12 @@
       "port": 3050
     },
     {
+      "name": "vertex-cf-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview"],
+      "port": 8787
+    },
+    {
       "name": "caribbean-preview",
       "runtimeExecutable": "C:\\Users\\sebas\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
       "runtimeArgs": ["-m", "http.server", "8743", "-d", "C:\\Users\\sebas\\Downloads\\portal-web-caribbean-main"],

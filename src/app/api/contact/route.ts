@@ -2,6 +2,15 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { sendContactEmail } from '@/lib/mailer';
 import { checkRateLimit } from '@/lib/rateLimit';
+import { getClientIp } from '@/lib/getClientIp';
+
+// Form submissions must never be cached — this route is always dynamic.
+export const dynamic = 'force-dynamic';
+
+// Comfortably above the largest possible valid payload (name 200 + organization
+// 200 + email 320 + phone 50 + service 100 + message 5000 + JSON overhead),
+// rejected before it's ever parsed as JSON.
+const MAX_BODY_BYTES = 20_000;
 
 const contactSchema = z.object({
   name: z.string().trim().min(1).max(200),
@@ -15,9 +24,17 @@ const contactSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-  if (!checkRateLimit(ip)) {
-    return NextResponse.json({ success: false, error: 'Too many requests' }, { status: 429 });
+  const ip = getClientIp(request);
+  if (!(await checkRateLimit(ip))) {
+    return NextResponse.json(
+      { success: false, error: 'Too many requests' },
+      { status: 429, headers: { 'Retry-After': '60' } }
+    );
+  }
+
+  const contentLength = Number(request.headers.get('content-length') || 0);
+  if (contentLength > MAX_BODY_BYTES) {
+    return NextResponse.json({ success: false, error: 'Request body too large' }, { status: 413 });
   }
 
   let body: unknown;
@@ -46,7 +63,7 @@ export async function POST(request: Request) {
     await sendContactEmail(data);
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    if (error instanceof Error && error.message.includes('SMTP is not configured')) {
+    if (error instanceof Error && error.message.includes('Resend is not configured')) {
       console.error('[Contact Form API] Email delivery is not configured:', error.message);
       return NextResponse.json(
         { success: false, error: 'Contact delivery is not configured on the server yet.' },

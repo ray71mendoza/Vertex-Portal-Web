@@ -31,7 +31,7 @@ export function ValueProposition({ locale }: ValuePropositionProps) {
       {/* Background Wallpaper */}
       <div
         className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-20"
-        style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+        style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
         aria-hidden="true"
       />
 

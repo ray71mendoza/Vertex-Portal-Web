@@ -58,6 +58,7 @@ export function TeamPageContent({ locale }: { locale: string }) {
                           src={member.photo}
                           alt={member.name}
                           fill
+                          sizes="128px"
                           className="object-cover"
                         />
                       )}

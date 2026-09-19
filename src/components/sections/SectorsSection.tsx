@@ -44,7 +44,7 @@ export function SectorsSection({ locale }: SectorsSectionProps) {
                   <div className={`p-8 bg-gradient-to-br ${sector.bg} text-white relative overflow-hidden min-h-[160px] flex flex-col justify-between`}>
                     <div
                       className="absolute inset-0 opacity-15 bg-cover bg-center pointer-events-none"
-                      style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+                      style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
                       aria-hidden="true"
                     />
                     <div className="relative z-10 flex items-center justify-between">

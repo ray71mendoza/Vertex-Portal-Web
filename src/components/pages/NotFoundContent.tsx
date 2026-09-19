@@ -19,7 +19,7 @@ export function NotFoundContent({ locale = 'es' }: NotFoundContentProps) {
       {/* Background Wallpaper */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-25 pointer-events-none"
-        style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+        style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
         aria-hidden="true"
       />
 

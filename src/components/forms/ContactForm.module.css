@@ -64,8 +64,23 @@
   color: #0b4551;
 }
 
+/* Off-screen rather than display:none — a common bot pattern is to check
+   getComputedStyle(el).display before filling a field specifically to evade
+   display:none honeypots. Positioning it out of the viewport instead still
+   keeps it invisible and unreachable for sighted/keyboard users (the input
+   itself also carries tabIndex={-1}), while remaining "visible" enough by
+   computed style to still catch that class of bot. aria-hidden on the
+   wrapper keeps it out of the accessibility tree for screen readers. */
 .hiddenFields {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .twoColumns {

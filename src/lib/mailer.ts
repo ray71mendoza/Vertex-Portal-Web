@@ -1,4 +1,4 @@
-import nodemailer, { type Transporter } from 'nodemailer';
+const RESEND_API_URL = 'https://api.resend.com/emails';
 
 export const CONTACT_DESTINATION_EMAIL = process.env.CONTACT_TO_EMAIL || 'gerenciavertexsas@gmail.com';
 
@@ -10,32 +10,6 @@ export interface ContactEmailPayload {
   service?: string;
   message: string;
   preferredLanguage: 'es' | 'en';
-}
-
-let cachedTransporter: Transporter | null = null;
-
-function getTransporter(): Transporter {
-  if (cachedTransporter) return cachedTransporter;
-
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD } = process.env;
-
-  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASSWORD) {
-    throw new Error('SMTP is not configured. Set SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD.');
-  }
-
-  const port = Number(SMTP_PORT);
-
-  cachedTransporter = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port,
-    secure: port === 465,
-    auth: {
-      user: SMTP_USER,
-      pass: SMTP_PASSWORD,
-    },
-  });
-
-  return cachedTransporter;
 }
 
 function stripControlChars(value: string): string {
@@ -52,8 +26,13 @@ function escapeHtml(value: string): string {
 }
 
 export async function sendContactEmail(payload: ContactEmailPayload): Promise<void> {
-  const transporter = getTransporter();
-  const fromAddress = process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER!;
+  const apiKey = process.env.RESEND_API_KEY;
+  const fromAddress = process.env.CONTACT_FROM_EMAIL;
+
+  if (!apiKey || !fromAddress) {
+    throw new Error('Resend is not configured. Set RESEND_API_KEY and CONTACT_FROM_EMAIL.');
+  }
+
   const isEs = payload.preferredLanguage === 'es';
 
   const name = stripControlChars(payload.name);
@@ -96,14 +75,37 @@ export async function sendContactEmail(payload: ContactEmailPayload): Promise<vo
     </div>
   `;
 
-  await transporter.sendMail({
-    from: `"Vertex — Formulario de contacto" <${fromAddress}>`,
-    to: CONTACT_DESTINATION_EMAIL,
-    replyTo: payload.email,
-    subject: isEs
-      ? `Solicitud de contacto Vertex - ${name}`
-      : `Vertex contact request - ${name}`,
-    text: textBody,
-    html: htmlBody,
-  });
+  let response: Response;
+  try {
+    response = await fetch(RESEND_API_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: `${isEs ? 'Vertex — Formulario de contacto' : 'Vertex — Contact form'} <${fromAddress}>`,
+        to: CONTACT_DESTINATION_EMAIL,
+        reply_to: payload.email,
+        subject: isEs ? `Solicitud de contacto Vertex - ${name}` : `Vertex contact request - ${name}`,
+        text: textBody,
+        html: htmlBody,
+      }),
+      // Workers requests are killed by the platform eventually anyway, but an
+      // explicit timeout means a slow/hung Resend response fails fast with a
+      // clear error instead of tying up the request for the platform's max.
+      signal: AbortSignal.timeout(10_000),
+    });
+  } catch (error) {
+    if (error instanceof Error && error.name === 'TimeoutError') {
+      throw new Error('Resend request timed out after 10s');
+    }
+    throw error;
+  }
+
+  if (!response.ok) {
+    const errorBody = await response.text().catch(() => '');
+    // Logged server-side only — the route handler never forwards this detail to the visitor.
+    throw new Error(`Resend request failed (${response.status}): ${errorBody}`);
+  }
 }
