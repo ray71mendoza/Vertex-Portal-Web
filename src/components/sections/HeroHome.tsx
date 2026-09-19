@@ -90,7 +90,7 @@ export function HeroHome({ locale }: HeroHomeProps) {
     <section className="home-hero vx-bg-dark relative overflow-hidden" aria-label="Hero">
       <div
         className="absolute inset-0 bg-cover bg-center opacity-25"
-        style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+        style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
         aria-hidden="true"
       />
       <div

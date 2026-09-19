@@ -234,7 +234,7 @@ export function ServiceDetailContent({ slug, locale }: { slug: string; locale: s
       <section className={styles.closingCta} aria-labelledby="service-cta-title">
         <div
           className={styles.closingWallpaper}
-          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
           aria-hidden="true"
         />
         <div className="vx-container relative z-10">

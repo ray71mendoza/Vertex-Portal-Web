@@ -31,6 +31,7 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
   const tServices = useTranslations('services.items');
   const loc = locale as Locale;
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorReason, setErrorReason] = useState<'generic' | 'rateLimited'>('generic');
   const schema = createContactSchema(t);
   const hasStartedRef = useRef(false);
 
@@ -67,13 +68,17 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
       });
 
       if (!response.ok) {
-        throw new Error('Contact request failed');
+        setErrorReason(response.status === 429 ? 'rateLimited' : 'generic');
+        setStatus('error');
+        return;
       }
 
       setStatus('success');
       trackCommercialLead({ service: data.service || undefined, locale: loc });
       reset();
     } catch {
+      // Network failure (offline, DNS, CORS, etc.) — not a rate-limit response.
+      setErrorReason('generic');
       setStatus('error');
     }
   };
@@ -187,7 +192,10 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
             {status === 'error' && (
               <div className={styles.errorNotice}>
                 <AlertCircle aria-hidden="true" />
-                <div><strong>{t('error.title')}</strong><span>{t('error.description')}</span></div>
+                <div>
+                  <strong>{t(errorReason === 'rateLimited' ? 'errorRateLimited.title' : 'error.title')}</strong>
+                  <span>{t(errorReason === 'rateLimited' ? 'errorRateLimited.description' : 'error.description')}</span>
+                </div>
               </div>
             )}
 

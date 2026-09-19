@@ -424,6 +424,10 @@
       "title": "Error sending message",
       "description": "We couldn't send your message. Please try again or write to us directly."
     },
+    "errorRateLimited": {
+      "title": "Too many attempts",
+      "description": "You've sent several messages in a row. Please wait a minute before trying again."
+    },
     "info": {
       "title": "Contact information",
       "email": "Corporate email",

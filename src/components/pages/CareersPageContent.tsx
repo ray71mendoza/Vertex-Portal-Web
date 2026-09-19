@@ -43,7 +43,7 @@ export function CareersPageContent({ locale }: { locale: string }) {
       <section className="vx-section vx-bg-dark text-white relative overflow-hidden" aria-label="Hero">
         <div
           className="absolute inset-0 opacity-15 bg-cover bg-center pointer-events-none"
-          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
           aria-hidden="true"
         />
         <div className="relative z-10 vx-container">

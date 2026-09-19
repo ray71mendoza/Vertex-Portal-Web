@@ -85,7 +85,7 @@ export function AboutPreview({ locale }: AboutPreviewProps) {
               <div className="home-about-visual relative aspect-[5/4] overflow-hidden rounded-[30px] border border-vertex-ink/8 bg-vertex-darkBg p-8 shadow-2xl shadow-vertex-ink/15">
                 <div
                   className="absolute inset-0 bg-cover bg-center opacity-70"
-                  style={{ backgroundImage: 'url(/images/about-vision.jpg)' }}
+                  style={{ backgroundImage: 'url(/images/about-vision.webp)' }}
                   aria-hidden="true"
                 />
                 <div className="absolute inset-5 rounded-[22px] border border-white/10" aria-hidden="true" />

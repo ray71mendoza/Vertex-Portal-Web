@@ -146,7 +146,7 @@ export function OurOfferPageContent({ locale }: { locale: string }) {
       <section className={styles.finalCta} aria-label="CTA">
         <div
           className={styles.finalCtaWallpaper}
-          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}
           aria-hidden="true"
         />
         <div className="vx-container relative z-10">

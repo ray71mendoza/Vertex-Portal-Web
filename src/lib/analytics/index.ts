@@ -16,7 +16,6 @@ import {
   EVENT_PROVIDER_MATRIX,
   isSensitiveApplicationPath,
 } from './events';
-import { trackVercelEvent } from './vercel';
 import {
   GOOGLE_ADS_CONTACT_CONVERSION_LABEL,
   trackGA4Event,
@@ -60,28 +59,16 @@ function vendorAllowed(vendor: AnalyticsVendor, gate: 'YES' | 'A' | 'M' | 'NO'):
   return isGranted('marketing');
 }
 
-function sanitizeForVercel(properties: AnalyticsEventProperties): Record<string, string | number | boolean | null> {
-  const clean: Record<string, string | number | boolean | null> = {};
-  for (const [key, value] of Object.entries(properties)) {
-    if (value === undefined) continue;
-    clean[key] = value;
-  }
-  return clean;
-}
-
 /**
- * Routes a generic event to Vercel / GA4 / Clarity per the matrix. Meta,
- * LinkedIn, and Google Ads only ever receive purpose-built conversion
- * calls (see trackCommercialLead below) — not every generic event — to
- * avoid inventing ad-vendor "custom events" outside their approved sets.
+ * Routes a generic event to GA4 / Clarity per the matrix. Meta, LinkedIn,
+ * and Google Ads only ever receive purpose-built conversion calls (see
+ * trackCommercialLead below) — not every generic event — to avoid
+ * inventing ad-vendor "custom events" outside their approved sets.
  */
 export function trackEvent(name: AnalyticsEventName, properties: AnalyticsEventProperties = {}): void {
   const routing = EVENT_PROVIDER_MATRIX[name];
   debugLog('event:', name, properties);
 
-  if (vendorAllowed('vercel', routing.vercel)) {
-    trackVercelEvent(name, sanitizeForVercel(properties));
-  }
   if (vendorAllowed('ga4', routing.ga4)) {
     trackGA4Event(name, properties);
   }
@@ -101,9 +88,6 @@ export function trackPageView(pathname: string): void {
   const routing = EVENT_PROVIDER_MATRIX.page_view;
   debugLog('page_view:', pathname);
 
-  if (vendorAllowed('vercel', routing.vercel)) {
-    trackVercelEvent('page_view', { path: pathname });
-  }
   if (vendorAllowed('ga4', routing.ga4)) {
     trackGA4PageView(pathname);
   }

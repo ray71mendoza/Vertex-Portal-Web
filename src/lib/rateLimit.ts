@@ -1,21 +1,47 @@
-// In-memory sliding-window rate limiter, scoped per module instance.
-// Best-effort mitigation only: Vercel serverless functions can run as multiple
-// concurrent instances, so this does not guarantee a global limit across all of
-// them, but it does stop the common single-instance abuse case.
-const hits = new Map<string, number[]>();
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
-export function checkRateLimit(identifier: string, limit = 5, windowMs = 60_000): boolean {
-  const now = Date.now();
-  const windowStart = now - windowMs;
+declare global {
+  interface CloudflareEnv {
+    RATE_LIMIT_KV?: KVNamespace;
+  }
+}
 
-  const timestamps = (hits.get(identifier) || []).filter((t) => t > windowStart);
+let warnedMissingBinding = false;
 
-  if (timestamps.length >= limit) {
-    hits.set(identifier, timestamps);
+/**
+ * Fixed-window rate limiter backed by Cloudflare Workers KV, shared across
+ * every Worker instance/PoP (unlike an in-memory Map, which only limits a
+ * single isolate). KV is eventually consistent, which is an accepted
+ * trade-off here — this protects a moderate-traffic contact form against
+ * casual abuse, not a security-critical resource.
+ *
+ * Requires the `RATE_LIMIT_KV` binding (see wrangler.jsonc + deployment
+ * docs). If the binding is absent — e.g. local `next dev` without the
+ * Cloudflare platform proxy — this fails open (allows the request) so
+ * local development is never blocked by a missing cloud resource.
+ */
+export async function checkRateLimit(identifier: string, limit = 5, windowSeconds = 60): Promise<boolean> {
+  const { env } = await getCloudflareContext({ async: true });
+  const kv = env.RATE_LIMIT_KV;
+
+  if (!kv) {
+    if (!warnedMissingBinding) {
+      warnedMissingBinding = true;
+      console.warn('[rateLimit] RATE_LIMIT_KV binding not found — rate limiting is disabled (expected in local dev).');
+    }
+    return true;
+  }
+
+  const bucket = Math.floor(Date.now() / (windowSeconds * 1000));
+  const key = `${identifier}:${bucket}`;
+
+  const current = await kv.get(key);
+  const count = current ? Number(current) : 0;
+
+  if (count >= limit) {
     return false;
   }
 
-  timestamps.push(now);
-  hits.set(identifier, timestamps);
+  await kv.put(key, String(count + 1), { expirationTtl: windowSeconds * 2 });
   return true;
 }

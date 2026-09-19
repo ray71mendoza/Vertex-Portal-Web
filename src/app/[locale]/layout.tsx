@@ -2,7 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Montserrat } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/next';
+import { CloudflareWebAnalytics } from '@/components/analytics/CloudflareWebAnalytics';
 import { locales, type Locale } from '@/i18n/config';
 import { Header } from '@/components/navigation/Header';
 import { Footer } from '@/components/navigation/Footer';
@@ -153,7 +153,7 @@ export default async function LocaleLayout({
           </ConsentProvider>
         </NextIntlClientProvider>
         <AnalyticsScripts />
-        <Analytics />
+        <CloudflareWebAnalytics />
       </body>
     </html>
   );

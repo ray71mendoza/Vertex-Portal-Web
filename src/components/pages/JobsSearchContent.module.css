@@ -8,7 +8,7 @@
   padding: clamp(6rem, 9vw, 8.5rem) 0;
   background:
     linear-gradient(90deg, rgba(3, 20, 27, 0.97), rgba(3, 31, 41, 0.82) 55%, rgba(4, 47, 61, 0.44)),
-    url('/images/vertex-service-hero-background-v2.png') center / cover no-repeat,
+    url('/images/vertex-service-hero-background-v2.webp') center / cover no-repeat,
     #071a1f;
 }
 

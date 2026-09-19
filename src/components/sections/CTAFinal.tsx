@@ -25,7 +25,7 @@ export function CTAFinal({ locale }: CTAFinalProps) {
           <div className="relative overflow-hidden rounded-[32px] bg-vertex-apexTeal px-6 py-10 shadow-2xl shadow-vertex-apexTeal/15 sm:px-10 lg:px-14 lg:py-12">
             <div
               className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-20"
-              style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+              style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
               aria-hidden="true"
             />
             <div className="absolute -right-16 -top-28 h-72 w-72 rounded-full border border-white/12" aria-hidden="true" />

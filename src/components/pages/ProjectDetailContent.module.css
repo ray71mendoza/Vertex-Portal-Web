@@ -11,7 +11,7 @@
   padding: clamp(3.5rem, 6vw, 5.5rem) 0 clamp(2.5rem, 5vw, 4rem);
   background:
     linear-gradient(90deg, rgba(3, 20, 27, 0.97) 0%, rgba(7, 26, 31, 0.94) 50%, rgba(11, 69, 81, 0.85) 100%),
-    url('/images/vertex-wallpaper-dark.png') center / cover no-repeat,
+    url('/images/vertex-wallpaper-dark.webp') center / cover no-repeat,
     #071a1f;
 }
 
@@ -288,7 +288,7 @@
 .narrativeSection {
   padding: clamp(3rem, 6vw, 5rem) 0;
   background-color: #fefefe;
-  background-image: url('/images/vertex-wallpaper-1.png');
+  background-image: url('/images/vertex-wallpaper-1.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -442,7 +442,7 @@
 .servicesSection {
   padding: clamp(2.5rem, 4vw, 3.5rem) 0;
   background-color: #fefefe;
-  background-image: url('/images/vertex-wallpaper-2.png');
+  background-image: url('/images/vertex-wallpaper-2.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -602,7 +602,7 @@
 .relatedSection {
   padding: clamp(3.5rem, 6vw, 5rem) 0;
   background-color: #fefefe;
-  background-image: url('/images/vertex-wallpaper-1.png');
+  background-image: url('/images/vertex-wallpaper-1.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

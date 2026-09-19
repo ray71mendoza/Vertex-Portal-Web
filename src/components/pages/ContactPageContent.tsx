@@ -49,7 +49,7 @@ export function ContactPageContent({
       <section className={styles.contactStage} aria-labelledby="contact-title">
         <div
           className={styles.stageWallpaper}
-          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.png)' }}
+          style={{ backgroundImage: 'url(/images/vertex-wallpaper-dark.webp)' }}
           aria-hidden="true"
         />
         <div className="vx-container relative z-10">

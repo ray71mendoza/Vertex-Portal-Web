@@ -25,7 +25,7 @@ vendors (if any) actually receive the event.
 | --- | --- | --- |
 | Necessary | `vertex_cookie_consent` | Stores the consent decision itself. Never deleted on rejection. |
 | Preferences | `vertex_locale` | Remembers the user's chosen language, alongside the existing path-based locale routing. |
-| Analytics | `_ga*`, `_clck`, `_clsk`, `vertex_attribution` | Vercel Web Analytics (always on, cookieless), GA4, Microsoft Clarity, first/last-touch attribution. |
+| Analytics | `_ga*`, `_clck`, `_clsk`, `vertex_attribution` | Cloudflare Web Analytics (always on, cookieless — no cookie of its own), GA4, Microsoft Clarity, first/last-touch attribution. |
 | Marketing | `_fbp`, `_fbc`, `fr`, `li_fat_id`, `_gcl_*`, etc. | LinkedIn Insight Tag, Meta Pixel, Google Ads. |
 
 Consent is stored as JSON in `vertex_cookie_consent`
@@ -61,7 +61,7 @@ on subsequent navigation — it never deletes `vertex_cookie_consent` itself.
 
 | Vendor | File | Consent gate | Notes |
 | --- | --- | --- | --- |
-| Vercel Web Analytics | `src/lib/analytics/vercel.ts` | None (cookieless) | Always on; not classified as advertising. |
+| Cloudflare Web Analytics | `src/components/analytics/CloudflareWebAnalytics.tsx` | None (cookieless) | Always on; not classified as advertising. Free product with no custom-event API — it only auto-reports pageviews from its own beacon script, so it never appears in the event/provider matrix below (custom events go to GA4/Clarity only). |
 | Google Analytics 4 + Consent Mode v2 | `src/lib/analytics/google.ts` | Analytics | `gtag.js` loads immediately in "all denied" mode; `gtag('consent','update',...)` fires on every consent change. |
 | Google Ads conversions | `src/lib/analytics/google.ts` | Marketing | Conversion labels are per-action env vars; only fired for confirmed actions, never page views. |
 | Microsoft Clarity | `src/lib/analytics/clarity.ts` | Analytics | Uses Consent API **v2** (`clarity('consentv2', ...)`), not the deprecated boolean API. Script itself is only injected once Analytics consent is granted. |
@@ -77,10 +77,12 @@ consent changes and the current pathname.
 
 All events are declared in `src/lib/analytics/events.ts`
 (`AnalyticsEventName`) with a routing matrix (`EVENT_PROVIDER_MATRIX`) mapping
-each event to `YES` (always), `A` (Analytics consent), `M` (Marketing
-consent), or `NO` (never) per vendor. Career/application events are hard-coded
-`NO` for every advertising vendor — candidate activity never builds ad
-audiences.
+each event to `A` (Analytics consent), `M` (Marketing consent), or `NO`
+(never) per vendor (`ga4`, `clarity`, `linkedin`, `googleAds`, `meta`) — a
+`YES` gate exists in the type for a future cookieless vendor with its own
+custom-event API, but none of the current vendors use it. Career/application
+events are hard-coded `NO` for every advertising vendor — candidate activity
+never builds ad audiences.
 
 To add a new event:
 1. Add its name to `AnalyticsEventName`.
