@@ -6,5 +6,5 @@ NEXTJS_ENV=development
 
 # Contact form email delivery — see docs/cloudflare-deployment.md
 RESEND_API_KEY=your_resend_api_key
-CONTACT_FROM_EMAIL=verified-sender@vertex.com.co
+CONTACT_FROM_EMAIL=contact@mail.vertexcorp.com.co
 CONTACT_TO_EMAIL=gerenciavertexsas@gmail.com
