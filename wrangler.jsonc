@@ -30,7 +30,8 @@
 
   "vars": {
     "CONTACT_FROM_EMAIL": "contact@mail.vertexcorp.com.co",
-    "CONTACT_TO_EMAIL": "gerenciavertexsas@gmail.com"
+    "CONTACT_TO_EMAIL": "gerenciavertexsas@gmail.com",
+    "NEXT_PUBLIC_GA_MEASUREMENT_ID": "G-G6Y8QDG9SQ"
   },
 
   "observability": {

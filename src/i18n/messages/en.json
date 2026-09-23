@@ -394,7 +394,7 @@
       "email": "Email",
       "emailPlaceholder": "you@email.com",
       "phone": "Phone (optional)",
-      "phonePlaceholder": "+57 300 865 8910",
+      "phonePlaceholder": "300 865 8910",
       "service": "Service of interest",
       "servicePlaceholder": "Select a service",
       "serviceOther": "Other",

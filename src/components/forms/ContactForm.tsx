@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { AlertCircle, ArrowRight, CheckCircle2, Info, Loader2 } from 'lucide-react';
 import { services } from '@/content/services';
+import { countryDialCodes } from '@/content/countryCodes';
 import { hrefFor, type Locale } from '@/i18n/config';
 import { trackCommercialLead, trackContactFormStart } from '@/lib/analytics';
 import styles from './ContactForm.module.css';
@@ -16,6 +17,7 @@ const createContactSchema = (t: (key: string) => string) =>
     name: z.string().min(1, t('validation.nameRequired')),
     organization: z.string().optional(),
     email: z.string().min(1, t('validation.emailRequired')).email(t('validation.emailInvalid')),
+    phoneCountry: z.string(),
     phone: z.string().optional(),
     service: z.string().optional(),
     message: z.string().min(10, t('validation.messageMin')),
@@ -51,6 +53,7 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
     defaultValues: {
       preferredLanguage: loc,
       service: initialService || '',
+      phoneCountry: '+57',
       privacy: false,
       honeypot: '',
     },
@@ -60,11 +63,14 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
     if (status === 'submitting') return;
     setStatus('submitting');
 
+    const { phoneCountry, phone, ...rest } = data;
+    const payload = { ...rest, phone: phone ? `${phoneCountry} ${phone}` : phone };
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -146,13 +152,26 @@ export function ContactForm({ locale, initialService }: { locale: string; initia
                 />
               </Field>
               <Field label={t('form.phone')}>
-                <input
-                  id="phone"
-                  type="tel"
-                  placeholder={t('form.phonePlaceholder')}
-                  data-clarity-mask="true"
-                  {...register('phone')}
-                />
+                <div className={styles.phoneRow}>
+                  <select
+                    id="phoneCountry"
+                    aria-label={loc === 'es' ? 'Código de país' : 'Country code'}
+                    {...register('phoneCountry')}
+                  >
+                    {countryDialCodes.map((country) => (
+                      <option key={country.iso} value={country.dial} title={loc === 'es' ? country.es : country.en}>
+                        {country.iso} {country.dial}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    id="phone"
+                    type="tel"
+                    placeholder={t('form.phonePlaceholder')}
+                    data-clarity-mask="true"
+                    {...register('phone')}
+                  />
+                </div>
               </Field>
             </div>
 

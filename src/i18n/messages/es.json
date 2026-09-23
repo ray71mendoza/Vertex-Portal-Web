@@ -394,7 +394,7 @@
       "email": "Correo electrónico",
       "emailPlaceholder": "tu@correo.com",
       "phone": "Teléfono (opcional)",
-      "phonePlaceholder": "+57 300 865 8910",
+      "phonePlaceholder": "300 865 8910",
       "service": "Servicio de interés",
       "servicePlaceholder": "Selecciona un servicio",
       "serviceOther": "Otro",

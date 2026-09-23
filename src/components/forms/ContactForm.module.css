@@ -137,6 +137,16 @@
   padding: 0.8rem 0.85rem;
 }
 
+.phoneRow {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: 0.5rem;
+}
+
+.phoneRow select {
+  padding: 0 0.4rem;
+}
+
 .field input::placeholder,
 .field textarea::placeholder {
   color: #86a6af;
