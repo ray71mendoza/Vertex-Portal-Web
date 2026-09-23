@@ -31,7 +31,7 @@ compatibility risk here is minimal.
 ## Prerequisites (one-time, in the Cloudflare dashboard)
 
 1. **Resend account** (email delivery — SMTP does not work on Workers, see
-   below): create an account at resend.com, verify the `vertex.com.co`
+   below): create an account at resend.com, verify the `mail.vertexcorp.com.co`
    sending domain (DNS records), generate an API key.
 2. **Workers KV namespace** for rate limiting — **already created** for this
    account/project (binding `RATE_LIMIT_KV`, wired into `wrangler.jsonc`).
@@ -138,7 +138,7 @@ sequence needed day to day.
 ## Custom domain
 
 Only after the `*.workers.dev` checklist below passes: Workers & Pages → your
-Worker → Settings → Domains & Routes → add `vertex.com.co`. Keep the existing
+Worker → Settings → Domains & Routes → add `vertexcorp.com.co`. Keep the existing
 Vercel deployment live in parallel until DNS is actually switched — this is a
 manual decision, not something to automate.
 
