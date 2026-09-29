@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, FolderOpen, MapPin } from 'lucide-react';
+import { ArrowRight, ExternalLink, FolderOpen, MapPin } from 'lucide-react';
 import { AnimatedReveal } from '@/components/ui/AnimatedReveal';
+import { customProjects } from '@/content/customProjects';
 import { getVisibleProjects } from '@/content/projects';
 import { hrefFor, type Locale } from '@/i18n/config';
 import styles from './ProjectsIndexContent.module.css';
@@ -55,9 +56,95 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
         </div>
       </section>
 
-      {/* Projects Gallery */}
-      <section className="vx-section vx-bg-wallpaper-1">
+      {/* Custom projects */}
+      <section className={`vx-section vx-bg-wallpaper-1 ${styles.customProjectsSection}`}>
         <div className="vx-container">
+          <AnimatedReveal>
+            <div className={styles.sectionIntro}>
+              <span className={styles.sectionEyebrow}>{t('customProjects.eyebrow')}</span>
+              <h2 className={styles.sectionTitle}>{t('customProjects.title')}</h2>
+              <p className={styles.sectionDescription}>{t('customProjects.description')}</p>
+            </div>
+          </AnimatedReveal>
+
+          <div className={styles.customGrid}>
+            {customProjects.map((project, index) => {
+              const cardContent = (
+                <>
+                  <div className={styles.customCardMedia}>
+                    {project.coverImage ? (
+                      <Image
+                        src={project.coverImage}
+                        alt={project.title[loc]}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className={styles.customCardImage}
+                      />
+                    ) : (
+                      <div className={styles.customPlaceholder} aria-hidden="true">
+                        <div className={styles.browserFrame}>
+                          <span />
+                          <span />
+                          <span />
+                        </div>
+                        <span className={styles.placeholderBrand}>VERTEX</span>
+                        <span className={styles.placeholderNumber}>
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                      </div>
+                    )}
+                    <span className={styles.customCardCategory}>{project.category[loc]}</span>
+                    {!project.url && (
+                      <span className={styles.customCardStatus}>{t('customProjects.comingSoon')}</span>
+                    )}
+                  </div>
+
+                  <div className={styles.customCardBody}>
+                    <span className={styles.customCardClient}>{project.client[loc]}</span>
+                    <h3 className={styles.customCardTitle}>{project.title[loc]}</h3>
+                    <p className={styles.customCardDescription}>{project.description[loc]}</p>
+                    <div className={styles.customCardFooter}>
+                      {project.url ? t('customProjects.visitWebsite') : t('customProjects.detailsSoon')}
+                      {project.url && <ExternalLink aria-hidden="true" />}
+                    </div>
+                  </div>
+                </>
+              );
+
+              return (
+                <AnimatedReveal key={project.id} delay={Math.min(index + 1, 3)}>
+                  {project.url ? (
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={styles.customCard}
+                    >
+                      {cardContent}
+                    </a>
+                  ) : (
+                    <article className={`${styles.customCard} ${styles.customCardPending}`}>
+                      {cardContent}
+                    </article>
+                  )}
+                </AnimatedReveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Organizational projects gallery */}
+      <section className={`vx-section ${styles.organizationalProjectsSection}`}>
+        <div className="vx-container">
+          <AnimatedReveal>
+            <div className={styles.sectionIntro}>
+              <span className={styles.sectionEyebrow}>{t('organizationalProjects.eyebrow')}</span>
+              <h2 className={styles.sectionTitle}>{t('organizationalProjects.title')}</h2>
+              <p className={styles.sectionDescription}>{t('organizationalProjects.description')}</p>
+            </div>
+          </AnimatedReveal>
+
           {/* Filters */}
           {visibleProjects.length > 0 && (
             <AnimatedReveal>

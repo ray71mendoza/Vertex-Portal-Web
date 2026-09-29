@@ -333,6 +333,19 @@
       "title": "Proyectos",
       "subtitle": "Soluciones reales que transforman organizaciones."
     },
+    "customProjects": {
+      "eyebrow": "Desarrollo a la medida",
+      "title": "Proyectos creados para cada cliente",
+      "description": "Diseñamos experiencias digitales a la medida: sitios corporativos, portales informativos y plataformas educativas que convierten necesidades concretas en soluciones funcionales, claras y listas para crecer.",
+      "comingSoon": "Próximamente",
+      "visitWebsite": "Visitar sitio web",
+      "detailsSoon": "Información próximamente"
+    },
+    "organizationalProjects": {
+      "eyebrow": "Soluciones de mayor escala",
+      "title": "Proyectos para organizaciones",
+      "description": "Plataformas y soluciones robustas que integran tecnología, estrategia y equipos multidisciplinarios para responder a retos organizacionales complejos."
+    },
     "filters": {
       "all": "Todos",
       "byService": "Por servicio",

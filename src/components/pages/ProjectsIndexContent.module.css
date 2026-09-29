@@ -7,6 +7,231 @@
     #04141a;
 }
 
+.customProjectsSection {
+  position: relative;
+}
+
+.sectionIntro {
+  max-width: 760px;
+  margin-bottom: 2.5rem;
+}
+
+.sectionEyebrow {
+  display: block;
+  margin-bottom: 0.7rem;
+  color: #1685a0;
+  font-size: 0.72rem;
+  font-weight: 760;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.sectionTitle {
+  color: #03252d;
+  font-size: clamp(1.85rem, 3vw, 2.6rem);
+  font-weight: 760;
+  line-height: 1.12;
+}
+
+.sectionDescription {
+  max-width: 680px;
+  margin-top: 1rem;
+  color: #367480;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.customGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.customGrid > * {
+  grid-column: span 2;
+  min-width: 0;
+}
+
+.customCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(3, 37, 45, 0.1);
+  border-radius: 1.35rem;
+  background: #fefefe;
+  box-shadow: 0 14px 36px rgba(3, 37, 45, 0.08);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+a.customCard:hover {
+  border-color: rgba(22, 133, 160, 0.4);
+  box-shadow: 0 22px 48px rgba(3, 37, 45, 0.14);
+  transform: translateY(-5px);
+}
+
+.customCardPending {
+  box-shadow: 0 10px 28px rgba(3, 37, 45, 0.055);
+}
+
+.customCardMedia {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #062d36;
+}
+
+.customCardImage {
+  object-fit: cover;
+  transition: transform 450ms ease;
+}
+
+a.customCard:hover .customCardImage {
+  transform: scale(1.05);
+}
+
+.customPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 75% 20%, rgba(69, 195, 220, 0.35), transparent 32%),
+    linear-gradient(135deg, #031b22 0%, #0b4551 62%, #1685a0 140%);
+}
+
+.customPlaceholder::after {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  content: '';
+  mask-image: linear-gradient(to bottom right, black, transparent 78%);
+}
+
+.browserFrame {
+  position: absolute;
+  top: 1.1rem;
+  left: 1.1rem;
+  display: flex;
+  gap: 0.3rem;
+  z-index: 1;
+}
+
+.browserFrame span {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.placeholderBrand {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.76rem;
+  font-weight: 780;
+  letter-spacing: 0.22em;
+}
+
+.placeholderNumber {
+  position: absolute;
+  right: 1.1rem;
+  bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.09);
+  font-size: 4.8rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.customCardCategory,
+.customCardStatus {
+  position: absolute;
+  z-index: 2;
+  border-radius: 999px;
+  padding: 0.36rem 0.7rem;
+  font-size: 0.61rem;
+  font-weight: 740;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.customCardCategory {
+  left: 0.9rem;
+  bottom: 0.8rem;
+  border: 1px solid rgba(114, 198, 232, 0.32);
+  background: rgba(3, 37, 45, 0.76);
+  color: #bdeaf7;
+}
+
+.customCardStatus {
+  top: 0.8rem;
+  right: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(3, 37, 45, 0.58);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.customCardBody {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding: 1.35rem 1.4rem 1.25rem;
+}
+
+.customCardClient {
+  color: #1685a0;
+  font-size: 0.68rem;
+  font-weight: 730;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.customCardTitle {
+  margin-top: 0.45rem;
+  color: #03252d;
+  font-size: 1.12rem;
+  font-weight: 740;
+  line-height: 1.35;
+}
+
+.customCardDescription {
+  margin-top: 0.75rem;
+  color: #367480;
+  font-size: 0.83rem;
+  line-height: 1.6;
+}
+
+.customCardFooter {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: auto;
+  padding-top: 1.1rem;
+  color: #0b4551;
+  font-size: 0.77rem;
+  font-weight: 720;
+}
+
+.customCardFooter svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.customCardPending .customCardFooter {
+  color: #789ca4;
+}
+
+.organizationalProjectsSection {
+  background: #f4f8f8;
+}
+
 .filterRow {
   display: flex;
   flex-wrap: wrap;
@@ -199,7 +424,29 @@
 }
 
 @media (max-width: 640px) {
+  .sectionIntro {
+    margin-bottom: 2rem;
+  }
+
+  .customGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .customGrid > * {
+    grid-column: 1;
+  }
+
   .grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .customGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .customGrid > * {
+    grid-column: auto;
   }
 }

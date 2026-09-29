@@ -333,6 +333,19 @@
       "title": "Projects",
       "subtitle": "Real solutions that transform organizations."
     },
+    "customProjects": {
+      "eyebrow": "Custom development",
+      "title": "Projects created for every client",
+      "description": "We design tailored digital experiences: corporate websites, information portals, and learning platforms that turn specific needs into functional, clear solutions built to grow.",
+      "comingSoon": "Coming soon",
+      "visitWebsite": "Visit website",
+      "detailsSoon": "Details coming soon"
+    },
+    "organizationalProjects": {
+      "eyebrow": "Large-scale solutions",
+      "title": "Projects for organizations",
+      "description": "Robust platforms and solutions that bring together technology, strategy, and multidisciplinary teams to address complex organizational challenges."
+    },
     "filters": {
       "all": "All",
       "byService": "By service",
