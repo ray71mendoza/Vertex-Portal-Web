@@ -18,17 +18,31 @@ export async function generateMetadata({
   const description = isEs
     ? 'Cómo Vertex usa cookies, analítica y tecnologías de marketing, y cómo puedes cambiar tus preferencias.'
     : 'How Vertex uses cookies, analytics, and marketing technologies, and how you can change your preferences.';
+  const canonicalPath = hrefFor(locale as Locale, 'cookies');
 
   return {
     title,
     description,
     alternates: {
-      canonical: hrefFor(locale as Locale, 'cookies'),
+      canonical: canonicalPath,
       languages: {
         es: '/es/cookies',
         en: '/en/cookies',
         'x-default': '/es/cookies',
       },
+    },
+    openGraph: {
+      title: `${title} | Vertex`,
+      description,
+      url: canonicalPath,
+      type: 'website',
+      images: ['/images/vertex-wallpaper-dark.png'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Vertex`,
+      description,
+      images: ['/images/vertex-wallpaper-dark.png'],
     },
     robots: { index: true, follow: true },
   };

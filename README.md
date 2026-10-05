@@ -2,7 +2,7 @@
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0B4551&height=180&section=header&text=Vertex%20Portal%20Web&fontSize=36&desc=Tecnolog%C3%ADa%20Estrat%C3%A9gica%20para%20Transformar%20Ideas%20en%20Resultados&descSize=16&fontColor=FEFEFE&descColor=72C6E8" alt="Vertex Portal Web Banner" width="100%" />
 
-[![Estado del Proyecto](https://img.shields.io/badge/STATUS-PRODUCTION--READY-0B4551?style=for-the-badge&logo=vercel&logoColor=white)](https://vertex.com.co)
+[![Estado del Proyecto](https://img.shields.io/badge/STATUS-PRODUCTION--READY-0B4551?style=for-the-badge&logo=vercel&logoColor=white)](https://vertexcorp.com.co)
 [![Versión](https://img.shields.io/badge/VERSION-0.1.0-72C6E8?style=for-the-badge&logo=semver&logoColor=03252D)](https://github.com/ray71mendoza/Vertex-Portal-Web)
 [![Next.js](https://img.shields.io/badge/NEXT.JS-16.3-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/REACT-19.2-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
@@ -128,7 +128,7 @@ Copia la plantilla de configuración e ingresa los valores de entorno locales si
 cp .env.example .env.local
 ```
 
-> **`NEXT_PUBLIC_SITE_URL` en producción**: esta variable debe configurarse en Vercel (Project Settings → Environment Variables) apuntando al dominio de producción real (ej. `https://vertex.com.co`). Se usa para construir las URLs canónicas, las etiquetas Open Graph, `sitemap.xml` y el `Host`/`Sitemap` de `robots.txt`. Si el dominio `*.vercel.app` asignado automáticamente por Vercel no debe indexarse (por ser un alias/preview del dominio custom), agrega una regla adicional en `src/app/robots.ts` que bloquee ese host específico usando `process.env.VERCEL_URL`, o configura un redirect 301 permanente desde el dominio `.vercel.app` hacia el dominio custom en la configuración de dominios de Vercel.
+> **Dominio canónico de producción**: `src/lib/site.ts` fija `https://vertexcorp.com.co` como origen único para URLs canónicas, Open Graph, `sitemap.xml`, `robots.txt` y datos estructurados. No debe derivarse de dominios de preview, Workers ni aliases de despliegue.
 
 ### 3. Instalar dependencias
 ```bash

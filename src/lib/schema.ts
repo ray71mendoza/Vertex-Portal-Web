@@ -1,12 +1,11 @@
 import type { Locale } from '@/i18n/config';
 import { OFFICIAL_PHONE_NUMBERS, OFFICIAL_SOCIAL_LINKS } from '@/content/locations';
+import { SITE_URL } from '@/lib/site';
 
 import type { ServiceData } from '@/content/services';
 import type { Project } from '@/content/projects';
 import type { JobOpening } from '@/content/jobs';
 
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vertex.com.co';
 
 export function getOrganizationSchema(locale: Locale) {
   const isEs = locale === 'es';

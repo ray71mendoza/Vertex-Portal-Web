@@ -5,6 +5,7 @@ import { getJobBySlug, getOpenJobs } from '@/content/jobs';
 import { JobDetailContent } from '@/components/pages/JobDetailContent';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { getBreadcrumbSchema } from '@/lib/schema';
+import { SITE_URL } from '@/lib/site';
 import { hrefFor, type Locale } from '@/i18n/config';
 
 export function generateStaticParams() {
@@ -79,7 +80,6 @@ export default async function EmpleosDetailPage({
 
   setRequestLocale(locale);
 
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vertex.com.co';
   const jobUrl = `${SITE_URL}/${locale}/empleos/${slug}`;
 
   const breadcrumbItems = [

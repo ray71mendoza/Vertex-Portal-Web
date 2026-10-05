@@ -58,13 +58,16 @@ compatibility risk here is minimal.
 | `RESEND_API_KEY` | Cloudflare secret (never a plain var) | `npx wrangler secret put RESEND_API_KEY` |
 | `CONTACT_FROM_EMAIL` | Cloudflare var | Must be on the verified Resend domain |
 | `CONTACT_TO_EMAIL` | Cloudflare var | Defaults to `gerenciavertexsas@gmail.com` if unset |
-| `NEXT_PUBLIC_SITE_URL` | Cloudflare var (build-time) | Exact production domain, no trailing slash |
 | `NEXT_PUBLIC_CLOUDFLARE_ANALYTICS_TOKEN` | Cloudflare var | Optional — omit to disable the beacon |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_CLARITY_PROJECT_ID`, `NEXT_PUBLIC_LINKEDIN_*`, `NEXT_PUBLIC_GOOGLE_ADS_*`, `NEXT_PUBLIC_META_PIXEL_ID` | Cloudflare vars | All optional, see `docs/analytics-and-cookies.md` |
 
 Local development: copy `.dev.vars.example` to `.dev.vars` (gitignored, never
 commit real secrets there either — it's for your own machine only) and fill
 in real values.
+
+The canonical production origin is intentionally fixed to
+`https://vertexcorp.com.co` in `src/lib/site.ts`. SEO output must not inherit a
+preview, Workers, or alternate hostname from the deployment environment.
 
 ## Contact form architecture (`src/app/api/contact/route.ts`)
 

@@ -19,17 +19,31 @@ export async function generateMetadata({
   const description = isEs
     ? 'Términos y condiciones de uso del portal web de Vertex.'
     : 'Terms and conditions for using the Vertex web portal.';
+  const canonicalPath = hrefFor(locale as Locale, 'terms');
 
   return {
     title,
     description,
     alternates: {
-      canonical: hrefFor(locale as Locale, 'terms'),
+      canonical: canonicalPath,
       languages: {
         es: '/es/terminos',
         en: '/en/terms',
         'x-default': '/es/terminos',
       },
+    },
+    openGraph: {
+      title: `${title} | Vertex`,
+      description,
+      url: canonicalPath,
+      type: 'website',
+      images: ['/images/vertex-wallpaper-dark.png'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Vertex`,
+      description,
+      images: ['/images/vertex-wallpaper-dark.png'],
     },
   };
 }

@@ -3,9 +3,9 @@ import { services } from '@/content/services';
 import { getVisibleProjects } from '@/content/projects';
 import { getOpenJobs } from '@/content/jobs';
 import { localizedRoutes, type RouteKey } from '@/i18n/config';
+import { SITE_URL } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vertex.com.co';
   const now = new Date();
 
   const mainRouteKeys: { key: RouteKey; priority: number; changeFrequency: 'weekly' | 'monthly' | 'daily' }[] = [
@@ -29,8 +29,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const esSegment = localizedRoutes[key].es;
     const enSegment = localizedRoutes[key].en;
 
-    const esUrl = esSegment ? `${baseUrl}/es/${esSegment}` : `${baseUrl}/es`;
-    const enUrl = enSegment ? `${baseUrl}/en/${enSegment}` : `${baseUrl}/en`;
+    const esUrl = esSegment ? `${SITE_URL}/es/${esSegment}` : `${SITE_URL}/es`;
+    const enUrl = enSegment ? `${SITE_URL}/en/${enSegment}` : `${SITE_URL}/en`;
 
     mainEntries.push({
       url: esUrl,
@@ -62,8 +62,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Services
   const serviceEntries: MetadataRoute.Sitemap = [];
   services.forEach((service) => {
-    const esUrl = `${baseUrl}/es/servicios/${service.slug.es}`;
-    const enUrl = `${baseUrl}/en/services/${service.slug.en}`;
+    const esUrl = `${SITE_URL}/es/servicios/${service.slug.es}`;
+    const enUrl = `${SITE_URL}/en/services/${service.slug.en}`;
 
     serviceEntries.push({
       url: esUrl,
@@ -96,8 +96,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const projectEntries: MetadataRoute.Sitemap = [];
   const visibleProjects = getVisibleProjects();
   visibleProjects.forEach((project) => {
-    const esUrl = `${baseUrl}/es/proyectos/${project.slug.es}`;
-    const enUrl = `${baseUrl}/en/projects/${project.slug.en}`;
+    const esUrl = `${SITE_URL}/es/proyectos/${project.slug.es}`;
+    const enUrl = `${SITE_URL}/en/projects/${project.slug.en}`;
 
     projectEntries.push({
       url: esUrl,
@@ -130,8 +130,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const jobEntries: MetadataRoute.Sitemap = [];
   const openJobs = getOpenJobs();
   openJobs.forEach((job) => {
-    const esUrl = `${baseUrl}/es/empleos/${job.slug}`;
-    const enUrl = `${baseUrl}/en/jobs/${job.slug}`;
+    const esUrl = `${SITE_URL}/es/empleos/${job.slug}`;
+    const enUrl = `${SITE_URL}/en/jobs/${job.slug}`;
 
     jobEntries.push({
       url: esUrl,

@@ -12,6 +12,7 @@ import { ConsentProvider } from '@/providers/ConsentProvider';
 import { CookieBanner } from '@/components/consent/CookieBanner';
 import { CookiePreferencesModal } from '@/components/consent/CookiePreferencesModal';
 import { AnalyticsScripts } from '@/components/consent/AnalyticsScripts';
+import { SITE_URL } from '@/lib/site';
 import '../globals.css';
 
 const montserrat = Montserrat({
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     : 'Innovation, digital transformation, custom software development, strategic design and communication in Colombia and Latin America.';
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vertex.com.co'),
+    metadataBase: new URL(SITE_URL),
     title: {
       default: defaultTitle,
       template: '%s | Vertex',
