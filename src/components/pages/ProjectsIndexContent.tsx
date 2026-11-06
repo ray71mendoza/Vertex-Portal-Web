@@ -97,6 +97,9 @@ export function ProjectsIndexContent({ locale }: { locale: string }) {
                     {!project.url && (
                       <span className={styles.customCardStatus}>{t('customProjects.comingSoon')}</span>
                     )}
+                    {project.inDevelopment && (
+                      <span className={styles.customCardStatus}>{t('customProjects.inDevelopment')}</span>
+                    )}
                   </div>
 
                   <div className={styles.customCardBody}>

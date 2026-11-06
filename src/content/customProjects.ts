@@ -6,6 +6,7 @@ export interface CustomProject {
   category: { es: string; en: string };
   coverImage?: string;
   url?: string;
+  inDevelopment?: boolean;
 }
 
 export const customProjects: CustomProject[] = [
@@ -27,8 +28,51 @@ export const customProjects: CustomProject[] = [
       es: 'Sitio web corporativo',
       en: 'Corporate website',
     },
-    coverImage: '/images/projects/custom/incal-agricola.webp',
-    url: 'https://incal-agricola-web.vercel.app/',
+    coverImage: '/images/projects/custom/incal-agricola-home.webp',
+    url: 'https://www.incalagricola.com/',
+  },
+  {
+    id: 'nela-joyeria',
+    title: {
+      es: 'NELA Joyería',
+      en: 'NELA Joyería',
+    },
+    client: {
+      es: 'Joyería · Colombia',
+      en: 'Jewelry · Colombia',
+    },
+    description: {
+      es: 'Tienda en línea para una joyería colombiana, con catálogo de anillos, aretes, cadenas, dijes y pulseras en plata ley 925, pago seguro y envíos a todo el país.',
+      en: 'Online store for a Colombian jewelry brand, with a catalog of 925 sterling silver rings, earrings, chains, pendants, and bracelets, secure payment, and nationwide shipping.',
+    },
+    category: {
+      es: 'Tienda en línea',
+      en: 'Online store',
+    },
+    coverImage: '/images/projects/custom/nela-joyeria.webp',
+    url: 'https://nela-joyeria.nela-joyeria.workers.dev/',
+  },
+  {
+    id: 'gfb-solutions',
+    title: {
+      es: 'GFB Solutions',
+      en: 'GFB Solutions',
+    },
+    client: {
+      es: 'Alimentos y bebidas · España',
+      en: 'Food and beverage · Spain',
+    },
+    description: {
+      es: 'Sitio corporativo B2B que reúne sus soluciones de envases, materias primas, sabores y aromas, y consultoría industrial para empresas de alimentos y bebidas.',
+      en: 'B2B corporate website bringing together its packaging, raw materials, flavors and aromas, and industrial consulting solutions for food and beverage businesses.',
+    },
+    category: {
+      es: 'Sitio web corporativo',
+      en: 'Corporate website',
+    },
+    coverImage: '/images/projects/custom/gfb-solutions.webp',
+    url: 'https://gfb-solutions.vercel.app/',
+    inDevelopment: true,
   },
   {
     id: 'gorgona-energy',
